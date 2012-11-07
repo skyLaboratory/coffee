@@ -1,0 +1,7 @@
+CREATE DATABASE `frontend` ;
+
+CREATE TABLE `frontend`.`user` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`name` VARCHAR( 500 ) NOT NULL ,
+`passwort` VARCHAR( 1000 ) NOT NULL
+) ENGINE = MYISAM ;

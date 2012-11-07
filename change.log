@@ -47,3 +47,7 @@ Leon Bergmann - 07.11.2012 17:48 Uhr
 	- new tables in project.xml
 	- adde folder .local for the local database
 	
+Leon Bergmann - 07.11.2012 19:39 Uhr 
+	- added database.frontend.sql to .local folder
+	- added database.doku.sql to .local folder
+	
