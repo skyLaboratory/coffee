@@ -51,6 +51,15 @@ Leon Bergmann - 07.11.2012 17:48 Uhr
 Leon Bergmann - 07.11.2012 19:39 Uhr 
 	- added database.frontend.sql to .local folder
 	- added database.doku.sql to .local folder
+
+Florian Giller - 07.11.2012 20:00 Uhr 
+	- moved
+		/backend/classes/ 
+		- class.replace.php
+		- class.database.php
+	- to /static
+	
+	- adjust database connection class include in /backend/index.php
 	
 Leon Bergmann - 07.11.2012 20:12 Uhr 
 	- added folder .preset 
