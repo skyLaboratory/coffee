@@ -1,4 +1,7 @@
 <?php
+// Autor: Florian Giller
+// Date :
+// Update: Leon Bergmann - 07.11.2012 17:49 Uhr 
 class user
 {
 	private $db;
@@ -16,7 +19,10 @@ class user
 		$passwort = $formularArray['passwort'];
 		$email = $formularArray['email'];
 
-		$this->db->querySend("INSERT INTO user (name, passwort, email) VALUES ('$name', '$passwort', '$email')");	
+		if($this->db->querySend("INSERT INTO user (name, passwort, email) VALUES ('$name', '$passwort', '$email')"))
+		{
+			return true;
+		}	
 		
 		
 	}
@@ -28,7 +34,10 @@ class user
 		$passwort = $formularArray['passwort'];
 		$email = $formularArray['email'];
 
-		$this->db->querySend("UPDATE user SET (name='$name', passwort='$passwort', email='$email')");	
+		if($this->db->querySend("UPDATE user SET (name='$name', passwort='$passwort', email='$email')"))
+		{
+			return true;
+		}	
 		
 		
 	}

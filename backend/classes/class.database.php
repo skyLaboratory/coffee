@@ -1,5 +1,7 @@
 <?php
-
+// Autor: Florian Giller
+// Date:
+// Update: Leon Bergmann - 07.11.2012 17:50 Uhr 
 class database
 {
 	private $connection = false;
@@ -41,7 +43,8 @@ public function __construct()
 	public function querySend($sql)
 	{
 		$this->checkConnection();
-		mysql_query($sql);
+		if(mysql_query($sql)) return true;
+		else return false;
 	}
 	
 }
