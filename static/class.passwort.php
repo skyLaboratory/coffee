@@ -1,11 +1,21 @@
 <?php
 // Autor: Leon Bergmann
 // Date: 06.11.2012 13:18 Uhr 
-
 class passwortAPI
 {
 	private $rounds = 5;
 	private $method = 'SHA512';
+	
+	public function __construct()
+	{
+		define(__WEBROOT__,dirname(dirname(__FILE__)));
+	}
+	
+	public function __autoload($class_name)
+	{
+		include(__WEBROOT__."/static/class.".$class_name.".php");
+	}
+
 	
 	public function crypt($text,$salt)
 	{
