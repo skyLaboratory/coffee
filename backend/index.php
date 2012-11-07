@@ -7,8 +7,8 @@ require_once("classes/class.user.php");
 $database = new database();
 
 
-$user 	  = new user($database);
-echo $user->listAll();
+$user 	  = new userAdministration($database);
+echo $user->listAllUsers();
 //$user->add()
 
 

@@ -2,7 +2,7 @@
 // Autor: Florian Giller
 // Date : 05.11.2012
 // Update: Leon Bergmann - 07.11.2012 17:49 Uhr 
-class user
+class userAdministration
 {
 	private $db;
 	
@@ -13,7 +13,7 @@ class user
 	}
 	
 	// Array mit Userdaten name, passwort, e-mail
-	public function add($formularArray)
+	public function addUser($formularArray)
 	{
 		$name = $formularArray['name'];
 		$passwort = $formularArray['passwort'];
@@ -28,7 +28,7 @@ class user
 	}
 	
 	
-	public function edit($formularArray)
+	public function editUser($formularArray)
 	{
 		$name = $formularArray['name'];
 		$passwort = $formularArray['passwort'];
@@ -42,7 +42,7 @@ class user
 		
 	}
 
-	public function listAll()
+	public function listAllUsers()
 	{
 		$userList = $this->db->queryAsAssoc("SELECT * FROM user");
 		$list = "<h2>Userlist</h2><ul>";
