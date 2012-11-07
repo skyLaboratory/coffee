@@ -5,6 +5,7 @@
 class userAdministration
 {
 	private $db;
+	public $tableName = "user";
 	
 	public function __construct($database)
 	{
@@ -18,8 +19,12 @@ class userAdministration
 		$name = $formularArray['name'];
 		$passwort = $formularArray['passwort'];
 		$email = $formularArray['email'];
+		if(empty($name) or empty($passwort))
+			return false;
+		if($this->userExist($name))
+			return false;
 
-		if($this->db->querySend("INSERT INTO user (name, passwort, email) VALUES ('$name', '$passwort', '$email')"))
+		if($this->db->querySend("INSERT INTO ".$this->tableName." (name, passwort, email) VALUES ('$name', '$passwort', '$email')"))
 		{
 			return true;
 		}	
@@ -30,21 +35,43 @@ class userAdministration
 	
 	public function editUser($formularArray)
 	{
-		$name = $formularArray['name'];
-		$passwort = $formularArray['passwort'];
-		$email = $formularArray['email'];
+		$id			= $formularArray['id'];
+		$name 		= $formularArray['name'];
+		$passwort 	= $formularArray['passwort'];
+		$email 		= $formularArray['email'];
 
-		if($this->db->querySend("UPDATE user SET (name='$name', passwort='$passwort', email='$email')"))
+		if(!is_numeric($id) or empty($name))
+			return false;
+		
+		
+		if($this->db->querySend("UPDATE ".$this->tableName." SET (name='$name', passwort='$passwort', email='$email') WHERE id = $id"))
 		{
 			return true;
-		}	
-		
+		}
+	}
+
+	public function getUserDetails($id)
+	{
+		if(is_numeric($id))
+		{
+			if($userDetails = $this->db->queryAsSingelRowAssoc("SELECT * FROM ".$this->tableName." WHERE id = $id"))
+			{
+				return $userDetails;
+				
+				
+			}
+			else return false;
+			
+			
+		}
+		else return false;
+
 		
 	}
 
 	public function listAllUsers()
 	{
-		$userList = $this->db->queryAsAssoc("SELECT id, name, email FROM user");
+		$userList = $this->db->queryAsAssoc("SELECT id, name, email FROM ".$this->tableName);
 		$list = "<h2>Userlist</h2><ul>";
 		foreach($userList as $userInfos)
 		{
@@ -61,7 +88,15 @@ class userAdministration
 		
 		return $list;	
 	}
-
+	
+	private function userExist($name)
+	{
+		if($this->db->querySend("SELECT * FROM ".$this->tableName." WHERE name = $name"))
+			return true;
+		else 
+			return false;
+		
+	}
 	
 
 }
