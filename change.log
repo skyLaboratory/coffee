@@ -13,6 +13,8 @@ Leon Bergmann - 05.11.2012 14:36 Uhr
 	
 Florian Giller - 05.11.2012 14:30 Uhr
 	- added ideen.txt
+	- added class.database.php
+	- added class.user.php
 	
 Patrick Kellentar - 05.11.2012 15:00 Uhr
 	- added class.replace.php
@@ -28,6 +30,11 @@ Leon Bergmann - 06.11.2012 13:05 Uhr
 Patrick Kellenter - 06.11.2012 13:30 Uhr
 	- added class.random.php
 	- added randomtest.php
+
+Florian Giller - 06.11.2012 13:30 Uhr
+	- added make_connect(), checkConnection(), queryAsAssoc(), querySend() to class.database.php
+	- added __construct(), add(), edit(), listAll() to class.user.php
+
 	
 Leon Bergmann - 07.11.2012 14:36 Uhr 
 	- added randomNumber to class.random.php in static
