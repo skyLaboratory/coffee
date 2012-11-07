@@ -68,3 +68,6 @@ Leon Bergmann - 07.11.2012 20:12 Uhr
 	- added public function _includeFrontend()
 	- added public function _includeBackend()
 
+Leon Bergmann - 07.11.2012 22:03 Uhr 
+	- added __autoload($class) to the class.passwortAPI.php
+	

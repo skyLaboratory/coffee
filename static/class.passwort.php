@@ -9,9 +9,10 @@ class passwortAPI
 	public function __construct()
 	{
 		define(__WEBROOT__,dirname(dirname(__FILE__)));
+		spl_autoload_register('passwortAPI::__autoload');
 	}
 	
-	public function __autoload($class_name)
+	public static function __autoload($class_name)
 	{
 		include(__WEBROOT__."/static/class.".$class_name.".php");
 	}
