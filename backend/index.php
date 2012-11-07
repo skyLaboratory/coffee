@@ -1,7 +1,7 @@
 <?php
 
 
-require_once("classes/class.database.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.database.php");
 require_once("classes/class.user.php");
 
 $database = new database();

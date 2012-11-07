@@ -44,7 +44,7 @@ class userAdministration
 
 	public function listAllUsers()
 	{
-		$userList = $this->db->queryAsAssoc("SELECT * FROM user");
+		$userList = $this->db->queryAsAssoc("SELECT id, name, email FROM user");
 		$list = "<h2>Userlist</h2><ul>";
 		foreach($userList as $userInfos)
 		{
