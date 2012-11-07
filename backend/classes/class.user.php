@@ -1,6 +1,6 @@
 <?php
 // Autor: Florian Giller
-// Date :
+// Date : 05.11.2012
 // Update: Leon Bergmann - 07.11.2012 17:49 Uhr 
 class user
 {
