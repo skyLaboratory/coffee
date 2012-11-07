@@ -9,7 +9,7 @@ class passwortAPI
 	public function __construct()
 	{
 		define(__WEBROOT__,dirname(dirname(__FILE__)));
-		spl_autoload_register('passwortAPI::__autoload');
+		spl_autoload_register(__CLASS__.'::__autoload');
 	}
 	
 	public static function __autoload($class_name)
@@ -38,11 +38,8 @@ class passwortAPI
 		return $salt;
 	}
 	
-	public function validatePasswort($firtPW,$secondPW,$salt)
+	public function validatePasswort($firtPW,$secondPW)
 	{
-		$firtPW		= $this->crypt($firtPW,$salt);
-		$secondPW	= $this->crypt($secondPW,$salt);
-		
 		if($firtPW === $secondPW)
 		{
 			return true;

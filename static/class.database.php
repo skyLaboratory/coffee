@@ -54,7 +54,7 @@ public function __construct()
 		$this->checkConnection();
 		$resource = mysql_query($sql);
 		if($assocRow = mysql_fetch_object($resource))
-			return $assocArray;
+			return $assocRow;
 		else
 			return false;
 	}
