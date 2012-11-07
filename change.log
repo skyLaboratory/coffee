@@ -1,0 +1,37 @@
+Leon Bergmann - 05.11.2012 13:18 Uhr 
+	- added project.xml
+	- added change.log
+	
+Leon Bergmann - 05.11.2012 14:20 Uhr 
+	- added backend folder
+	- added frontend folder
+
+Leon Bergmann - 05.11.2012 14:36 Uhr 
+	- added subfolder classes to backend
+	- added subfolder classes to frontend
+	- added folder static (only for static content like picture or javascripts)
+	
+Florian Giller - 05.11.2012 14:30 Uhr
+	- added ideen.txt
+	
+Patrick Kellentar - 05.11.2012 15:00 Uhr
+	- added class.replace.php
+	- added test.php
+
+Patrick Kellenter - 06.11.2012 13:00 Uhr
+	- deleted test.php
+	
+Leon Bergmann - 06.11.2012 13:05 Uhr 
+	- fixed construct() in class.user.php
+	- added class.passwort.php to static-folder
+	
+Patrick Kellenter - 06.11.2012 13:30 Uhr
+	- added class.random.php
+	- added randomtest.php
+	
+Leon Bergmann - 07.11.2012 14:36 Uhr 
+	- added randomNumber to class.random.php in static
+	- added createSalt() to class.passwort.php in static
+	- added folder doku
+	- added folder classe in doku
+	- added folder style in doku

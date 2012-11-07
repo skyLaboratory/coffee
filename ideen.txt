@@ -1,0 +1,32 @@
+<table>
+						<name>feacher</name>
+						<fields>
+							
+							Hinzufügen:
+							<field>
+								<name>kuerzel</name>
+								<type>VARCHAR</type>
+							</field>
+							<field>
+								<name>beschreibung</name>
+								<type>VARCHAR</type>
+							</field>
+							
+						</fields>
+					</table>
+					
+					
+		<table>
+						<name>lehrer</name>
+						<fields>
+							
+							Hinzufügen:
+							<field>
+								<name>kuerzel</name>
+								<type>VARCHAR</type>
+							</field>							
+						</fields>
+					</table>
+					
+					
+								

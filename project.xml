@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<name>Vertretungsplan</name>
+	
+	<version>0.0.1</version>
+	
+	<status>Planing</status>
+	
+	<lastEdit>Leon Bergmann - 07.11.2012 14:44 Uhr</lastEdit>
+	
+	<lastVersionUpdate>false</lastVersionUpdate>
+	
+	<author>
+		<authorSub>Leon Bergmann</authorSub>
+		<authorSub>Florian Giller</authorSub>
+		<authorSub>Patrick Kellenter</authorSub>
+		<authorSub>Michael Baumgarten</authorSub>
+	</author>
+	
+	<copyright>
+		<version>0.2</version>
+		<text>
+			You are not allow to use this code without a license from all authors!
+			You are not allow to modify this code without a license from all developers!
+		</text>
+	</copyright>
+	
+	<package>
+		<file>project.xml</file>
+		<file>change.log</file>
+		<file>ideen.txt</file>
+		<folder>
+			<name>backend</name>
+			<folder>
+				<name>classes</name>
+				<fieles>
+					<file>class.replace.php</file>
+					<file>class.passwort.php</file>
+				</fieles>
+			</folder>
+		</folder>
+		<folder>
+			<name>frontend</name>
+		</folder>
+		<folder>
+			<name>static</name>
+		</folder>
+		<folder>
+			<name>doku</name>
+			
+			<folder>
+				<name>classes</name>
+				<fieles>
+					<file>coreAPI.php</file>
+				</fieles>
+			</folder>
+			
+			<folder>
+				<name>style</name>
+				<fieles>
+					<file>cmsDokuStyle.css</file>
+				</fieles>
+			</folder>
+		</folder>
+	</package>	
+	
+	
+	<database>
+		<server>Mysql - 5.8.x</server>
+		<connect>PDO | Msqli | php</connect>
+		
+		<security>
+			<user></user>
+			<pw></pw>
+		</security>
+		
+		<databases>
+			<db>
+				<name>backend</name>
+				<tabels>
+					
+					<table>
+						<name>user</name>
+						<fieldquntaty>6</fieldquntaty>
+						<fields>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>name</name>
+								<type>VARCHAR(500)</type>
+							</field>
+							<field>
+								<name>passwort</name>
+								<type>VARCHAR(1000)</type>
+							</field>
+							<field>
+								<name>email</name>
+								<type>VARCHAR(1000)</type>
+							</field>
+							<field>
+								<name>restore</name>
+								<type>BOOL</type>
+							</field>
+							<field>
+								<name>restor-salt</name>
+								<type>VARCHAR(1000)</type>
+							</field>
+						</fields>
+					</table>
+					
+					<table>
+						<name>feacher</name>
+						<fields>
+							<fieldquntaty>4</fieldquntaty>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>name</name>
+								<type>VARCHAR</type>
+							</field>
+							
+							<field>
+								<name>kuerzel</name>
+								<type>VARCHAR</type>
+							</field>
+							<field>
+								<name>beschreibung</name>
+								<type>VARCHAR</type>
+							</field>
+							
+						</fields>
+					</table>
+					
+					<table>
+						<name>lehrer</name>
+						<fields>
+							<fieldquntaty>5</fieldquntaty>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>name</name>
+								<type>VARCHAR(500)</type>
+							</field>
+							
+							<field>
+								<name>haupt-fach-id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>neben-fach-id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>kuerzel</name>
+								<type>VARCHAR</type>
+							</field>	
+							
+						</fields>
+					</table>
+					<table>
+						<name>bone</name>
+						<fields>
+							<fieldquntaty>2</fieldquntaty>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>code</name>
+								<type>TEXT</type>
+							</field>
+							
+						</fields>
+					</table>
+					<table>
+						<name>user-rights</name>
+						<fields>
+							<fieldquntaty>5</fieldquntaty>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>user-id</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>root</name>
+								<type>BOOL</type>
+							</field>
+							<field>
+								<name>admin</name>
+								<type>BOOL</type>
+							</field>
+							<field>
+								<name>user</name>
+								<type>BOOL</type>
+							</field>
+							<field>
+								<name>guest</name>
+								<type>BOOL</type>
+							</field>
+						</fields>
+					</table>
+					
+					<table>
+						<name>aktuelle-vertretung</name>
+						<fields>
+							<fieldquntaty>5</fieldquntaty>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>vertretender-lehrer-id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>kranker-lehrer-id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>stunde</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>fach</name>
+								<type>VARCHAR(50)</type>
+							</field>
+							
+						</fields>
+					</table>
+					
+					<tabel>
+						<name>vertetungen</name>
+						<fields>
+							<fieldquntaty>4</fieldquntaty>
+							<field>
+								<name>lehrer-id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>stunde</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>fach-id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>lehrer-fach</name>
+								<type>int(8)</type>
+							</field>
+							
+						</fields>
+					</tabel>
+					
+				</tabels>
+			</db>
+			<db>
+				<name>frontend</name>
+				<tabels>
+					<table>
+						<name>user</name>
+						<fieldquntaty>3</fieldquntaty>
+						<fiedls>
+							<field>
+								<name>id</name>
+								<type>int(1)</type>
+							</field>
+							
+							<field>
+								<name>name</name>
+								<type>VARCHAR(500)</type>
+							</field>
+							
+							<field>
+								<name>passwort</name>
+								<type>VARCHAR(500)</type>
+							</field>
+						
+						</fiedls>
+					</table>
+				</tabels>
+			</db>
+			<db>
+				<name>doku</name>
+				<tabels>
+					<table>
+						<name>classes</name>
+						<fieldquntaty>7</fieldquntaty>
+						<fields>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>functions-id</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>name</name>
+								<type>VARCHAR(500)</type>
+							</field>
+							<field>
+								<name>args</name>
+								<type>TEXT</type>
+							</field>
+							<field>
+								<name>changelog-id</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>version-number</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>date</name>
+								<type>int(13)</type>
+							</field>
+						</fields>
+					</table>
+					
+					<table>
+						<name>functions</name>
+						<fieldquntaty>6</fieldquntaty>
+						<fields>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>name</name>
+								<type>VARCHAR(500)</type>
+							</field>
+							<field>
+								<name>changelog-id</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>args</name>
+								<type>TEXT</type>
+							</field>
+							<field>
+								<name>kurz-beschreibung</name>
+								<type>VARCHAR(500)</type>
+							</field>
+							<field>
+								<name>return-wert</name>
+								<type>TEXT</type>
+							</field>
+						</fields>
+					</table>
+					
+					<table>
+						<name>changelog</name>
+						<fieldquntaty>5</fieldquntaty>
+						<fields>
+							<field>
+								<name>id</name>
+								<type>int(8)</type>
+							</field>
+							
+							<field>
+								<name>version</name>
+								<type>int(8)</type>
+							</field>
+							<field>
+								<name>action</name>
+								<type>VARCHAR(500)</type>
+							</field>
+							<field>
+								<name>autor</name>
+								<type>VARCHAR(500)</type>
+							</field>
+							<field>
+								<name>date</name>
+								<type>int(13)</type>
+							</field>
+						</fields>
+					</table>
+					
+				</tabels>
+			</db>
+		</databases>
+	</database>
+		
+</project>

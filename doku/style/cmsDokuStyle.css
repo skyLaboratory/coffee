@@ -1,0 +1,197 @@
+html
+{
+	font-family: Helvetica;
+}
+
+#head
+{
+	width: 100%;
+	height: 80px;
+	background-color: rgba(59, 89, 152, 0.9);
+	display: block;
+	position: fixed;
+	top: 0;
+	left:0;
+	box-shadow: 0px 5px 9px black;
+}
+#head h1
+{
+	color: white;
+	text-align: center;
+}
+#menu
+{
+	margin-top: 100px;
+	float: left;
+	width: 30%;
+}
+
+#menu a
+{
+	text-decoration: none;
+}
+#menu a:hover
+{
+	font-weight: bolder;	
+}
+#menu a.Ordner
+{
+	font-size: 20px;
+	font-weight: bold;
+	display: block;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	color: black;	
+}
+#menu a.OrdnerClass 
+{
+	padding-left: 10px;
+	color: #8c0067;
+}
+#menu a.SubOrdner
+{
+	font-size: 18px;
+	padding-left: 20px;
+	font-weight: bolder;
+	padding-bottom: 3px;
+	padding-top: 3px;
+	display: block;
+	
+}
+#menu a.SubOrdnerClass
+{
+	padding-left: 40px;
+	color: #8c0067;
+	font-size: 16px;	
+}
+#menu ul
+{
+	list-style-type: none;
+}
+
+#contentField
+{
+	float: right;
+	margin-top: 100px;
+	width: calc(70% - 4px);
+	margin-bottom: 30px;
+}
+
+#content
+{
+	margin-left: 20px;
+}
+#content h1,h2,h3,h4
+{
+	color: rgb(59, 89, 152);
+	padding-bottom: 5px;
+	border-bottom: 1px solid rgb(59,89,152);
+}
+#content h3
+{
+	font-size: 125%;
+}
+.code{
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	border:1px solid black;
+	background-color: #E1E1E1;
+	min-height: 50px;
+	width: 90%;
+	box-shadow: 0px 2px 4px black;
+}
+.code:hover
+{
+	box-shadow: 0px 5px 5px black;
+}
+.code table
+{
+	width: calc(100% - 10px);
+	table-layout:fixed;
+}
+.code table thead th
+{
+	background-color: rgba(59, 89, 152, 0.9);
+	color: white;
+	padding: 5px;
+	
+}
+.code table thead th.author
+{
+	width: 12.5% !important;
+}
+.code table thead th.date
+{
+	width: 12.5% !important;
+}
+.code table thead th.action
+{
+	width: 75%;
+}
+.code table tbody td
+{
+	padding:5px;
+	font-size: 90%;
+	background-color: #F0F0F0;	
+}
+/*
+.code label,.i
+{
+ display: inline-block;
+ text-indent: 30px;
+}
+.code .class
+{
+	color: navy;
+	font-size: 125%;
+}
+.code .func
+{
+	text-indent: 10px;
+	color: rgb(0,109,0);
+	margin: 2px 0px;
+}
+*/
+
+.code .type
+{
+	color: green;
+	margin-right: 10px;
+}
+.code .func
+{
+	color: navy;
+}
+.code .arg
+{
+	color: purple;
+}
+
+.code .kurz
+{
+	display: block;
+	margin-left: 20px;
+}
+ 
+.func span
+{
+	color: blue;
+}
+.func span .arg
+{
+	color: purple;
+	display: inline;
+}
+.methoden
+{
+	margin-left: 30px;
+}
+.trenn
+{
+	display: block;
+	width: 100%;
+	height:10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
