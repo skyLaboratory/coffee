@@ -10,21 +10,21 @@ class iniAPI
 		$this->webRoot = dirname(dirname(__FILE__));
 	}
 	
-	public function _includeStatic()
+	public static function includeStatic()
 	{
-		if(ini_set('include_path',$this->webRoot."/static/")) return true;
+		if(ini_set('include_path',dirname(dirname(__FILE__))."/static/")) return true;
 		else return true;
 	}
 	
-	public function _includeFrontend()
+	public static function _includeFrontend()
 	{
-		if(ini_set('include_path',$this->webRoot."/frontend/")) return true;
+		if(ini_set('include_path',dirname(dirname(__FILE__))."/frontend/")) return true;
 		else return true;
 	}
 	
-	public function _includeBackend()
+	public static function _includeBackend()
 	{
-		if(ini_set('include_path',$this->webRoot."/backend/")) return true;
+		if(ini_set('include_path',dirname(dirname(__FILE__))."/backend/")) return true;
 		else return true;
 	}
 	

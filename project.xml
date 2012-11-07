@@ -25,46 +25,6 @@
 		</text>
 	</copyright>
 	
-	<package>
-		<file>project.xml</file>
-		<file>change.log</file>
-		<file>ideen.txt</file>
-		<folder>
-			<name>backend</name>
-			<folder>
-				<name>classes</name>
-				<fieles>
-					<file>class.replace.php</file>
-					<file>class.passwort.php</file>
-				</fieles>
-			</folder>
-		</folder>
-		<folder>
-			<name>frontend</name>
-		</folder>
-		<folder>
-			<name>static</name>
-		</folder>
-		<folder>
-			<name>doku</name>
-			
-			<folder>
-				<name>classes</name>
-				<fieles>
-					<file>coreAPI.php</file>
-				</fieles>
-			</folder>
-			
-			<folder>
-				<name>style</name>
-				<fieles>
-					<file>cmsDokuStyle.css</file>
-				</fieles>
-			</folder>
-		</folder>
-	</package>	
-	
-	
 	<database>
 		<server>Mysql - 5.8.x</server>
 		<connect>PDO | Msqli | php</connect>
