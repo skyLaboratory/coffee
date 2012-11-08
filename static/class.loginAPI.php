@@ -4,7 +4,10 @@
 class loginAPI
 {
 	private $db;
-	public function __construct($database = NULL)
+	private $loginType;
+	private $username;
+	
+	public function __construct($database = NULL,$loginType)
 	{
 		spl_autoload_register(__CLASS__.'::__autoload');
 		define(__WEBROOT__,dirname(dirname(__FILE__)));
@@ -62,6 +65,7 @@ class loginAPI
 		
 		if($this->validLogin($userOBJ,$passwort))
 		{
+			$this->username = $username;
 			$this->setSessions();
 		}
 		else
@@ -71,14 +75,25 @@ class loginAPI
 		
 	}
 	
-	private function callback()
+	public function validAuth()
 	{
-		echo "Callback";
+		i
+		if($_SESSION[''])
 	}
 	
 	private function setSessions()
 	{
-		echo "setSession";
+
+		if($this->loginType == "backend")
+		{
+			$_SESSION['BackendAuth'] = true;
+		}
+		else
+		{
+			$_SESSION['FrontendAuth'] = true;	
+		}
+		
+		$_SESSION['username']	= $this->username;
 	}
 }
 ?>
