@@ -75,10 +75,30 @@ class loginAPI
 		
 	}
 	
-	public function validAuth()
+	public function isValidAuth()
 	{
-		i
-		if($_SESSION[''])
+		if($this->loginType === "backend")
+		{
+			if($_SESSION['BackendAuth'])
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if($_SESSION['FrontendAuth'])
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 	
 	private function setSessions()
