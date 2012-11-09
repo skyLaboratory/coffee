@@ -7,11 +7,11 @@ class loginAPI
 	private $loginType;
 	private $username;
 	
-	public function __construct($database = NULL,$loginType)
+	public function __construct($loginType,$database = NULL)
 	{
 		spl_autoload_register(__CLASS__.'::__autoload');
 		define(__WEBROOT__,dirname(dirname(__FILE__)));
-		
+		$this->loginType = $loginType;
 		if(is_null($database))
 		{
 			$this->newDatabase();
