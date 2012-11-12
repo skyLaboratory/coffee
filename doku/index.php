@@ -9,8 +9,8 @@ echo "<!DOCTYPE html><html><head></head><body>";
 
 if(!isset($_GET['type']))
 {
-	//$classesoutput = databaseAPI::showasoptions("classes");
-	//$functionsoutput = databaseAPI::showasoptions("function");
+	$classesoutput = outputAPI::showasoption("classes");
+	$functionsoutput = outputAPI::showasoption("function");
 	echo "<h1>Dokumentation - Coffee</h1><br />";
 	echo "<form action='' method='GET'>";
 	echo "<select name='action'><option value='addnewclass'>Neue class anlegen</option>";

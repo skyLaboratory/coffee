@@ -80,9 +80,13 @@ class outputAPI
         return $result;
     }
 	
-	public function showasoption($what)
+	public static function showasoption($what)
 	{
+		$result  = "";
+		$getfromdatabase = "TEST";
+		$result .= "<option value='$getfromdatabase'>$getfromdatabase</option>";
 		
+		return $result;
 	}
 } 
 
