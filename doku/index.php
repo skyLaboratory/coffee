@@ -20,7 +20,7 @@ if(!isset($_GET['type']))
 		}
 		else
 		{
-			//Anzeige der Klassen
+			echo $classesoutput;
 		}
 	echo "</select><input type ='hidden' name='type' value='class' />";
 	echo "<input type='submit' value='>>>' /><br /><br /></form>";
@@ -32,7 +32,7 @@ if(!isset($_GET['type']))
 		}
 		else
 		{
-			//Anzeige der Funktionen
+			echo $functionsoutput;
 		}
 	echo "</select><input type ='hidden' name='type' value='function' />";
 	echo "<input type='submit' value='>>>'/><br /><br /></form>";
