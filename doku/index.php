@@ -41,10 +41,12 @@ else
 		if($action == 'addnewclass')
 		{
 			echo "<h1>Hinzufügen einer Klasse</h1><br />";
+			echo "<form action='' method='POST'>";
 			echo "Name der Klasse: <input type='text' name='name' /><br /><br />";
 			echo "Version: <input type='text' name='version' /><br /><br />";
 			echo "Args: <input type='text' name='args' /><br /><br />";
 			echo "<input type='submit' value='Neue Klasse anlegen' />";
+			echo "</form>";
 			
 			die();
 		}
@@ -56,7 +58,17 @@ else
 		if($action == 'addnewfunction')
 		{
 			echo "<h1>Hinzufügen einer Funktion</h1><br />";
-			echo "*comming soon*";
+			echo "<form action='' method='POST'>Bitte Klasse auswählen: <select>";
+			
+			echo "<option>Keine Klassen vorhanden</option>";
+			//Anzeigen der Klassen
+			
+			echo "</select><br /><br />";
+			echo "Name der Funktion: <input type='text' name='name' /><br /><br/>";
+			echo "Args: <input type='text' name='args' /><br /><br/>";
+			echo "Return-Wert(e) <input type='text' name='back' /><br /><br/>";
+			echo "Kurzbeschreibung: <br /><textarea name='info' cols='50' rows='10'/></textarea><br /><br/>";
+			echo "<input type='submit' value='Neue Funktion anlegen' /></form>";
 			
 			die();
 		}
