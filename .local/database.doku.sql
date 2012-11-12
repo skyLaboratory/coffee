@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `doku`; 
+CREATE DATABASE `doku`; 
 
-CREATE TABLE IF NOT EXISTS `doku`.`changelog` (
+CREATE TABLE `doku`.`changelog` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `version` int(8) NOT NULL,
   `action` varchar(500) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `doku`.`changelog` (
   PRIMARY KEY (`id`)
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `doku`.`classes` (
+CREATE TABLE `doku`.`classes` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `functions-id` int(8) NOT NULL,
   `name` varchar(500) NOT NULL,
@@ -21,21 +21,23 @@ CREATE TABLE IF NOT EXISTS `doku`.`classes` (
   PRIMARY KEY (`id`)
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `doku`.`args` (
+CREATE TABLE `doku`.`args` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
-  `class-id` int(8) NULL,
   `function-id` int(8) NULL,
+  `class-id` int(8) NULL,
   `name` varchar(500) NOT NULL,
-  `values` text NOT NULL,
+  `value` text NOT NULL,
   `date` int(13) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `doku`.`functions` (
+CREATE TABLE `doku`.`functions` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `name` varchar(500) NOT NULL,
+  `class-id` int(8) NOT NULL,
   `changelog-id` int(8) NOT NULL,
   `args-id` int(8) NOT NULL,
+  `args-count` int(8) NOT NULL,
   `kurz-beschreibung` varchar(500) NOT NULL,
   `return-wert` text NOT NULL,
   `date`int(13) NOT NULL
