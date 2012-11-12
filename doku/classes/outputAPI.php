@@ -80,18 +80,5 @@ class outputAPI
         return $result;
     }
 } 
-echo '<!DOCTYPE html>
-<html>
-	<head>
-		<title>CMS - Dokumentation</title>
-		<link rel="stylesheet" href="/proj_marienau/doku/style/cmsDokuStyle.css">
-		<meta http-equiv="Content-language" content="de" />
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	</head>
-	<body>
-		<div id="head">
-			<h1>CMS - Dokumentation</h1>
-		</div><div id="contentField">';
-$coreAPI = new coreAPI;
-echo $coreAPI->makeNewFunctionLayout("echo","String","public","Standartfunktion zum Ausgeben von Variablen");
+
 ?>
