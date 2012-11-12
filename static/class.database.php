@@ -1,26 +1,23 @@
 <?php
 // Autor: Florian Giller
 // Date : 05.11.2012
-// Update: Leon Bergmann - 07.11.2012 17:50 Uhr 
+// Update: Leon Bergmann - 12.11.2012 12:52 Uhr 
 class database
 {
 	private $connection = false;
 	public $databaseName = null;
-
 	
-	/*
-public function __construct()
+	public function make_connect()
 	{
-		$this->connection = $this->make_connect();
-	}
-*/
-	
-	private function make_connect()
-	{
-		mysql_connect("localhost","root","") or die(mysql_error());
-		mysql_select_db($this->databaseName) or die(mysql_error());
-		$this->connection = true;
-		
+		mysql_connect("localhost","root","");
+		if(!mysql_select_db($this->databaseName))
+		{
+			throw new Exception('No Database',1);
+		}
+		else
+		{
+			$this->connection = true;
+		}
 		
 	}
 	private function checkConnection()

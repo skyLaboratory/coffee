@@ -13,20 +13,31 @@ CREATE TABLE IF NOT EXISTS `doku`.`classes` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `functions-id` int(8) NOT NULL,
   `name` varchar(500) NOT NULL,
-  `args` text NOT NULL,
+  `args-id` int(8) NOT NULL,
   `changelog-id` int(8) NOT NULL,
   `version` int(8) NOT NULL,
+  `usage` text NOT NULL,
   `date` int(13) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+CREATE TABLE IF NOT EXISTS `doku`.`args` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `class-id` int(8) NULL,
+  `function-id` int(8) NULL,
+  `name` varchar(500) NOT NULL,
+  `values` text NOT NULL,
+  `date` int(13) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = MYISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `doku`.`functions` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `name` varchar(500) NOT NULL,
   `changelog-id` int(8) NOT NULL,
-  `args` text NOT NULL,
+  `args-id` int(8) NOT NULL,
   `kurz-beschreibung` varchar(500) NOT NULL,
   `return-wert` text NOT NULL,
+  `date`int(13) NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
