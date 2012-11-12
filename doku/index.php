@@ -3,7 +3,9 @@
 //Datum: 08.11.2012 - 17:30 Uhr
 //Letztes Update: Patrick Kellenter - 12.11.2012 - 12:00 Uhr
 
-//Herstellen Datenbankverbindung
+require_once('../static/class.database.php');
+
+
 
 echo "<!DOCTYPE html><html><head></head><body>";
 
