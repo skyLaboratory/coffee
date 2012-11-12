@@ -9,15 +9,31 @@ echo "<!DOCTYPE html><html><head></head><body>";
 
 if(!isset($_GET['type']))
 {
+	//$classesoutput = databaseAPI::showasoptions("classes");
+	//$functionsoutput = databaseAPI::showasoptions("function");
 	echo "<h1>Dokumentation - Coffee</h1><br />";
 	echo "<form action='' method='GET'>";
 	echo "<select name='action'><option value='addnewclass'>Neue class anlegen</option>";
-	//echo databaseAPI::showasoptions("classses");
+	if(empty($classesoutput))
+		{
+			echo "<option>Keine Klassen vorhanden</option>";
+		}
+		else
+		{
+			//Anzeige der Klassen
+		}
 	echo "</select><input type ='hidden' name='type' value='class' />";
 	echo "<input type='submit' value='>>>' /><br /><br /></form>";
 	echo "<form action='?type=function' method='GET'>";
 	echo "<select name='action'><option value='addnewfunction'>Neue function anlegen</option>";
-	//echo databaseAPI::showasoptions("functions");
+	if(empty($functionsoutput))
+		{
+			echo "<option>Keine Funktionen vorhanden</option>";
+		}
+		else
+		{
+			//Anzeige der Funktionen
+		}
 	echo "</select><input type ='hidden' name='type' value='function' />";
 	echo "<input type='submit' value='>>>'/><br /><br /></form>";
 }
@@ -59,9 +75,7 @@ else
 		{
 			echo "<h1>Hinzufügen einer Funktion</h1><br />";
 			echo "<form action='' method='POST'>Bitte Klasse auswählen: <select>";
-			
 			echo "<option>Keine Klassen vorhanden</option>";
-			//echo databaseAPI::showasoptions("classes");
 			echo "</select><br /><br />";
 			echo "Name der Funktion: <input type='text' name='name' /><br /><br/>";
 			echo "Args: <input type='text' name='args' /><br /><br/>";
