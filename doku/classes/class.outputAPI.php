@@ -79,6 +79,11 @@ class outputAPI
         
         return $result;
     }
+	
+	public function showasoption($what)
+	{
+		
+	}
 } 
 
 ?>
