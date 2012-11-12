@@ -1,6 +1,6 @@
 <?php
 #Leon Bergmann - 03.10.2012 14:22 Uhr 
-class coreAPI
+class outputAPI
 {
    
     public function makeClassLayout($className,$classMethods)

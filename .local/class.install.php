@@ -5,27 +5,21 @@ class installAPI
 {
 	public function removeGitFiles()
 	{
-		$dir = $this->getBaseDir();
-		$dir = scandir($dir);
+		$dirName = $this->getBaseDir();
+		$dir = scandir($dirName);
 		foreach($dir as $entry)
 		{
-			if(is_file($entry))
+			if(is_file($dirName."/".$entry))
 			{
-				$files[] = $entry;
+				$files[] = $dirName."/".$entry;
 			}
-			elseif(is_dir($entry))
+			elseif(is_dir($dirName."/".$entry))
 			{
-				$folder[] = $entry;
+				$folder[] = $dirName."/".$entry;
+			
 			}
-			else
-			{
-				
-			}
+
 		}
-		
-		echo "<pre>";
-		print_r($files);
-		/* print_r($folder); */
 	}
 	private function getBaseDir()
 	{
