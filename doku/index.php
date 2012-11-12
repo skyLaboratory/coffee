@@ -73,9 +73,10 @@ else
 	{
 		if($action == 'addnewfunction')
 		{
+			//$functionsoutput = databaseAPI::showasoptions("function");
 			echo "<h1>Hinzufügen einer Funktion</h1><br />";
 			echo "<form action='' method='POST'>Bitte Klasse auswählen: <select>";
-			echo "<option>Keine Klassen vorhanden</option>";
+			echo "<option value='noClass'>Funktion keiner Klasse zuweisen</option>";
 			echo "</select><br /><br />";
 			echo "Name der Funktion: <input type='text' name='name' /><br /><br/>";
 			echo "Args: <input type='text' name='args' /><br /><br/>";
