@@ -42,6 +42,9 @@ else
 		{
 			echo "<h1>Hinzufügen einer Klasse</h1><br />";
 			echo "Name der Klasse: <input type='text' name='name' /><br /><br />";
+			echo "Version: <input type='text' name='version' /><br /><br />";
+			echo "Args: <input type='text' name='args' /><br /><br />";
+			echo "<input type='submit' value='Neue Klasse anlegen' />";
 			
 			die();
 		}
