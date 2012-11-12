@@ -18,8 +18,8 @@ if(!isset($_GET['type']))
 	echo "<form action='?type=function' method='GET'>";
 	echo "<select name='action'><option value='addnewfunction'>Neue function anlegen</option>";
 	//ausgabe der Funktionen
-	echo "</select><input type='submit' value='>>>'/><br /><br />";
-	echo "<input type ='hidden' name='type' value='function' /></form>";
+	echo "</select><input type ='hidden' name='type' value='function' />";
+	echo "<input type='submit' value='>>>'/><br /><br /></form>";
 }
 else
 {
@@ -45,6 +45,18 @@ else
 			echo "Version: <input type='text' name='version' /><br /><br />";
 			echo "Args: <input type='text' name='args' /><br /><br />";
 			echo "<input type='submit' value='Neue Klasse anlegen' />";
+			
+			die();
+		}
+	}
+	
+	//Funktionen
+	if($type == 'function')
+	{
+		if($action == 'addnewfunction')
+		{
+			echo "<h1>Hinzufügen einer Funktion</h1><br />";
+			echo "*comming soon*";
 			
 			die();
 		}
