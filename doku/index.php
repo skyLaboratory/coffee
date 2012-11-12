@@ -23,13 +23,32 @@ if(!isset($_GET['type']))
 }
 else
 {
+	if(!isset($_GET['action']))
+	{
+		header('LOCATION: index.php');
+		die();
+	}
+	else
+	{
+		$action = $_GET['action'];
+	}
+	
 	$type = $_GET['type'];
 	
-	//Ausgabe "Hinzufuegen einer Klasse"
-	if($type == 'addnewclass')
+	//Klassen
+	if($type == 'class')
 	{
-		echo "<h1>Hinzufügen einer Klasse</h1>"
+		if($action == 'addnewclass')
+		{
+			echo "<h1>Hinzufügen einer Klasse</h1><br />";
+			echo "Name der Klasse: <input type='text' name='name' /><br /><br />";
+			
+			die();
+		}
 	}
+	
+	header('LOCATION: index.php');
+	die();
 }
 
 echo "</body></html>";
