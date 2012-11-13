@@ -15,10 +15,10 @@ if(!isset($_GET['type']))
 	echo "<a href='index.php?action=addnewclass&type=class'>Neue Klasse anlegen</a><br /><br />";
 	echo "<a href='index.php?action=addnewfunction&type=function'>Neue Funktion anlegen</a><br /><br />";
 	echo "<form action='' method='GET'>";
-	echo "<input type ='hidden' name='type' value='class' /><select name='what'>";
+	echo "<input type ='hidden' name='type' value='class' /><input type ='hidden' name='action' value='edit' /><select name='what'>";
 	if(empty($classesoutput))
 	{
-		echo "<option>Keine Klassen vorhanden</option>";
+		echo "<option value=''>Keine Klassen vorhanden</option>";
 	}
 	else
 	{
@@ -27,10 +27,10 @@ if(!isset($_GET['type']))
 	echo "</select>";
 	echo "<input type='submit' value='bearbeiten' /><br /><br /></form>";
 	echo "<form action='' method='GET'>";
-	echo "<input type ='hidden' name='type' value='function' /><select name='what'>";
+	echo "<input type ='hidden' name='type' value='function' /><input type ='hidden' name='action' value='edit' /><select name='what'>";
 	if(empty($functionsoutput))
 	{
-		echo "<option>Keine Funktionen vorhanden</option>";
+		echo "<option value=''>Keine Funktionen vorhanden</option>";
 	}
 	else
 	{
@@ -65,7 +65,13 @@ else
 			echo "Args: <input type='text' name='args' /><br /><br />";
 			echo "<input type='submit' value='Neue Klasse anlegen' />";
 			echo "</form>";
-			
+			die();
+		}
+		
+		if($action == 'edit' AND !empty($_GET['what']))
+		{
+			echo "<h1>Klasse bearbeiten - ".$_GET['what']."</h1><br />";
+			echo "Bearbeiten in Arbeit";
 			die();
 		}
 	}
@@ -86,7 +92,13 @@ else
 			echo "Return-Wert(e) <input type='text' name='back' /><br /><br/>";
 			echo "Kurzbeschreibung: <br /><textarea name='info' cols='50' rows='10'/></textarea><br /><br/>";
 			echo "<input type='submit' value='Neue Funktion anlegen' /></form>";
-			
+			die();
+		}
+		
+		if($action == 'edit' AND !empty($_GET['what']))
+		{
+			echo "<h1>Function bearbeiten - ".$_GET['what']."</h1><br />";
+			echo "Bearbeiten in Arbeit";
 			die();
 		}
 	}
