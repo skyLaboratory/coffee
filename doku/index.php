@@ -1,7 +1,7 @@
 ﻿<?php
 //Autor: Patrick Kellenter
 //Datum: 08.11.2012 - 17:30 Uhr
-//Letztes Update: Patrick Kellenter - 12.11.2012 - 12:00 Uhr
+//Letztes Update: Patrick Kellenter - 13.11.2012 18:15 Uhr
 
 require_once('classes/class.outputAPI.php');
 
@@ -12,30 +12,32 @@ if(!isset($_GET['type']))
 	$classesoutput = outputAPI::showasoption("classes");
 	$functionsoutput = outputAPI::showasoption("function");
 	echo "<h1>Dokumentation - Coffee</h1><br />";
+	echo "<a href='index.php?action=addnewclass&type=class'>Neue Klasse anlegen</a><br /><br />";
+	echo "<a href='index.php?action=addnewfunction&type=function'>Neue Funktion anlegen</a><br /><br />";
 	echo "<form action='' method='GET'>";
-	echo "<select name='action'><option value='addnewclass'>Neue class anlegen</option>";
+	echo "<input type ='hidden' name='type' value='class' /><select name='what'>";
 	if(empty($classesoutput))
-		{
-			echo "<option>Keine Klassen vorhanden</option>";
-		}
-		else
-		{
-			echo $classesoutput;
-		}
-	echo "</select><input type ='hidden' name='type' value='class' />";
-	echo "<input type='submit' value='>>>' /><br /><br /></form>";
-	echo "<form action='?type=function' method='GET'>";
-	echo "<select name='action'><option value='addnewfunction'>Neue function anlegen</option>";
+	{
+		echo "<option>Keine Klassen vorhanden</option>";
+	}
+	else
+	{
+		echo $classesoutput;
+	}
+	echo "</select>";
+	echo "<input type='submit' value='bearbeiten' /><br /><br /></form>";
+	echo "<form action='' method='GET'>";
+	echo "<input type ='hidden' name='type' value='function' /><select name='what'>";
 	if(empty($functionsoutput))
-		{
-			echo "<option>Keine Funktionen vorhanden</option>";
-		}
-		else
-		{
-			echo $functionsoutput;
-		}
-	echo "</select><input type ='hidden' name='type' value='function' />";
-	echo "<input type='submit' value='>>>'/><br /><br /></form>";
+	{
+		echo "<option>Keine Funktionen vorhanden</option>";
+	}
+	else
+	{
+		echo $functionsoutput;
+	}
+	echo "</select>";
+	echo "<input type='submit' value='bearbeiten'/><br /><br /></form>";
 }
 else
 {
@@ -73,10 +75,11 @@ else
 	{
 		if($action == 'addnewfunction')
 		{
-			//$functionsoutput = databaseAPI::showasoptions("function");
+			$classesoutput = outputAPI::showasoption("classes");
 			echo "<h1>Hinzufügen einer Funktion</h1><br />";
 			echo "<form action='' method='POST'>Bitte Klasse auswählen: <select>";
 			echo "<option value='noClass'>Funktion keiner Klasse zuweisen</option>";
+			echo $classesoutput;
 			echo "</select><br /><br />";
 			echo "Name der Funktion: <input type='text' name='name' /><br /><br/>";
 			echo "Args: <input type='text' name='args' /><br /><br/>";

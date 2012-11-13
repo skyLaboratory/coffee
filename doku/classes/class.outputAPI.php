@@ -82,9 +82,23 @@ class outputAPI
 	
 	public static function showasoption($what)
 	{
+		$verbindung = mysql_connect ("localhost",
+		"info11", "informatik11")
+		or die ("keine Verbindung möglich.
+		Benutzername oder Passwort sind falsch");
+		mysql_select_db("doku")
+		or die ("Die Datenbank existiert nicht.");
+		
 		$result  = "";
-		$getfromdatabase = "TEST";
-		$result .= "<option value='$getfromdatabase'>$getfromdatabase</option>";
+
+		$abfrage = "SELECT name FROM ".$what;
+		$ergebnis = mysql_query($abfrage);
+		while($row = mysql_fetch_object($ergebnis))
+		{
+			$getfromdatabase = $row->name;
+			$result .= "<option value='$getfromdatabase'>$getfromdatabase</option>";
+		}
+		mysql_close($verbindung);
 		
 		return $result;
 	}
