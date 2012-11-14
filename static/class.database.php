@@ -1,7 +1,7 @@
 <?php
 // Autor: Florian Giller
 // Date : 05.11.2012
-// Update: Leon Bergmann - 12.11.2012 12:52 Uhr 
+// Update: Leon Bergmann - 14.11.2012 11:54 Uhr  
 class database
 {
 	private $connection = false;
@@ -31,6 +31,11 @@ class database
 	{
 		$this->checkConnection();
 		$resource = mysql_query($sql);
+		if(mysql_num_rows($resource) < 1)	
+		{
+			throw new Exception("no result","0x0000002");
+		}
+		
 		while($assocRow = mysql_fetch_assoc($resource))
 		{
 			$assocArray[] = $assocRow;

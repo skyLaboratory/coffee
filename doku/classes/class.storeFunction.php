@@ -1,6 +1,7 @@
 <?php
-//Autor: Leon Bergmann 
-//Date: 12.11.2012 12:15 Uhr
+// Autor: Leon Bergmann 
+// Date: 12.11.2012 12:15 Uhr
+// Update: Leon Bergmann - 14.11.2012 13:07 Uhr 
 class storeFunction
 {
 	// Var to store the DatabaseClass
@@ -43,10 +44,13 @@ class storeFunction
 	
 	private function newDatabase()
 	{
+		// Create a new Database instance
 		$this->db = new database;
+		// Set DB
 		$this->db->databaseName = "doku";
 		try
 		{
+			// Connect to the DB
 			$this->db->make_connect();
 		}
 		catch(Exception $e)
@@ -55,7 +59,7 @@ class storeFunction
 		}
 
 	}
-	
+	// Safe the needed Vales
 	public function safeAndValidateData($funtionName,$description,$classID,$argsID,$functionID,$return,$version,$changelogID,$argsAsArray,$argsCount,$type = NULL)
 	{
 		$this->funcName		= mysql_real_escape_string($funtionName);
@@ -70,6 +74,7 @@ class storeFunction
 		$this->type			= $type;
 	}
 	
+	// Make the SQL for a Function
 	private function makeFunctionSQL()
 	{
 		$sql = NULL;
@@ -93,14 +98,25 @@ class storeFunction
 		return $sql;
 	}
 	
+	// main function to safe a Function 
 	public function safeFunction()
 	{
 		$fSQL = $this->makeFunctionSQL();
-		/* $this->db->querySend($fSQL); */
-		echo "<pre>";
-		print_r($this->argsAsArray);
+		echo $fSQL."<br>";
+		$this->db->querySend($fSQL);
+		$dem = count($this->argsAsArray['Value']);
+		for($i=0;$i<$dem;$i++)
+		{
+			$workI = $i + 1;
+			$aSQL = $this->makeArgsSQL($this->argsAsArray['Name'][$workI],$this->argsAsArray['Value'][$workI]);
+			echo $aSQL."<br>";
+			$this->db->querySend($aSQL);
+		}
+		
+		
 	}
 	
+	// make the SQL for the args
 	private function makeArgsSQL($argName,$argValue)
 	{
 		$sql = NULL;
@@ -123,6 +139,7 @@ class storeFunction
 		
 	}
 	
+	// escape strings in array
 	private function checkArray($array)
 	{
 		$value = array();

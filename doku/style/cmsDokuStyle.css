@@ -195,3 +195,30 @@ html
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+#form
+{
+	width: 400px;
+	height: 200px;
+}
+
+#form ul
+{
+	list-style-type: none;
+}
+
+#form ul li select
+{
+	max-width: 180px;
+	width: 180px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-radius: 8px;
+	border-color: gray;
+	
+}
+
+#form ul li input[type='submit']
+{
+	width: 90px !important;
+}

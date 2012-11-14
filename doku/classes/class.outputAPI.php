@@ -1,8 +1,36 @@
 <?php
-#Leon Bergmann - 03.10.2012 14:22 Uhr 
+// Autor: Leon Bergmann 
+// Date: 14.11.2012 11:54 Uhr 
 class outputAPI
 {
+   	private $db;
+   	
+   	public function __construct($db = NULL)
+   	{
+	   	spl_autoload_register(__CLASS__.'::__autoload');
+		define(__WEBROOT__,dirname(dirname(dirname(__FILE__))));
+	   	if(is_null($db))
+	   	{
+		   	$this->db = $this->newDatabase();
+	   	}
+	   	else
+	   	{
+		   	$this->db = $db;
+	   	}
+   	}
    
+   	public static function __autoload($class_name)
+	{
+		include(__WEBROOT__."/static/class.".$class_name.".php");
+	}
+    
+    public function newDatabase()
+	{
+		$db = new database;
+		$db->databaseName = "doku";
+		return $db;
+	}
+    
     public function makeClassLayout($className,$classMethods)
     {
         if(!is_array($classMethods))
@@ -80,28 +108,47 @@ class outputAPI
         return $result;
     }
 	
-	public static function showasoption($what)
+	public function showAsOption($what)
 	{
-		$verbindung = mysql_connect ("localhost",
-		"info11", "informatik11")
-		or die ("keine Verbindung möglich.
-		Benutzername oder Passwort sind falsch");
-		mysql_select_db("doku")
-		or die ("Die Datenbank existiert nicht.");
-		
-		$result  = "";
-
-		$abfrage = "SELECT name FROM ".$what;
-		$ergebnis = mysql_query($abfrage);
-		while($row = mysql_fetch_object($ergebnis))
+		try
 		{
-			$getfromdatabase = $row->name;
-			$result .= "<option value='$getfromdatabase'>$getfromdatabase</option>";
+			$this->db->make_connect();
 		}
-		mysql_close($verbindung);
+		catch(Exeption $ex2)
+		{
+			die($e->getCode());
+		}
 		
-		return $result;
+		try
+		{
+			$result = "";
+			$WorkArray = $this->db->queryAsAssoc("SELECT name,id FROM ".$what);
+			$dem = count($WorkArray);
+			
+			for($i=0;$i<=$dem;$i++)
+			{
+				$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
+			}
+			return $result;
+		}
+		catch(Exception $e)
+		{
+			if($what == "function")
+			{
+				return "<option value='false'>Keine Funktionen vorhanden</option>\n";
+			}
+			elseif($what == "classes")
+			{
+				return "<option value='false'>Keine Klassen vorhanden</option>\n";
+			}
+			
+		}
+		
+		
 	}
+
+		
+	
 } 
 
 ?>
