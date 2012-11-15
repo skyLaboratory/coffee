@@ -56,7 +56,7 @@ else
 			echo "<form action='' method='POST'>";
 			echo "<ul><li><label>Name der Klasse:</label><input type='text' name='name' /></li>";
 			echo "<li><label>Version:</lable><input type='text' name='version' /></li>";
-			echo "<li><label>Args:</label><input type='text' name='args' /></lu>";
+			echo "<li><label>Args:</label><input type='text' name='args' /></li>";
 			echo "<li><input type='submit' value='Neue Klasse anlegen' /></li>";
 			echo "</form></div>";	
 		}
@@ -77,7 +77,7 @@ else
 			echo "<form action='' method='POST'>";
 			echo "<ul><li><label>Name der Klasse:</label><input type='text' name='name' value='".$info[0]."' /></li>";
 			echo "<li><label>Version:</lable><input type='text' name='version' value='".$info[2]."' /></li>";
-			echo "<li><label>Args:</label><input type='text' name='args' value='".$info[1]."' /></lu>";
+			echo "<li><label>Args:</label><input type='text' name='args' value='".$info[1]."' /></li>";
 			echo "<li><input type='submit' value='Klasse bearbeiten' /></li>";
 			echo "</form></div>";
 			die();
@@ -90,16 +90,19 @@ else
 		if($action == 'addnewfunction')
 		{
 			$classesoutput = $outputAPI->showAsOption("classes");
-			echo "<h1>Hinzufügen einer Funktion</h1>";
+			echo "<div id='head'>";
+			echo "<h1>Hinzufügen einer Funktion</h1></div>";
+			echo "<div id='contentField'>";
+			echo "<div id='form'>";
 			echo "<form action='' method='POST'>Bitte Klasse auswählen: <select>";
 			echo "<option value='noClass'>Funktion keiner Klasse zuweisen</option>";
 			echo $classesoutput;
 			echo "</select>";
-			echo "Name der Funktion: <input type='text' name='name' />";
-			echo "Args: <input type='text' name='args' />";
-			echo "Return-Wert(e) <input type='text' name='back' />";
-			echo "Kurzbeschreibung: <textarea name='info' cols='50' rows='10'/></textarea>";
-			echo "<input type='submit' value='Neue Funktion anlegen' /></form>";
+			echo "<ul><li><label>Name der Funktion:</label> <input type='text' name='name' /></li>";
+			echo "<li><label>Args:</label> <input type='text' name='args' /></li>";
+			echo "<li><label>Return-Wert(e):</label> <input type='text' name='back' /></li>";
+			echo "<li><label>Kurzbeschreibung:</label> <textarea name='info' cols='50' rows='10'/></textarea></li>";
+			echo "<input type='submit' value='Neue Funktion anlegen' /></form></div>";
 			die();
 		}
 		
@@ -112,12 +115,15 @@ else
 			}
 			$info = $outputAPI->functionsInfoFromDatabase($_GET['what']);
 			
-			echo "<h1>Function bearbeiten - ".$info[0]."</h1>";
-			echo "Name der Funktion: <input type='text' name='name' value='".$info[0]."' />";
-			echo "Args: <input type='text' name='args' value='".$info[1]."' />";
-			echo "Return-Wert(e) <input type='text' name='back' value='".$info[3]."' />";
-			echo "Kurzbeschreibung: <textarea name='info' cols='50' rows='10' />".$info[2]."</textarea>";
-			echo "<input type='submit' value='Neue Daten speichern' /></form>";
+			echo "<div id='head'>";
+			echo "<h1>Function bearbeiten - ".$info[0]."</h1></div>";
+			echo "<div id='contentField'>";
+			echo "<div id='form'>";
+			echo "<ul><li><label>Name der Funktion:</label> <input type='text' name='name' value='".$info[0]."' /></li>";
+			echo "<li><label>Args:</label> <input type='text' name='args' value='".$info[1]."' /></li>";
+			echo "<li><label>Return-Wert(e):</label> <input type='text' name='back' value='".$info[3]."' /></li>";
+			echo "<li><label>Kurzbeschreibung:</label> <textarea name='info' cols='50' rows='10' />".$info[2]."</textarea></li>";
+			echo "<input type='submit' value='Neue Daten speichern' /></form></div>";
 			die();
 		}
 	}
