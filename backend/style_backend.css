@@ -1,0 +1,63 @@
+body{
+    font-family:Arial, Helvetica, sans-serif; 
+    font-size:18px;
+}
+
+.menu ul{
+    margin: 0; padding: 0;
+    float: left;}
+ 
+.menu ul li{
+    display: inline;}
+ 
+.menu ul li a{
+    float: left; text-decoration: none;
+    color: white;
+    padding: 10.5px 11px;
+    background-color: #333; }
+ 
+.menu ul li a:visited{
+    color: white;}
+ 
+.menu ul li a:hover, .menu ul li .current{
+    color: #fff;
+    background-color:#0b75b2;}
+    
+table {
+  border:2px solid #525d73;
+  border-spacing:0;
+  border-collapse:collapse;
+  font-size:12pt;
+}
+
+table tr td, table tr th {
+  border:1px solid #525d73;
+  padding:0 5px;
+}
+.info, .success, .warning, .error, .validation {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+/*     background-image: url('info.png'); */
+}
+.success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+/*     background-image:url('success.png'); */
+}
+.warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    /* background-image: url('warning.png'); */
+}
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    /*background-image: url('error.png');*/
+}
