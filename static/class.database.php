@@ -69,6 +69,16 @@ class database
 		else 
 			return false;
 	}
+	
+	public function getResourceID($sql)
+	{
+		$this->checkConnection();
+		if($res = mysql_query($sql)) 
+			return $res;
+		else 
+			return false;
+	}
+	
 	public function entryExist($name)
 	{}
 	

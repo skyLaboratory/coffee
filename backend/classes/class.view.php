@@ -1,4 +1,7 @@
 <?php
+// Autor: Florian Giller
+// Date: 13.11.2012 21:20 Uhr
+// Update: Leon Bergmann - 15.11.2012 23:00 Uhr  
 class view
 {
 	public $htmlHead 	= '<!DOCTYPE html>
@@ -123,7 +126,6 @@ class view
 		$table .= "<th><h4>E-Mail</h4></th>\n";	
 		$table .= "<th><h4></h4></th>\n";	
 		$table .= "</tr>\n";
-		$table .= "</tr>\n";
 		
 		foreach($userArray as $userInfos)
 		{
@@ -161,7 +163,34 @@ class view
 		return $output;
 		
 	}
-		
+	
+	public static function viewTeacherFaecher($dataArray)
+	{
+		if(!is_array($dataArray))
+		{
+			return false;
+		}
+		else
+		{
+			$tabel  = "<br><table>";
+			$tabel .= "<tr>";
+			$tabel .= "<th><h4>Fach</h4></th>";
+			$tabel .= "<th><h4>Stunde</h4></th>";
+			$tabel .= "</tr>";
+			
+			foreach($dataArray as $element)
+			{
+				$tabel .= "<tr>";
+				$tabel .= "<td>".$element['fach']."</td>";
+				$tabel .= "<td>".@$element['stunde']."</td>";
+				$tabel .= "</tr>";
+			}
+			
+			$tabel .= "</table>";
+			return $tabel;
+		}
+	}
+	
 	public function viewSubjectList($userArray)
 	{
 		if(empty($userArray)) return "Kein Fach eingetragen.";
@@ -175,7 +204,6 @@ class view
 		$table .= "<th><h4>Kürzel</h4></th>\n";		
 		$table .= "<th><h4>Beschreibung</h4></th>\n";	
 		$table .= "<th><h4></h4></th>\n";	
-		$table .= "</tr>\n";
 		$table .= "</tr>\n";
 		
 		foreach($userArray as $userInfos)

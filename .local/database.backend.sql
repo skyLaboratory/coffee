@@ -9,14 +9,14 @@ CREATE TABLE `backend`.`user` (
 `restore-salt` VARCHAR( 1000 ) NOT NULL
 ) ENGINE = MYISAM ;
 
-CREATE TABLE `backend`.`feacher` (
+CREATE TABLE `backend`.`faecher` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `name` VARCHAR( 500 ) NOT NULL ,
 `kuerzel` VARCHAR( 1000 ) NOT NULL ,
 `beschreibung` VARCHAR( 1000 ) NOT NULL 
 ) ENGINE = MYISAM ;
 
-CREATE TABLE `backend`.`lehrer-feacher`(
+CREATE TABLE `backend`.`lehrer-faecher`(
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `lehrer-id` INT NOT NULL ,
 `fach-id`INT NOT NULL 

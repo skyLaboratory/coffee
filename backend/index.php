@@ -150,6 +150,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 		case "teacheredit":
 			$contentField 	.= "<h2>Lehrer bearbeiten</h2><ul>";
 			$contentField 	.= $view->viewTeacherFormular($teacher->getTeacherDetails($_GET['id']));
+			$contentField   .= view::viewTeacherFaecher($teacher->getAllFeacherForTeacher($_GET['id']));
 			//$contentField 	.= $view->viewUserAddFormular();
 			break;
 			

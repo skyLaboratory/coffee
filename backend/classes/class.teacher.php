@@ -101,6 +101,19 @@ class teacher
 		
 		
 	}
+	
+	public function getAllFeacherForTeacher($teacherID)
+	{
+		$res 	= $this->db->getResourceID("SELECT `lehrer`.`name` as 'lehrerName',`faecher`.`name` FROM `lehrer-faecher` INNER JOIN `faecher` ON `faecher`.`id` = `lehrer-faecher`.`fach-id` INNER JOIN `lehrer` ON `lehrer`.`id` = `lehrer-faecher`.`lehrer-id` WHERE `lehrer`.`id` = $teacherID");
+		$result = array();
+		while($row = mysql_fetch_array($res))
+		{
+			$result[]['fach']	= $row['name'];
+			@$result[]['stunde']	= $row['stunde'];
+		}
+	
+		return $result;
+	}
 
 }
 
