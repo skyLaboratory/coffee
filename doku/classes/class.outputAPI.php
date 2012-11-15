@@ -4,7 +4,7 @@
 class outputAPI
 {
    	private $db;
-   	
+   	private $test;
    	public function __construct($db = NULL)
    	{
 	   	spl_autoload_register(__CLASS__.'::__autoload');
@@ -127,13 +127,13 @@ class outputAPI
 			
 			for($i=0;$i<=$dem;$i++)
 			{
-				$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
+				@$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
 			}
 			return $result;
 		}
 		catch(Exception $e)
 		{
-			if($what == "function")
+			if($what == "functions")
 			{
 				return "<option value='false'>Keine Funktionen vorhanden</option>\n";
 			}

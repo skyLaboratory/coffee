@@ -10,7 +10,6 @@ if(!isset($_GET['type']))
 {
 	$classesoutput = $outputAPI->showAsOption("classes");
 	$functionsoutput = $outputAPI->showAsOption("functions");
-	
 	echo "<div id='head'>\n<h1>Dokumentation - Coffee</h1>\n</div>\n<div id='contentField'>\n";
 	echo "<a href='index.php?action=addnewclass&type=class'>Neue Klasse anlegen</a>\n";
 	echo "<a href='index.php?action=addnewfunction&type=function'>Neue Funktion anlegen</a>\n";

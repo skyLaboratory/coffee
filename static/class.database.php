@@ -31,7 +31,7 @@ class database
 	{
 		$this->checkConnection();
 		$resource = mysql_query($sql);
-		if(mysql_num_rows($resource) < 1)	
+		if(mysql_num_rows($resource) == 0)	
 		{
 			throw new Exception("no result","0x0000002");
 		}
