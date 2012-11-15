@@ -8,7 +8,7 @@ class outputAPI
    	public function __construct($db = NULL)
    	{
 	   	spl_autoload_register(__CLASS__.'::__autoload');
-		define(__WEBROOT__,dirname(dirname(dirname(__FILE__))));
+		define('__WEBROOT__',dirname(dirname(dirname(__FILE__))));
 	   	if(is_null($db))
 	   	{
 		   	$this->db = $this->newDatabase();
