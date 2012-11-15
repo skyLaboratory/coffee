@@ -1,0 +1,5 @@
+Changelog - Patrick Kellenter
+
+Patrick Kellenter - 15.11.2012 14:50
+	- added interface to edit functions
+	- added functionsInfoFromDatabase() function in doku/classes/class.outputAPI.php
