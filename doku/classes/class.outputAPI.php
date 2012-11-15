@@ -146,6 +146,29 @@ class outputAPI
 		
 		
 	}
+	
+	public function functionsInfoFromDatabase($id)
+	{
+		try
+		{
+			$this->db->make_connect();
+		}
+		catch(Exeption $ex2)
+		{
+			die($e->getCode());
+		}
+		
+		$WorkArray = $this->db->queryAsAssoc("SELECT * FROM functions WHERE id = '$id'");
+		
+		$result[0] = $WorkArray[0]["name"];
+		$result[1] = $WorkArray[0]["args"];
+		$result[2] = $WorkArray[0]["kurz-beschreibung"];
+		$result[3] = $WorkArray[0]["return-wert"];
+		$result[4] = $id;
+		//$result = array($id,$WorkArray[0]["name"]);
+		
+		return $result;
+	}
 
 		
 	

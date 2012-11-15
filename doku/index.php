@@ -61,9 +61,14 @@ else
 			echo "</form></div>";	
 		}
 		
-		if($action == 'edit' && !empty($_GET['what']))
+		if($action == 'edit')
 		{
-			echo "<h1>Klasse bearbeiten - ".$_GET['what']."</h1>";
+			if($_GET['what'] == 'false')
+			{
+				header('LOCATION: index.php');
+				die();
+			}
+			echo "<h1>Klasse bearbeiten - </h1>";
 			echo "Bearbeiten in Arbeit";
 		}
 	}
@@ -87,10 +92,21 @@ else
 			die();
 		}
 		
-		if($action == 'edit' && !empty($_GET['what']))
+		if($action == 'edit')
 		{
-			echo "<h1>Function bearbeiten - ".$_GET['what']."</h1>";
-			echo "Bearbeiten in Arbeit";
+			if($_GET['what'] == 'false')
+			{
+				header('LOCATION: index.php');
+				die();
+			}
+			$info = $outputAPI->functionsInfoFromDatabase($_GET['what']);
+			
+			echo "<h1>Function bearbeiten - ".$info[0]."</h1>";
+			echo "Name der Funktion: <input type='text' name='name' value='".$info[0]."' />";
+			echo "Args: <input type='text' name='args' value='".$info[1]."' />";
+			echo "Return-Wert(e) <input type='text' name='back' value='".$info[3]."' />";
+			echo "Kurzbeschreibung: <textarea name='info' cols='50' rows='10' />".$info[2]."</textarea>";
+			echo "<input type='submit' value='Neue Daten speichern' /></form>";
 			die();
 		}
 	}
