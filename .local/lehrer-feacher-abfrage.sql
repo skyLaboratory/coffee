@@ -1,0 +1,1 @@
+SELECT `lehrer`.`name` as 'lehrerName',`feacher`.`name` FROM `lehrer-feacher` INNER JOIN `feacher` ON `feacher`.`id` = `lehrer-feacher`.`fach-id` INNER JOIN `lehrer` ON `lehrer`.`id`=`lehrer-feacher`.`lehrer-id`;

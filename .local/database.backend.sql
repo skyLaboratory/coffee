@@ -16,12 +16,19 @@ CREATE TABLE `backend`.`feacher` (
 `beschreibung` VARCHAR( 1000 ) NOT NULL 
 ) ENGINE = MYISAM ;
 
+CREATE TABLE `backend`.`lehrer-feacher`(
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`lehrer-id` INT NOT NULL ,
+`fach-id`INT NOT NULL 
+) ENGINE = MYISAM ;
+
 CREATE TABLE `backend`.`lehrer` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `name` VARCHAR( 500 ) NOT NULL ,
-`haupt-fach-id` INT NOT NULL ,
-`neben-fach-id` INT NOT NULL ,
-`kuerzel` VARCHAR( 500 ) NOT NULL
+`vorname`VARCHAR( 500 ) NOT NULL ,
+`kuerzel` VARCHAR( 500 ) NOT NULL,
+`email`VARCHAR( 1000 ) NOT NULL,
+`vertretungen` INT NOT NULL
 ) ENGINE = MYISAM ;
 
 CREATE TABLE `backend`.`bone` (
