@@ -165,12 +165,30 @@ class outputAPI
 		$result[2] = $WorkArray[0]["kurz-beschreibung"];
 		$result[3] = $WorkArray[0]["return-wert"];
 		$result[4] = $id;
-		//$result = array($id,$WorkArray[0]["name"]);
 		
 		return $result;
 	}
 
+	public function classesInfoFromDatabase($id)
+	{
+		try
+		{
+			$this->db->make_connect();
+		}
+		catch(Exeption $ex2)
+		{
+			die($e->getCode());
+		}
 		
+		$WorkArray = $this->db->queryAsAssoc("SELECT * FROM classes WHERE id = '$id'");
+		
+		$result[0] = $WorkArray[0]["name"];
+		$result[1] = $WorkArray[0]["args"];
+		$result[2] = $WorkArray[0]["version"];
+		$result[3] = $id;
+		
+		return $result;
+	}
 	
 } 
 

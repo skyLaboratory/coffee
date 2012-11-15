@@ -68,8 +68,19 @@ else
 				header('LOCATION: index.php');
 				die();
 			}
-			echo "<h1>Klasse bearbeiten - </h1>";
-			echo "Bearbeiten in Arbeit";
+			$info = $outputAPI->classesInfoFromDatabase($_GET['what']);
+			
+			echo "<div id='head'>";
+			echo "<h1>Klasse bearbeiten - ".$info[0]."</h1>";
+			echo "<div id='contentField'>";
+			echo "<div id='form'>";
+			echo "<form action='' method='POST'>";
+			echo "<ul><li><label>Name der Klasse:</label><input type='text' name='name' value='".$info[0]."' /></li>";
+			echo "<li><label>Version:</lable><input type='text' name='version' value='".$info[2]."' /></li>";
+			echo "<li><label>Args:</label><input type='text' name='args' value='".$info[1]."' /></lu>";
+			echo "<li><input type='submit' value='Klasse bearbeiten' /></li>";
+			echo "</form></div>";
+			die();
 		}
 	}
 	
