@@ -1,13 +1,7 @@
 <?php
 // Autor: Florian Giller
 // Date : 05.11.2012
-
-/*
-function __autoload($class_name)
-{
-	include(dirname(dirname(__FILE__))."/static/class.".$class_name.".php");
-}
-*/
+// Update: Leon Bergmann - 16.11.2012 09:12 Uhr 
 session_start();
 
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.database.php");
@@ -170,6 +164,10 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			$contentField 	.= "<h2>Fächer bearbeiten</h2><ul>";
 			$contentField 	.= $view->viewSubjectFormular($subject->getSubjectDetails($_GET['id']));
 			//$contentField 	.= $view->viewUserAddFormular();
+			break;
+		case "teacher-subject":
+			$contentField .= "<h2>Lehrer Fächer zuordnen</h2>";
+			/* $contentField .= $view->viewTeacherFaecherFormular(); */
 			break;
 			
 		case "home":

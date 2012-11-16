@@ -33,7 +33,7 @@ class view
 					<li><a href="?v=userlist">Benutzerverwalten</a></li>
 					<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
 					<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
-					<li><a href="?v=teacher-subjectt">Lehrer-Fächer-Zuordnung</a></li>
+					<li><a href="?v=teacher-subject">Lehrer-Fächer-Zuordnung</a></li>
 					<li><a href="?logout">Logout</a></li>
 					</ul>
 					<br style="clear:left"/>
