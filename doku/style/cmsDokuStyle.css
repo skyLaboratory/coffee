@@ -222,3 +222,21 @@ html
 {
 	width: 90px !important;
 }
+
+.message 
+{
+	padding: 10px;
+	border: 5px solid green;
+	width: 400px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.error
+{
+	padding: 10px;
+	border: 5px solid red;
+	width: 400px;
+	text-align: center;
+	font-weight: bold;
+}
