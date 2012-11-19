@@ -94,7 +94,7 @@ else
 			echo "<h1>Hinzufügen einer Funktion</h1></div>";
 			echo "<div id='contentField'>";
 			echo "<div id='form'>";
-			echo "<form action='' method='POST'>Bitte Klasse auswählen: <select>";
+			echo "<form action='?type=function&action=safefunction' method='POST'>Bitte Klasse auswählen: <select name='toClass'>";
 			echo "<option value='noClass'>Funktion keiner Klasse zuweisen</option>";
 			echo $classesoutput;
 			echo "</select>";
@@ -125,6 +125,27 @@ else
 			echo "<li><label>Kurzbeschreibung:</label> <textarea name='info' cols='50' rows='10' />".$info[2]."</textarea></li>";
 			echo "<input type='submit' value='Neue Daten speichern' /></form></div>";
 			die();
+		}
+		
+		if($action == 'safefunction')
+		{
+			$name = $_POST['name'];
+			$args = $_POST['args'];
+			$back = $_POST['back'];
+			$info = $_POST['info'];
+			
+			if($_POST['toClass'] == 'noClass')
+			{
+				$toClass = NULL;
+			}
+			else
+			{
+				$toClass = $_POST['toClass'];
+			}
+			
+			$store = new storeFunction;
+			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$args,3,NULL);
+			$store->safeFunction();
 		}
 	}
 	
