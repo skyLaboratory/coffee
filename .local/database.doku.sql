@@ -40,6 +40,6 @@ CREATE TABLE `doku`.`functions` (
   `args-count` int(8) NOT NULL,
   `kurz-beschreibung` varchar(500) NOT NULL,
   `return-wert` text NOT NULL,
-  `date`int(13) NOT NULL
+  `date`int(13) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
