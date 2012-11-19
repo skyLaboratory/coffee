@@ -3,6 +3,7 @@
 //Datum: 08.11.2012 - 17:30 Uhr
 //Update: Leon Bergmann - 14.11.2012 11:54 Uhr 
 require_once('classes/class.outputAPI.php');
+require_once('classes/class.storeFunction.php');
 $outputAPI = new outputAPI;
 echo "<!DOCTYPE html>\n<html>\n<head>\n<link rel='stylesheet' href='style/cmsDokuStyle.css'>\n</head>\n<body>\n";
 
@@ -28,7 +29,21 @@ if(!isset($_GET['type']))
 	echo $functionsoutput;
 	echo "</select>\n";
 	echo "<input type='submit' value='bearbeiten'/>\n</li>\n</ul>\n</form>\n";
-	echo "</div>\n</div>\n";
+	echo "</div>\n";
+	if(isset($_GET['error']))
+	{
+		switch($_GET['error'])
+		{
+			case 1;
+				echo "<div class='message'>Funktion angelegt</div>";
+				break;
+			case 2;
+				echo "<div class='error'>Fehler beim anlegen der Funktion</div>";
+				break;
+		}
+	}
+	
+	echo "\n</div>\n";
 }
 else
 {
@@ -143,9 +158,17 @@ else
 				$toClass = $_POST['toClass'];
 			}
 			
+			if($toClass == 'false')
+			{
+				header('LOCATION: index.php?error=2');
+				die();
+			}
+			
 			$store = new storeFunction;
 			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$args,3,NULL);
 			$store->safeFunction();
+			header('LOCATION: index.php?error=1');
+			die();
 		}
 	}
 	
