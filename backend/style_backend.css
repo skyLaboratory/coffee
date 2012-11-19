@@ -79,11 +79,16 @@ table {
   font-size:12pt;
 }
 
-table tr td, table tr th {
+table tr td, table tr th
+{
   border:1px solid #525d73;
   padding:0 5px;
 }
-.info, .success, .warning, .error, .validation {
+
+.info, .success, .warning, .error, .validation
+{
+    position: relative;
+    top: 40px;
     border: 1px solid;
     margin: 10px 0px;
     padding:15px 10px 15px 50px;
@@ -125,7 +130,8 @@ h2
 
 .form ul
 {
-	width: 400px;
+	min-width: 400px;
+	max-width: 80%;
 	list-style-type: none;
 }
 .form ul li
@@ -141,7 +147,8 @@ h2
 .form ul li label
 {
 	display: block;
-	width: 30%;
+	min-width: 30%;
+	max-width: 50%;
 	float: left;
 	font-size: 16px;
 	font-weight: lighter;
@@ -151,7 +158,8 @@ h2
 .form ul li input 
 {
 	display: block;
-	width: 50%;
+	min-width: 50%;
+	max-width: 30%;
 	float: right;
 	padding-top: 3px;
 	padding-bottom: 3px;
@@ -169,4 +177,9 @@ h2
 	color: white;
 	padding: 3px;
 	border-radius: 5px;
+}
+
+a
+{
+ color: blue;
 }

@@ -24,7 +24,7 @@ $contentField = "<div id='content'>";
 
 //Wenn User nicht eingeloggt
 
-	//Wenn Loginbutton gedrückt
+	//Wenn Loginbutton gedr&uuml;ckt
 	if(isset($_POST['login']))
 	{
 		//Login Check
@@ -59,11 +59,11 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			$userInfos = $_POST['user'];
 			$userInfos['id'] = $_GET['id'];
 			if($user->editUser($userInfos))
-				$message 		= "Benutzer verändert";
+				$message 		= "Benutzer ver&auml;ndert";
 			break;
 		case "userDelete":
 			if($user->deleteUser($_GET['id']))
-				$message 		= "Benutzer gelöscht";
+				$message 		= "Benutzer gel&ouml;scht";
 
 			break;
 		
@@ -83,7 +83,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 		
 		case "teacherDelete":
 			if($teacher->deleteTeacher($_GET['id']))
-				$message 		= "Lehrer terminiert";
+				$message 		= "Lehrer entfernt";
 
 			break;
 			
@@ -102,7 +102,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 		
 		case "subjectDelete":
 			if($subject->deleteSubject($_GET['id']))
-				$message 		= "Fach gelöscht";
+				$message 		= "Fach gel&oul;scht";
 			break;
 
 	}
@@ -130,14 +130,14 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 
 		case "teacherlist":
 			$contentField 	.= "<h2>Lehrerverwaltung</h2><ul>";
-			//$contentField 	.= "<h2>Benutzerhinzufügen</h2><ul>";
+			//$contentField 	.= "<h2>Benutzerhinzuf&uuml;gen</h2><ul>";
 			$contentField 	.= "<a href='?v=teacheradd'>Lehrer hinzuf&uuml;gen</a>";
 			$contentField 	.= "<h3>Lehrerliste</h3><ul>";
 			$contentField 	.= $view->viewTeacherList($teacher->listAllTeacher());			
 			break;
 
 		case "teacheradd":
-			$contentField 	.= "<h2>Lehrer hinzufügen</h2><ul>";
+			$contentField 	.= "<h2>Lehrer hinzuf&uuml;gen</h2><ul>";
 			$contentField 	.= $view->viewTeacherFormular(array());	
 			break;
 
@@ -156,7 +156,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			break;
 
 		case "subjectadd":
-			$contentField 	.= "<h2>Fächer hinzuf&uuml;gen</h2><ul>";
+			$contentField 	.= "<h2>Fach hinzuf&uuml;gen</h2><ul>";
 			$contentField 	.= $view->viewSubjectFormular(array());	
 			break;
 

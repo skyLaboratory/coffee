@@ -65,25 +65,28 @@ class view
 	public function viewUserAddFormular()
 	{
 		
-		$output = '<form action="?v=userlist&a=userAddSave" method="post">
-		Username: <input type="text" name="user[name]" /><br />
-		Email: <input type="text" name="user[email]" /><br />
-		Passwort: <input type="password" name="user[passwort1]" /><br />
-		Passwort wiederholen: <input type="password" name="user[passwort2]" /><br />
+		$output = '<div class="form"><form action="?v=userlist&a=userAddSave" method="post"><ul>
+		<li><label>Username:</label><input type="text" name="user[name]" /></li>
+		<li><label>Email:</label><input type="text" name="user[email]" /></li>
+		<li><label>Passwort:</label><input type="password" name="user[passwort1]" /></li>
+		<li><label>Passwort wiederholen:</label><input type="password" name="user[passwort2]" /></li>
 		<input type="submit" name="userAdd" value="Speichern" />
-		</form>';
+		</form></div>';
 		return $output;
 	}
 	public function viewUserEditFormular($userDetails)
 	{
 		
-		$output = '<form action="?v=userlist&a=userEditSave&id='.$userDetails['id'].'" method="post">
-		Username: <input type="text" name="user[name]" value="'.$userDetails['name'].'"/><br />
-		Email: <input type="text" name="user[email]" value="'.$userDetails['email'].'"/><br />
-		Passwort: <input type="password" name="user[passwort1]" /><br />
-		Passwort wiederholen: <input type="password" name="user[passwort2]" /><br />
-		<button type="submit" class="button" name="userEdit">Speichern</button>
-		</form>';
+		$output = '<div class="form"><form action="?v=userlist&a=userEditSave&id='.$userDetails['id'].'" method="post">
+		<ul>
+		<li><label>Username:</label><input type="text" name="user[name]" value="'.$userDetails['name'].'"/></li>
+		<li><label>Email:</label><input type="text" name="user[email]" value="'.$userDetails['email'].'"/></li>
+		<li><label>Passwort:</label><input type="password" name="user[passwort1]" /></li>
+		<li><label>Passwort wiederholen:</label><input type="password" name="user[passwort2]" /></li>
+		<button type="submit" class="formbutton" name="userEdit">Speichern</button>
+		</ul>
+		</form>
+		</div>';
 		return $output;
 	}
 	public function viewUserList($userArray)
@@ -205,9 +208,6 @@ class view
 		
 		$table = "<table>\n";
 		$table .= "<tr>\n";
-		//NR Spalte erzeugen
-		//$table .= "<th><h4>Nr.</h4></th>\n";
-		//Tielspalten erzeugen
 		$table .= "<th><h4>Name</h4></th>\n";	
 		$table .= "<th><h4>Kürzel</h4></th>\n";		
 		$table .= "<th><h4>Beschreibung</h4></th>\n";	
@@ -239,12 +239,12 @@ class view
 			
 		if(!empty($data)) 	$action = "subjectEditSave&id=".$data['id'];
 		else				$action = "subjectAddSave";
-		$output = '<form action="?v=subjectlist&a='.$action.'" method="post">
+		$output = '<div class="form"><ul><form action="?v=subjectlist&a='.$action.'" method="post">
 		<li><label>Name:</label><input type="text" name="form[name]" value="'.$data['name'].'"/></li>		
 		<li><label>Kürzel:</label><input type="text" name="form[kuerzel]" value="'.$data['kuerzel'].'"/></li>
 		<li><label>Beschreibung:</label><input type="text" name="form[beschreibung]" value="'.$data['beschreibung'].'"/></li>		
-		<input type="submit" name="subjectAdd" value="Speichern" />
-		</form>';
+		<button type="submit" class="formbutton" name="userEdit">Speichern</button>
+		</form></div>';
 		return $output;
 		
 	}
