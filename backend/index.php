@@ -18,9 +18,9 @@ $user 		= new userAdministration($database);
 $teacher	= new teacher($database);
 $subject	= new subject($database);
 
-
 $database->databaseName = "backend";
 
+$contentField = "<div id='content'>";
 
 //Wenn User nicht eingeloggt
 
@@ -142,31 +142,31 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			break;
 
 		case "teacheredit":
-			$contentField 	.= "<h2>Lehrer bearbeiten</h2><ul>";
+			$contentField 	.= "<h2>Lehrer bearbeiten</h2><div class='form'><ul>";
 			$contentField 	.= $view->viewTeacherFormular($teacher->getTeacherDetails($_GET['id']));
 			$contentField   .= view::viewTeacherFaecher($teacher->getAllFeacherForTeacher($_GET['id']));
 			//$contentField 	.= $view->viewUserAddFormular();
 			break;
 			
 		case "subjectlist":
-			$contentField 	.= "<h2>Fächerverwaltung</h2><ul>";
+			$contentField 	.= "<h2>F&auml;cherverwaltung</h2><ul>";
 			$contentField 	.= "<a href='?v=subjectadd'>Fach hinzuf&uuml;gen</a>";
-			$contentField 	.= "<h3>Fächerliste</h3><ul>";
+			$contentField 	.= "<h3>F&auml;cherliste</h3><ul>";
 			$contentField 	.= $view->viewSubjectList($subject->listAllSubject());			
 			break;
 
 		case "subjectadd":
-			$contentField 	.= "<h2>Fächer hinzufügen</h2><ul>";
+			$contentField 	.= "<h2>Fächer hinzuf&uuml;gen</h2><ul>";
 			$contentField 	.= $view->viewSubjectFormular(array());	
 			break;
 
 		case "subjectedit":
-			$contentField 	.= "<h2>Fächer bearbeiten</h2><ul>";
+			$contentField 	.= "<h2>F&auml;cher bearbeiten</h2><ul>";
 			$contentField 	.= $view->viewSubjectFormular($subject->getSubjectDetails($_GET['id']));
 			//$contentField 	.= $view->viewUserAddFormular();
 			break;
 		case "teacher-subject":
-			$contentField .= "<h2>Lehrer Fächer zuordnen</h2>";
+			$contentField .= "<h2>Lehrer F&auml;cher zuordnen</h2>";
 			/* $contentField .= $view->viewTeacherFaecherFormular(); */
 			break;
 			
@@ -188,6 +188,8 @@ else
 	$contentField .= $view->ViewLogin();
 
 }
+
+$contentField .= "</div>";
 $output = $view->htmlHead;
 $output .= $menu;
 $output .= $view->messageBox($message);

@@ -6,9 +6,13 @@ class view
 {
 	public $htmlHead 	= '<!DOCTYPE html>
 	<html lang="de-DE">
-	<head><meta http-equiv="Content-Type" content="text/html">
-	<meta charset="ISO-8859-1" />
-	<link rel="stylesheet" href="style_backend.css" type="text/css"></head><body>';
+	<head>
+	<meta http-equiv="Content-Type" content="text/html">
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="style_backend.css" type="text/css">
+	</head>
+	<body>';
+	
 	public $htmlBottom 	= '</body></html>';
 	
 	
@@ -27,17 +31,19 @@ class view
 	public function viewMenu()
 	{
 		
-		$output = '<div class="menu">
-					<ul>
-					<li><a href="?v=home">Startseite</a></li>
-					<li><a href="?v=userlist">Benutzerverwalten</a></li>
-					<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
-					<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
-					<li><a href="?v=teacher-subject">Lehrer-Fächer-Zuordnung</a></li>
-					<li><a href="?logout">Logout</a></li>
-					</ul>
-					<br style="clear:left"/>
-					</div>';
+		$output = '
+		<div id="head">
+		<div class="menu">
+		<ul>
+		<li><a href="?v=home">Startseite</a></li>
+		<li><a href="?v=userlist">Benutzerverwalten</a></li>
+		<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
+		<li><a href="?v=subjectlist">FÃ¤cherverwaltung</a></li>
+		<li><a href="?v=teacher-subject">Lehrer-FÃ¤cher-Zuordnung</a></li>
+		<li><a href="?logout">Logout</a></li>
+		</ul>
+		</div>
+		</div>';
 		return $output;
 		
 	}
@@ -76,7 +82,7 @@ class view
 		Email: <input type="text" name="user[email]" value="'.$userDetails['email'].'"/><br />
 		Passwort: <input type="password" name="user[passwort1]" /><br />
 		Passwort wiederholen: <input type="password" name="user[passwort2]" /><br />
-		<input type="submit" name="userEdit" value="Speichern" />
+		<button type="submit" class="button" name="userEdit">Speichern</button>
 		</form>';
 		return $output;
 	}
@@ -122,7 +128,7 @@ class view
 		//Tielspalten erzeugen
 		$table .= "<th><h4>Vorname</h4></th>\n";	
 		$table .= "<th><h4>Name</h4></th>\n";	
-		$table .= "<th><h4>Kürzel</h4></th>\n";		
+		$table .= "<th><h4>KÃ¼rzel</h4></th>\n";		
 		$table .= "<th><h4>E-Mail</h4></th>\n";	
 		$table .= "<th><h4></h4></th>\n";	
 		$table .= "</tr>\n";
@@ -156,10 +162,12 @@ class view
 		$output = '<form action="?v=teacherlist&a='.$action.'" method="post">
 		<li><label>Vorname:</label><input type="text" name="form[vorname]" value="'.$data['vorname'].'"/></li>
 		<li><label>Nachname:</label><input type="text" name="form[name]" value="'.$data['name'].'"/></li>		
-		<li><label>Kürzel:</label><input type="text" name="form[kuerzel]" value="'.$data['kuerzel'].'"/></li>
+		<li><label>KÃ¼rzel:</label><input type="text" name="form[kuerzel]" value="'.$data['kuerzel'].'"/></li>
 		<li><label>E-Mail:</label><input type="text" name="form[email]" value="'.$data['email'].'"/></li>		
-		<input type="submit" name="teacherAdd" value="Speichern" />
-		</form>';
+		<button type="submit" class="formbutton" name="userEdit">Speichern</button>
+		</form>
+		</ul>
+		</div>';
 		return $output;
 		
 	}
@@ -172,7 +180,7 @@ class view
 		}
 		else
 		{
-			$tabel  = "<br><table>";
+			$tabel  = "<table>";
 			$tabel .= "<tr>";
 			$tabel .= "<th><h4>Fach</h4></th>";
 			$tabel .= "<th><h4>Stunde</h4></th>";
@@ -201,7 +209,7 @@ class view
 		//$table .= "<th><h4>Nr.</h4></th>\n";
 		//Tielspalten erzeugen
 		$table .= "<th><h4>Name</h4></th>\n";	
-		$table .= "<th><h4>Kürzel</h4></th>\n";		
+		$table .= "<th><h4>KÃ¼rzel</h4></th>\n";		
 		$table .= "<th><h4>Beschreibung</h4></th>\n";	
 		$table .= "<th><h4></h4></th>\n";	
 		$table .= "</tr>\n";
@@ -233,7 +241,7 @@ class view
 		else				$action = "subjectAddSave";
 		$output = '<form action="?v=subjectlist&a='.$action.'" method="post">
 		<li><label>Name:</label><input type="text" name="form[name]" value="'.$data['name'].'"/></li>		
-		<li><label>Kürzel:</label><input type="text" name="form[kuerzel]" value="'.$data['kuerzel'].'"/></li>
+		<li><label>KÃ¼rzel:</label><input type="text" name="form[kuerzel]" value="'.$data['kuerzel'].'"/></li>
 		<li><label>Beschreibung:</label><input type="text" name="form[beschreibung]" value="'.$data['beschreibung'].'"/></li>		
 		<input type="submit" name="subjectAdd" value="Speichern" />
 		</form>';
