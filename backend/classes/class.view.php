@@ -20,11 +20,15 @@ class view
 	public function viewLogin()
 	{
 		
-		$output = '<form action="?" method="post">
-		Username: <input type="text" name="username" /><br />
-		Passwort: <input type="password" name="passwort" /><br />
+		$output = '<div id="login">
+		<ul>
+		<form action="?" method="post">
+		<li><label>Username:</label><input type="text" name="username" /></li>
+		<li><label>Passwort:</label><input type="password" name="passwort" /></li>
 		<input type="submit" name="login" value="Anmelden" />
-		</form>';
+		</form>
+		</ul>
+		</div>';
 		return $output;
 	}
 
