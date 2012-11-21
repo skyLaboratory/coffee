@@ -23,3 +23,7 @@ Leon Bergmann - 21.11.2012 21:54 Uhr
 		- added a try-catch block for exeptions
 	backend/classes/class.user.php
 		- added Exception to handel errors in following functions: addUser and editUser	
+
+Leon Bergmann - 21.11.2012 23:56 Uhr 
+	backend/classes/class.chooseTeacher.php
+		- write a litte algo to calculate a proxy

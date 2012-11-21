@@ -43,7 +43,7 @@ body
     display: block;
     float: left;
     height: 45px;
-    width: calc(100% / 6 - 10px);
+    width: calc(100% / 7);
 }
  
 .menu ul li a
