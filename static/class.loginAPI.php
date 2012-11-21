@@ -1,6 +1,7 @@
 <?php
 // Autor: Leon Bergmann
 // Date : 07.11.2012 22:53 Uhr 
+// Update: Leon Bergmann - 21.11.2012 19:59 Uhr  
 class loginAPI
 {
 	private $db;
@@ -11,7 +12,9 @@ class loginAPI
 	{
 		spl_autoload_register(__CLASS__.'::__autoload');
 		define(__WEBROOT__,dirname(dirname(__FILE__)));
+		
 		$this->loginType = $loginType;
+		
 		if(is_null($database))
 		{
 			$this->newDatabase();
@@ -35,19 +38,23 @@ class loginAPI
 	
 	private function newDatabase()
 	{
+		// new database instance
 		$db = new database;
+		// set the database 
 		$db->databaseName = "backend";
+		// safe the database into the local db
 		$this->db = $db;
 		return true;
 	}
 	
-	private function validLogin($userObjectFromDB,$passwort)
+	private function validLogin($passwortDB,$passwort,$salt)
 	{
-		$dbPasswort		= $userObjectFromDB->passwort;
-		$salt			= $userObjectFromDB->salt;
-		$passwortAPI	= new passwortAPI;
-		$FormPasswort	= $passwortAPI->crypt($passwort,$salt);
-		if($passwortAPI->validatePasswort($dbPasswort,$FormPasswort))
+		// new instance of passwortAPI
+		$passwortAPI	= new passwortAPI;	
+		// crypt the Passwort From the login
+		$userpasswort	= $passwortAPI->crypt($passwort,$salt);
+		// validate the Passwort
+		if($dbPasswort === $FormPasswort)
 		{
 			return true;
 		}
@@ -61,16 +68,21 @@ class loginAPI
 	public function makeLogin($username,$passwort)
 	{
 		
-		$userOBJ	=	$this->getPWFromDatabase($username);
+		$userOBJ		= $this->getPWFromDatabase($username);
+		$passwortDB		= $userOBJ->passwort;
+		$salt			= $userOBJ->salt;
 		
-		if($this->validLogin($userOBJ,$passwort))
+		if($this->validLogin($passwortDB,$passwort,$salt))
 		{
 			$this->username = $username;
-			$this->setSessions();
+			if($this->setSessions())
+			{
+				return true;
+			}
 		}
 		else
 		{
-			$this->callback();
+			return false;
 		}
 		
 	}
@@ -106,7 +118,7 @@ class loginAPI
 
 		if($this->loginType == "backend")
 		{
-			$_SESSION['BackendAuth'] = true;
+			$_SESSION['auth'] = true;
 		}
 		else
 		{
@@ -114,6 +126,8 @@ class loginAPI
 		}
 		
 		$_SESSION['username']	= $this->username;
+		
+		return true;
 	}
 }
 ?>

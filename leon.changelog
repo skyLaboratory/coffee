@@ -1,0 +1,20 @@
+Leon Bergmann - 21.11.2012 20:18 Uhr 
+	backend/index.php
+		- implemented the login
+	
+	backend/classes/class.user.php
+		addUser
+			- added the crypting of the passworts in to the function
+			- added some Exeptions to handel some problemes like diffrent Passworts
+			- correct the SQL errors
+	backend/style_backend.css
+		- added a defination for the message boxes
+	
+	backend/classes/class.view.php
+		messageBox
+			- now have 3 parameter
+				- message
+				- messageType
+				- login
+			- choose the Type of the Message box
+	

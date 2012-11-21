@@ -1,10 +1,11 @@
 <?php
 // Autor: Florian Giller
 // Date : 05.11.2012
-// Update: Leon Bergmann - 16.11.2012 09:12 Uhr 
+// Update: Leon Bergmann - 21.11.2012 20:00 Uhr  
 session_start();
 
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.database.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.loginAPI.php");
 
 require_once("classes/class.user.php");
 require_once("classes/class.view.php");
@@ -17,6 +18,7 @@ $database	= new database();
 $user 		= new userAdministration($database);
 $teacher	= new teacher($database);
 $subject	= new subject($database);
+$login		= new loginAPI("backend",$database);
 
 $database->databaseName = "backend";
 
@@ -28,8 +30,9 @@ $contentField = "<div id='content'>";
 	if(isset($_POST['login']))
 	{
 		//Login Check
-		$_SESSION['auth'] 	= true;
-		$message 		= "Login erfolgreich";
+		
+		$login->makeLogin($_POST['username'],$_POST['passwort']);
+		
 	}
 	if(isset($_GET['logout']))
 	{		
@@ -42,6 +45,7 @@ $contentField = "<div id='content'>";
 	
 
 //Wenn User eingeloggt
+//
 if($_SESSION['auth'] and !isset($_GET['dev']))
 {
 	$menu = "";
@@ -51,8 +55,16 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 	{
 		case "userAddSave":
 			$userInfos = $_POST['user'];
-			if($user->addUser($userInfos))
-				$message 		= "Neuen Benutzer angelegt";
+			try
+			{
+				$user->addUser($userInfos);
+			}
+			catch(Exception $e)
+			{
+				
+				$message 		= $e->getMessage();
+				$messageType	= $e->getCode(); 
+			}
 			break;
 			
 		case "userEditSave":
@@ -61,6 +73,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			if($user->editUser($userInfos))
 				$message 		= "Benutzer ver&auml;ndert";
 			break;
+		
 		case "userDelete":
 			if($user->deleteUser($_GET['id']))
 				$message 		= "Benutzer gel&ouml;scht";
@@ -177,6 +190,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 
 	}
 	
+	$message = $view->messageBox($message,$messageType);
 	//Weitere Funtionen wenn eingeloggt
 	
 	
@@ -185,6 +199,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 else
 {	
 	//Loginpage
+	$message = $view->messageBox($message,$messageType,1);
 	$contentField .= $view->ViewLogin();
 
 }
@@ -192,7 +207,7 @@ else
 $contentField .= "</div>";
 $output = $view->htmlHead;
 $output .= $menu;
-$output .= $view->messageBox($message);
+$output .= $message;
 $output .= $contentField;
 $output .= $view->htmlBottom;
 

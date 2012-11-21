@@ -1,3 +1,8 @@
+/*
+* Autor: Florian Filler 
+* Date: 15.11.2012
+* Update: Leon Bergmann - 21.11.2012 20:00 Uhr 	
+*/
 body
 {
     font-family:Helvetica; 
@@ -95,6 +100,11 @@ table tr td, table tr th
     background-repeat: no-repeat;
     background-position: 10px center;
 }
+.info.login, .success.login, .warning.login, .error.login, .validation.login
+{
+	top: 0px;
+}
+
 .info {
     color: #00529B;
     background-color: #BDE5F8;
@@ -186,7 +196,16 @@ a
 
 #login
 {
-	
+	width: 450px;
+	height: 250px;
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px; 
+	border: 2px solid #333;
+	border-radius: 8px;
+	background-color: rgba(211,211,211,1);
+	box-shadow: 0px 4px 20px black; 
 }
 
 #login ul
@@ -199,7 +218,7 @@ a
 #login ul li
 {
 	width: 400px;
-	height: 20px;
+	height: 30px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	float: none;
@@ -223,13 +242,24 @@ a
 	min-width: 50%;
 	max-width: 30%;
 	float: right;
-	padding-top: 3px;
-	padding-bottom: 3px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	padding-left: 5px;
 	border: 1px solid #333;
 	font-style: italic;
+	box-shadow: 0px 0px 2px black;
+	border-radius: 5px;
 }
 
+#login ul li input:hover
+{
+	box-shadow: 0px 0px 8px black;
+}
+
+#login ul li input:focus
+{
+	box-shadow: 0px 0px 8px black;
+}
 #login .formbutton
 {
 	background-color: #333;

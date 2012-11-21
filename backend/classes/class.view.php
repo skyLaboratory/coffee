@@ -21,11 +21,12 @@ class view
 	{
 		
 		$output = '<div id="login">
-		<ul>
+		<h2>Login</h2>
 		<form action="?" method="post">
+		<ul>
 		<li><label>Username:</label><input type="text" name="username" /></li>
 		<li><label>Passwort:</label><input type="password" name="passwort" /></li>
-		<input type="submit" name="login" value="Anmelden" />
+		<input type="submit" class="formbutton" name="login" value="Anmelden" />
 		</form>
 		</ul>
 		</div>';
@@ -52,17 +53,37 @@ class view
 		
 	}
 
-	public function messageBox($message)
+	public function messageBox($message,$messageType,$login = false)
 	{
 		if(empty($message)) return;
-		$output = '<div class="info">'.$message.'</div>';
-       /*
- <div class="success">Successful operation message</div>
-        <div class="warning">Warning message</div>
-        <div class="error">Error message</div>';
-*/
-		return $output;
 		
+		switch($messageType)
+		{
+			case 0:
+				$styleClass = "info";
+				break;
+			case 1:
+				$styleClass = "success";
+				break;
+			case 2: 
+				$styleClass = "warning";
+				break;
+			case 3:
+				$styleClass = "error";
+				break;
+			default:
+				$styleClass = "info";
+				break;
+		}
+		
+		if($login)
+		{
+			$styleClass .= " login";
+		}
+		
+		$output = '<div class="'.$styleClass.'">'.$message.'</div>';
+		
+		return $output;
 	}
 
 

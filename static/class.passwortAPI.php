@@ -1,6 +1,7 @@
 <?php
 // Autor: Leon Bergmann
 // Date: 06.11.2012 13:18 Uhr 
+// Update: Leon Bergmann - 21.11.2012 19:59 Uhr 
 class passwortAPI
 {
 	private $rounds = 5;
@@ -38,16 +39,5 @@ class passwortAPI
 		return $salt;
 	}
 	
-	public function validatePasswort($firtPW,$secondPW)
-	{
-		if($firtPW === $secondPW)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
 }
 ?>

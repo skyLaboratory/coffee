@@ -55,6 +55,11 @@ class database
 	{
 		$this->checkConnection();
 		$resource = mysql_query($sql);
+		if($resource == 0)
+		{
+			return;
+		}
+		
 		if($assocRow = mysql_fetch_object($resource))
 			return $assocRow;
 		else
