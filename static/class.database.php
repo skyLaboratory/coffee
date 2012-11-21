@@ -57,7 +57,7 @@ class database
 		$resource = mysql_query($sql);
 		if($resource == 0)
 		{
-			return;
+			return false;
 		}
 		
 		if($assocRow = mysql_fetch_object($resource))

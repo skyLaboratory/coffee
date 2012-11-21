@@ -17,4 +17,9 @@ Leon Bergmann - 21.11.2012 20:18 Uhr
 				- messageType
 				- login
 			- choose the Type of the Message box
-	
+
+Leon Bergmann - 21.11.2012 21:54 Uhr 
+	backend/index.php
+		- added a try-catch block for exeptions
+	backend/classes/class.user.php
+		- added Exception to handel errors in following functions: addUser and editUser	

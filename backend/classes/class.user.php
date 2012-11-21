@@ -35,26 +35,33 @@ class userAdministration
 		$passwort1	= $pwAPI->crypt($passwort1,$salt); 
 		$passwort2	= $pwAPI->crypt($passwort2,$salt);
 		
+		// check the Data
 		if($passwort1 !== $passwort2)
 		{
-			throw new Exception("Passw&ouml;ter stimmen nicht überein",3); 
+			throw new Exception("Passw&ouml;ter stimmen nicht überein.",3); 
 		}
 		
-		//check the values
+		if(!$this->is_email($email))
+		{
+			throw new Exception("Die E-Mail ist nicht valide. ",3);
+		}
+		
 		if(empty($name))
 		{
-			throw new Exception("Bitte geben sie einen Namen ein",3);
+			throw new Exception("Bitte geben sie einen Namen ein.",3);
 		}
+		
 		if($this->userNameExist($name))
 		{
-			throw new Exception("Dieser Name ist bereits vergeben",3);
+			throw new Exception("Dieser Name ist bereits vergeben.",3);
 		}
+		
 		// Create SQl
-		$sql = "INSERT INTO ".$this->tableName." (`name`, `passwort`, `email`, `salt`) VALUES ('$name', '$passwort', '$email', '$salt')";
+		$sql = "INSERT INTO ".$this->tableName." (`name`, `passwort`, `email`, `salt`) VALUES ('$name', '$passwort1', '$email', '$salt')";
 		// Instert into DB
 		if($this->db->querySend($sql))
 		{
-			return true;
+			return "Benuter wurde erfolgreich angelgt";
 		}	
 		
 		
@@ -66,16 +73,41 @@ class userAdministration
 		$id 		= $userInfos['id'];
 		$name 		= $userInfos['name'];	
 		$email		= $userInfos['email'];
-		$passwort	= $userInfos['passwort'];
-
-		if(!is_numeric($id) or empty($name))
-			return false;
+		$passwort1	= $userInfos['passwort1'];
+		$passwort2	= $userInfos['passwort1'];
+		$time		= time();
+		
+		if(empty($id) or !is_numeric($id))
+		{
+			throw new Exception("Bitte w&auml;hlen Sie einen Benutzer aus.",3);
+		}
+		
+		$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."', `last-update` ='".$time."' WHERE id = $id";
+		
+		if(!empty($passwort1) and !empty($passwort2))
+		{
 			
-		$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."' WHERE id = $id";
+			$pwAPI		= new passwortAPI;
+			
+			$salt		= $pwAPI->createASalt();
+			
+			$passwort1	= $pwAPI->crypt($passwort1,$salt); 
+			$passwort2	= $pwAPI->crypt($passwort2,$salt);
+			
+			if($passwort1 === $passwort2)
+			{
+				$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."', passwort='".$passwort1."', salt='".$salt."',`last-update`='".$time."' WHERE id = $id";
+			}
+			else
+			{
+				throw new Exception("Passw&ouml;ter stimmen nicht überein.",3);
+			}
+		}
+		
 		if($this->db->querySend($sql))
 		{
 			
-			return true;
+			return "Der Benutzer wurde erfolgreich bearbeitet.";
 		}
 		
 	}
@@ -126,6 +158,26 @@ class userAdministration
 		
 	}
 
+	private function is_email($email) 
+	{
+		if(filter_var($email, FILTER_VALIDATE_EMAIL))
+		{
+			list($email,$domain) = explode('@',$email);
+			if(!getmxrr ($domain,$mxhosts)) 
+			{ 
+				return FALSE; 
+			}
+			else 
+			{ 
+				return TRUE; 
+			}
+		}
+		else
+		{
+			return FALSE;
+		}
+
+	} 
 
 }
 

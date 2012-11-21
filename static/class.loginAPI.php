@@ -33,6 +33,10 @@ class loginAPI
 	private function getPWFromDatabase($Username)
 	{
 		$userObject	= $this->db->queryAsObject("Select passwort,salt from user where name = '$Username'");
+		if(!$userObject)
+		{
+			return false;
+		}
 		return $userObject;
 	}
 	
@@ -54,7 +58,7 @@ class loginAPI
 		// crypt the Passwort From the login
 		$userpasswort	= $passwortAPI->crypt($passwort,$salt);
 		// validate the Passwort
-		if($dbPasswort === $FormPasswort)
+		if($passwortDB === $userpasswort)
 		{
 			return true;
 		}
@@ -68,7 +72,23 @@ class loginAPI
 	public function makeLogin($username,$passwort)
 	{
 		
+		if(empty($username))
+		{
+			throw new Exception("Bitte geben Sie Ihren Benutzernamen ein.",3);
+		}
+		
+		if(empty($passwort))
+		{
+			throw new Exception("Bitte geben Sie Ihr Passwort ein.",3);
+		}
+		
 		$userOBJ		= $this->getPWFromDatabase($username);
+		
+		if(!$userOBJ)
+		{
+			throw new Exception("Dieser Username ist nicht bekannt.",3);
+		}
+		
 		$passwortDB		= $userOBJ->passwort;
 		$salt			= $userOBJ->salt;
 		
@@ -82,7 +102,7 @@ class loginAPI
 		}
 		else
 		{
-			return false;
+			throw new Exception("Das Passwort ist inkorrekt.",3);
 		}
 		
 	}

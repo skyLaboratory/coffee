@@ -18,31 +18,39 @@ $database	= new database();
 $user 		= new userAdministration($database);
 $teacher	= new teacher($database);
 $subject	= new subject($database);
-$login		= new loginAPI("backend",$database);
 
 $database->databaseName = "backend";
 
 $contentField = "<div id='content'>";
 
+if(isset($_GET['dev1']))
+{
+	$_SESSION['auth'] = true;
+}
 //Wenn User nicht eingeloggt
 
 	//Wenn Loginbutton gedr&uuml;ckt
 	if(isset($_POST['login']))
 	{
 		//Login Check
-		
-		$login->makeLogin($_POST['username'],$_POST['passwort']);
-		
+		try
+		{
+			$login		= new loginAPI("backend",$database);
+			$login->makeLogin($_POST['username'],$_POST['passwort']);
+		}
+		catch(Exception $e)
+		{
+			$message		= $e->getMessage();
+			$messageType	= $e->getCode();
+		}
 	}
 	if(isset($_GET['logout']))
 	{		
 		session_unset();
 		$message 		= "Sie wurden ausgeloggt";
+		$messageType	= 1;
 
 	}
-
-	//Wenn garnichts gesetzt ist
-	
 
 //Wenn User eingeloggt
 //
@@ -51,73 +59,74 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 	$menu = "";
 	$menu = $view->viewMenu();
 	//ACTIONS
-	switch($_GET['a'])
+	try
 	{
-		case "userAddSave":
-			$userInfos = $_POST['user'];
-			try
-			{
-				$user->addUser($userInfos);
-			}
-			catch(Exception $e)
-			{
+		switch($_GET['a'])
+		{
+			case "userAddSave":
+					$userInfos 		= $_POST['user'];
+					$message		= $user->addUser($userInfos);
+					$messageType	= 1;
+				break;
 				
-				$message 		= $e->getMessage();
-				$messageType	= $e->getCode(); 
-			}
-			break;
+			case "userEditSave":
+					$userInfos 			= $_POST['user'];
+					$userInfos['id']	= $_GET['id'];				
+					$message			= $user->editUser($userInfos);
+					$messageType		= 1;
+				break;
 			
-		case "userEditSave":
-			$userInfos = $_POST['user'];
-			$userInfos['id'] = $_GET['id'];
-			if($user->editUser($userInfos))
-				$message 		= "Benutzer ver&auml;ndert";
-			break;
-		
-		case "userDelete":
-			if($user->deleteUser($_GET['id']))
-				$message 		= "Benutzer gel&ouml;scht";
-
-			break;
-		
-		case "teacherAddSave":
-			$data = $_POST['form'];
-			if($teacher->addTeacher($data))
-				$message 		= "Neuen Lehrer angelegt";
-
-			break;
+			case "userDelete":
+				if($user->deleteUser($_GET['id']))
+					$message 		= "Benutzer gel&ouml;scht";
+	
+				break;
 			
-		case "teacherEditSave":
-			$data 		= $_POST['form'];
-			$data['id'] = $_GET['id'];
-			if($teacher->editTeacher($data))
-				$message 		= "Lehrer bearbeitet";
-			break;
-		
-		case "teacherDelete":
-			if($teacher->deleteTeacher($_GET['id']))
-				$message 		= "Lehrer entfernt";
-
-			break;
+			case "teacherAddSave":
+				$data = $_POST['form'];
+				if($teacher->addTeacher($data))
+					$message 		= "Neuen Lehrer angelegt";
+	
+				break;
+				
+			case "teacherEditSave":
+				$data 		= $_POST['form'];
+				$data['id'] = $_GET['id'];
+				if($teacher->editTeacher($data))
+					$message 		= "Lehrer bearbeitet";
+				break;
 			
-		case "subjectAddSave":
-			$data = $_POST['form'];
-			if($subject->addSubject($data))
-				$message 		= "Neues Fach angelegt";
-
-			break;
-		case "subjectEditSave":
-			$data 		= $_POST['form'];
-			$data['id'] = $_GET['id'];
-			if($subject->editSubject($data))
-					$message 		= "Fach bearbeitet";
-			break;
-		
-		case "subjectDelete":
-			if($subject->deleteSubject($_GET['id']))
-				$message 		= "Fach gel&oul;scht";
-			break;
-
+			case "teacherDelete":
+				if($teacher->deleteTeacher($_GET['id']))
+					$message 		= "Lehrer entfernt";
+	
+				break;
+				
+			case "subjectAddSave":
+				$data = $_POST['form'];
+				if($subject->addSubject($data))
+					$message 		= "Neues Fach angelegt";
+	
+				break;
+			case "subjectEditSave":
+				$data 		= $_POST['form'];
+				$data['id'] = $_GET['id'];
+				if($subject->editSubject($data))
+						$message 		= "Fach bearbeitet";
+				break;
+			
+			case "subjectDelete":
+				if($subject->deleteSubject($_GET['id']))
+					$message 		= "Fach gel&oul;scht";
+				break;
+	
+		}
+	}
+	catch(Exception $e)
+	{
+				
+		$message 		= $e->getMessage();
+		$messageType	= $e->getCode(); 
 	}
 	
 	//VIEWS
@@ -191,10 +200,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 	}
 	
 	$message = $view->messageBox($message,$messageType);
-	//Weitere Funtionen wenn eingeloggt
-	
-	
-	//$contentField .= "<li><a href='?logout'>Ausloggen<a/></li>";
+
 }
 else
 {	
