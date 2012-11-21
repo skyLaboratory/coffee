@@ -86,3 +86,41 @@ Patrick Kellenter - 08.11.2012 14:45 Uhr
 		- Table "functions" added
 		- Table "changelog" added
 	- index.php added ind folder doku
+
+Patrick Kellenter - 15.11.2012 14:50
+	- added interface to edit functions
+	- added functionsInfoFromDatabase() function in doku/classes/class.outputAPI.php
+	
+Patrick Kellenter - 15.11.2012.14:55
+	- added interface to edit classes
+	- added classesInfoFromDatabase() function in doku/classes/class.outputAPI.php
+	
+Leon Bergmann - 21.11.2012 20:18 Uhr 
+	backend/index.php
+		- implemented the login
+	
+	backend/classes/class.user.php
+		addUser
+			- added the crypting of the passworts in to the function
+			- added some Exeptions to handel some problemes like diffrent Passworts
+			- correct the SQL errors
+	backend/style_backend.css
+		- added a defination for the message boxes
+	
+	backend/classes/class.view.php
+		messageBox
+			- now have 3 parameter
+				- message
+				- messageType
+				- login
+			- choose the Type of the Message box
+
+Leon Bergmann - 21.11.2012 21:54 Uhr 
+	backend/index.php
+		- added a try-catch block for exeptions
+	backend/classes/class.user.php
+		- added Exception to handel errors in following functions: addUser and editUser	
+
+Leon Bergmann - 21.11.2012 23:56 Uhr 
+	backend/classes/class.chooseTeacher.php
+		- write a litte algo to calculate a proxy
