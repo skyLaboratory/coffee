@@ -23,14 +23,19 @@ class teacher
 		
 		
 		if(empty($name))
-			return false;
+		{
+			throw new Exception("Bitte geben Sie einen Namen an.",3);
+		}
 		if($this->teacherFullNameExist($vorname,$name))
-			return false;
+		{
+			throw new Exception("Dieser Lehrer ist bereits vorhanden.",3);
+		}
+		
 
 		$sql = "INSERT INTO ".$this->tableName." (vorname, name, kuerzel, email) VALUES ('$vorname', '$name', '$kuerzel', '$email')";
 		if($this->db->querySend($sql))
 		{
-			return true;
+			return "Neuer Lehrer wurde angelegt";
 		}	
 		
 		
@@ -46,13 +51,15 @@ class teacher
 		$email 		= $formularArray['email'];
 
 		if(!is_numeric($id) or empty($name))
-			return false;
+		{
+			throw new Exception("Bitte w&aulm;hlen Sie eine Leherer aus.",3);
+		}
 			
 		$sql = "UPDATE ".$this->tableName." SET vorname='".$vorname."', name='".$name."', email='".$email."', kuerzel='".$kuerzel."' WHERE id = $id";
 		if($this->db->querySend($sql))
 		{
 			
-			return true;
+			return "Lehrer wurde erfolgreich beatbeitet.";
 		}
 		
 	}
@@ -92,13 +99,15 @@ class teacher
 	
 	public function deleteTeacher($id)
 	{
-		if(!is_numeric($id)) return false; 
+		if(!is_numeric($id))
+		{
+			throw new Exception("Bitte w&aulm;hlen Sie eine Leherer aus.",3);
+		} 
 		
 		if($this->db->querySend("DELETE FROM `".$this->tableName."` WHERE `id` = $id"))
-			return true;
-		else
-			return false;
-		
+		{
+			return "Lehrer erfolgreich entfernt.";
+		}
 		
 	}
 	

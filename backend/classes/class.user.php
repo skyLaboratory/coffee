@@ -29,6 +29,15 @@ class userAdministration
 		$passwort1 	= $formularArray['passwort1'];
 		$passwort2	= $formularArray['passwort2'];
 		$email 		= $formularArray['email'];
+		
+		if(strlen($passwort1) < 5)
+		{
+			throw new Exception("Das Passwort ist zu kurz.",3);
+		}
+		if($passwort1 == $name or $passwort2 == $name)
+		{
+			throw new Exception("Der Benutzername und das Passwort d&uuml;fen nicht &uuml;bereinstellen.",3);
+		}
 		// crypt the pw
 		$salt		= $pwAPI->createASalt();
 		
@@ -41,6 +50,7 @@ class userAdministration
 			throw new Exception("Passw&ouml;ter stimmen nicht überein.",3); 
 		}
 		
+
 		if(!$this->is_email($email))
 		{
 			throw new Exception("Die E-Mail ist nicht valide. ",3);
@@ -148,15 +158,19 @@ class userAdministration
 	}
 	public function deleteUser($id)
 	{
-		if(!is_numeric($id)) return false; 
+		if(!is_numeric($id))
+		{
+			throw new Exception("Bitte w&auml;hlen Sie einen Benutzer aus.",3);	
+		} 
 		
 		if($this->db->querySend("DELETE FROM `".$this->tableName."` WHERE `id` = $id"))
-			return true;
-		else
-			return false;
+		{
+			return "Benutzer erfolgreich gel&ouml;scht.";
+		}
 		
 		
 	}
+
 
 	private function is_email($email) 
 	{
