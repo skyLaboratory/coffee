@@ -141,12 +141,12 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 
 		case "useradd":
 			$contentField 	.= "<h2>Benutzer anlegen</h2><ul>";
-			$contentField 	.= $view->viewUserAddFormular();	
+			$contentField 	.= $view->viewUserFormular(null);	
 			break;
 
 		case "useredit":
 			$contentField 	.= "<h2>Benutzer bearbeiten</h2><ul>";
-			$contentField 	.= $view->viewUserEditFormular($user->getUserDetails($_GET['id']));
+			$contentField 	.= $view->viewUserFormular($user->getUserDetails($_GET['id']));
 			//$contentField 	.= $view->viewUserAddFormular();	
 			break;
 
@@ -159,7 +159,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			break;
 
 		case "teacheradd":
-			$contentField 	.= "<h2>Lehrer hinzuf&uuml;gen</h2><ul>";
+			$contentField 	.= "<h2>Lehrer hinzuf&uuml;gen</h2><div class='form'><ul>";
 			$contentField 	.= $view->viewTeacherFormular(array());	
 			break;
 

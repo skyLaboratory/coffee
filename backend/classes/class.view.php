@@ -88,26 +88,15 @@ class view
 		return $output;
 	}
 
-
-	public function viewUserAddFormular()
+	public function viewUserFormular($data)
 	{
+		if(!empty($data)) 	$action = "userEditSave&id=&id=".$data['id'];
+		else				$action = "userAddSave";
 		
-		$output = '<div class="form"><form action="?v=userlist&a=userAddSave" method="post"><ul>
-		<li><label>Username:</label><input type="text" name="user[name]" /></li>
-		<li><label>Email:</label><input type="text" name="user[email]" /></li>
-		<li><label>Passwort:</label><input type="password" name="user[passwort1]" /></li>
-		<li><label>Passwort wiederholen:</label><input type="password" name="user[passwort2]" /></li>
-		<input type="submit" name="userAdd" value="Speichern" />
-		</form></div>';
-		return $output;
-	}
-	public function viewUserEditFormular($userDetails)
-	{
-		
-		$output = '<div class="form"><form action="?v=userlist&a=userEditSave&id='.$userDetails['id'].'" method="post">
+		$output = '<div class="form"><form action="?v=userlist&a='.$data['id'].'" method="post">
 		<ul>
-		<li><label>Username:</label><input type="text" name="user[name]" value="'.$userDetails['name'].'"/></li>
-		<li><label>Email:</label><input type="text" name="user[email]" value="'.$userDetails['email'].'"/></li>
+		<li><label>Username:</label><input type="text" name="user[name]" value="'.$data['name'].'"/></li>
+		<li><label>Email:</label><input type="text" name="user[email]" value="'.$data['email'].'"/></li>
 		<li><label>Passwort:</label><input type="password" name="user[passwort1]" /></li>
 		<li><label>Passwort wiederholen:</label><input type="password" name="user[passwort2]" /></li>
 		<button type="submit" class="formbutton" name="userEdit">Speichern</button>
