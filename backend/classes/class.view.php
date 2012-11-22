@@ -42,7 +42,7 @@ class view
 		<div class="menu">
 		<ul>
 		<li><a href="?v=home">Startseite</a></li>
-		<li><a href="?v=plan">Vertretungsplan</a</li>
+		<li><a href="?v=plan">Vertretungsplan</a></li>
 		<li><a href="?v=userlist">Benutzerverwalten</a></li>
 		<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
 		<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
