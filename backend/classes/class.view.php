@@ -278,12 +278,12 @@ class view
 	public function viewLehrerFachZuordnung($teacherList,$subjectList)
 	{
 		$output = '
-		<form method="post">
+		<form method="post" action="?v=teacher-subject&a=addSubjectTeacher">
 		<p>Zuordnung nach:
-			<select name="zuordnung" id="auswahl" size="1" onchange="ordnung(this.form.zuordnung.options[this.form.zuordnung.selectedIndex].value)">
-			<option selected >------------</option>
-			<option value="1">Lehrer->F&auml;cher</option>
-			<option value="2">F&auml;cher->Lehrer</option>
+			<select name="auswahl" id="auswahl" size="1" onchange="ordnung(this.form.auswahl.options[this.form.auswahl.selectedIndex].value)">
+				<option selected >------------</option>
+				<option value="1">Lehrer->F&auml;cher</option>
+				<option value="2">F&auml;cher->Lehrer</option>
 			</select>
 			<input type="button" value="Reset" onclick="resetList()">
 		</p>
