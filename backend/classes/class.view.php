@@ -33,7 +33,22 @@ class view
 		</div>';
 		return $output;
 	}
-
+	
+	public static function viewLeftMenu()
+	{
+		$output = 
+		'<div class="leftMenu">
+		<ul>
+		<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
+		<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
+		<li><a href="?v=teacher-subject">Lehrer-Fächer-Zuordnung</a>
+		</li>
+		</ul>
+		</div>';
+	
+		return $output;
+	}
+	
 	public function viewMenu()
 	{
 		
@@ -44,9 +59,7 @@ class view
 		<li><a href="?v=home">Startseite</a></li>
 		<li><a href="?v=plan">Vertretungsplan</a></li>
 		<li><a href="?v=userlist">Benutzerverwalten</a></li>
-		<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
-		<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
-		<li><a href="?v=teacher-subject">Lehrer-Fächer-Zuordnung</a></li>
+		<li><a href="?v=management">Schulverwaltung</a></li>
 		<li><a href="?logout">Logout</a></li>
 		</ul>
 		</div>

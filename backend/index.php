@@ -141,17 +141,22 @@ if($subject->deleteSubject($_GET['id']))
 	switch($_GET['v'])
 	{
 		case "userlist":
-			$contentField 	.= "<h2>Benutzerverwaltung</h2><ul>";
-			$contentField 	.= "<a href='?v=useradd'>Benutzer hinzuf&uuml;gen</a>";
-			$contentField 	.= "<h3>Benutzerliste</h3><ul>";
-			$contentField 	.= $view->viewUserList($user->listAllUsers());	
+				$contentField 	.= "<h2>Benutzerverwaltung</h2><ul>";
+				$contentField 	.= "<a href='?v=useradd'>Benutzer hinzuf&uuml;gen</a>";
+				$contentField 	.= "<h3>Benutzerliste</h3><ul>";
+				$contentField 	.= $view->viewUserList($user->listAllUsers());	
 			break;
 
 		case "useradd":
-			$contentField 	.= "<h2>Benutzer anlegen</h2><ul>";
-			$contentField 	.= $view->viewUserFormular(null);	
+				$contentField 	.= "<h2>Benutzer anlegen</h2><ul>";
+				$contentField 	.= $view->viewUserFormular(null);	
 			break;
-
+		
+		case "management":
+				$contentField	.= "<h2>Verwaltung</h2>";
+				$leftMenu		.= view::viewLeftMenu();
+			break;
+		
 		case "useredit":
 			$contentField 	.= "<h2>Benutzer bearbeiten</h2><ul>";
 			$contentField 	.= $view->viewUserFormular($user->getUserDetails($_GET['id']));
@@ -163,11 +168,13 @@ if($subject->deleteSubject($_GET['id']))
 			//$contentField 	.= "<h2>Benutzerhinzuf&uuml;gen</h2><ul>";
 			$contentField 	.= "<a href='?v=teacheradd'>Lehrer hinzuf&uuml;gen</a>";
 			$contentField 	.= "<h3>Lehrerliste</h3><ul>";
+			$leftMenu		.= view::viewLeftMenu();
 			$contentField 	.= $view->viewTeacherList($teacher->listAllTeacher());			
 			break;
 
 		case "teacheradd":
 			$contentField 	.= "<h2>Lehrer hinzuf&uuml;gen</h2><div class='form'><ul>";
+			$leftMenu		.= view::viewLeftMenu();
 			$contentField 	.= $view->viewTeacherFormular(array());	
 			break;
 
@@ -175,6 +182,7 @@ if($subject->deleteSubject($_GET['id']))
 			$contentField 	.= "<h2>Lehrer bearbeiten</h2><div class='form'><ul>";
 			$contentField 	.= $view->viewTeacherFormular($teacher->getTeacherDetails($_GET['id']));
 			$contentField   .= view::viewTeacherFaecher($teacher->getAllFeacherForTeacher($_GET['id']));
+			$leftMenu		.= view::viewLeftMenu();
 			//$contentField 	.= $view->viewUserAddFormular();
 			break;
 			
@@ -182,22 +190,26 @@ if($subject->deleteSubject($_GET['id']))
 			$contentField 	.= "<h2>F&auml;cherverwaltung</h2><ul>";
 			$contentField 	.= "<a href='?v=subjectadd'>Fach hinzuf&uuml;gen</a>";
 			$contentField 	.= "<h3>F&auml;cherliste</h3><ul>";
-			$contentField 	.= $view->viewSubjectList($subject->listAllSubject());			
+			$contentField 	.= $view->viewSubjectList($subject->listAllSubject());
+			$leftMenu		.= view::viewLeftMenu();			
 			break;
 
 		case "subjectadd":
 			$contentField 	.= "<h2>Fach hinzuf&uuml;gen</h2><ul>";
-			$contentField 	.= $view->viewSubjectFormular(array());	
+			$contentField 	.= $view->viewSubjectFormular(array());
+			$leftMenu		.= view::viewLeftMenu();
 			break;
 
 		case "subjectedit":
 			$contentField 	.= "<h2>F&auml;cher bearbeiten</h2><ul>";
 			$contentField 	.= $view->viewSubjectFormular($subject->getSubjectDetails($_GET['id']));
+			$leftMenu		.= view::viewLeftMenu();
 			//$contentField 	.= $view->viewUserAddFormular();
 			break;
 		case "teacher-subject":
 			$contentField .= "<h2>Lehrer F&auml;cher zuordnen</h2>";
-			$contentField .= $view->viewLehrerFachZuordnung($teacher->listAllTeacher(),$subject->listAllSubject()); 
+			$contentField .= $view->viewLehrerFachZuordnung($teacher->listAllTeacher(),$subject->listAllSubject());
+			$leftMenu		.= view::viewLeftMenu();
 			break;
 			
 		case "home":
@@ -222,6 +234,7 @@ $contentField .= "</div>";
 $output = $view->htmlHead;
 $output .= $menu;
 $output .= $message;
+$output .= $leftMenu;
 $output .= $contentField;
 $output .= $view->htmlBottom;
 
