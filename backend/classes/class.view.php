@@ -10,6 +10,7 @@ class view
 	<meta http-equiv="Content-Type" content="text/html">
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="style_backend.css" type="text/css">
+	<script type="text/javascript" language="javascript" src="/coffee/backend/backend.js"></script>
 	</head>
 	<body>';
 	
@@ -274,6 +275,51 @@ class view
 		return $output;
 		
 	}
-	
+	public function selctionList($array)
+	{
+		$selection = "";
+		foreach($array as $part)
+		{
+			$selection .= "<option id=".$part['id'].">".$part['name']."</option>";
+			
+		}
+		return $selection;
+		
+	}
+	public function viewLehrerFachZuordnung($teacherList,$subjectList)
+	{
+		$output = '
+		<form method="post">
+		<p>Zuordnung nach:
+			<select name="zuordnung" id="auswahl" size="1" onchange="ordnung(this.form.zuordnung.options[this.form.zuordnung.selectedIndex].value)">
+			<option selected >------------</option>
+			<option value="1">Lehrer->F&auml;cher</option>
+			<option value="2">F&auml;cher->Lehrer</option>
+			</select>
+			<input type="button" value="Reset" onclick="resetList()">
+		</p>
+		<div id="chooseContainer">
+		
+		</div>
+	    <hr>
+	<input type="submit" value="Absenden">
+    </form>
+    
+	<div id="teacherSource" style="display:none">
+		<select name="teacherlist[]" size="1">
+			<option id="0" selected>---</option>
+			'.$this->selctionList($teacherList).'
+		</select>
+	</div>
+	<div id="subjectSource" style="display:none">
+		<select name="subjetlist[]" size="1">
+			<option id="0" selected>---</option>
+			'.$this->selctionList($subjectList).'
+		</select>
+	</div>
+';
+return $output;
+		
+	}
 }
 

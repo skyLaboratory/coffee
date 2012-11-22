@@ -189,7 +189,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			break;
 		case "teacher-subject":
 			$contentField .= "<h2>Lehrer F&auml;cher zuordnen</h2>";
-			/* $contentField .= $view->viewTeacherFaecherFormular(); */
+			$contentField .= $view->viewLehrerFachZuordnung($teacher->listAllTeacher(),$subject->listAllSubject()); 
 			break;
 			
 		case "home":
