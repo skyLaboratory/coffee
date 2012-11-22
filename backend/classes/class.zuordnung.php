@@ -5,65 +5,86 @@
 class teacher_subject
 {
 	private $db;
-	public $tableName = "faecher";
+	public $tableName = "lehrer-faecher";
+	
 	
 	public function __construct($database)
 	{
 		$this->db = $database;
+	}
+	
+	private function checkFormVars(&$array,$firstKey)
+	{
+		
+		if(!$array[$firstKey][0]) 
+			throw new Exception("Es wurden nicht alle Felder ausgef&uuml;llt.",3);
+		
+		//$array = array_unique($array);
+		foreach($array[$firstKey] as $key=>$row)
+		{
+			if(!$row) unset($array[$firstKey][$key]);
+			
+		}
 		
 	}
 	
-	public function saveCombination($switch, $formularArray)
+	public function saveCombination($form)
 	{
-		if($switch == "1")
+		$this->checkFormVars($form,'teacher');
+		$this->checkFormVars($form,'subject');
+		
+		if(!is_numeric($form['switch']))
+			return false;
+			
+			
+		switch($form['switch'])
 		{
 			//Lehrer->Fächer
-			print_r($formularArray);
-			
-		}
-		elseif($switch == "2")
-		{
+			case "1":
+				$l_id = $form['teacher'][0];
+				$sql = "";
+				foreach($form['subject'] as $f_id)
+				{
+					$sqlData[] = "($l_id,$f_id)";
+					
+				}
+				break;
+				
 			//Fächer->Lehrer
-			
-			
-			
+			case "2":
+				$f_id = $form['subject'][0];
+				$sql = "";
+				foreach($form['teacher'] as $l_id)
+				{
+					$sqlData[] = "($l_id,$f_id)";
+					
+				}
+				break;
+				
+			default:
+				throw new Exception("Fehler beim Zuordnen.",3);
+				break;
+	
 		}
+		
+		$beginnSQL = "Insert INTO `".$this->tableName."` (`lehrer-id`,`fach-id`) VALUES ";
 
+		$sql = $beginnSQL.implode(", ", $sqlData);
 		/*
-if(empty($name))
+if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 			return false;
-		if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
-			return false;
-
-		$sql = "INSERT INTO ".$this->tableName." (name, kuerzel, beschreibung) VALUES ('$name', '$kuerzel', '$beschreibung')";
-		if($this->db->querySend($sql))
-		{
-			return true;
-		}	
-		
 */
-		
-	}
-	
-	
-	public function editSubject($formularArray)
-	{
-		$id 			= $formularArray['id'];
-		$name 			= $formularArray['name'];
-		$beschreibung	= $formularArray['beschreibung'];
-		$kuerzel 		= $formularArray['kuerzel'];		
-
-		if(!is_numeric($id) or empty($name))
-			return false;
-			
-		$sql = "UPDATE ".$this->tableName." SET name='".$name."', kuerzel='".$kuerzel."', beschreibung='".$beschreibung."' WHERE id = $id";
-		if($this->db->querySend($sql))
+		if(!$this->db->querySend($sql))
 		{
-			
-			return true;
-		}
+			throw new Exception("Datenbankfehler.",3);
+		}	
+		else
+			return "Zuordnung wurde gespeichert.";
+
 		
 	}
+	
+	
 
 	public function getSubjectDetails($id)
 	{

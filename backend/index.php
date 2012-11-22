@@ -115,12 +115,8 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				break;
 			
 			case "addSubjectTeacher":
-				
-				$list['teacher'] = $_POST['teacherlist'];
-				$list['subject'] = $_POST['subjectlist'];
-				 
-				
-				$teacher_subject->saveCombination($_POST['auswahl'], $list);
+							
+				$message = $teacher_subject->saveCombination($_POST);
 					
 				/*
 if($subject->deleteSubject($_GET['id']))

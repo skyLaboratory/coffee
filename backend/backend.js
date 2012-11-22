@@ -1,66 +1,59 @@
 	teacherUnset	= true;
 	subjectUnset	= true;
-	subjectzaehler = 1;
-	teacherzaehler = 1;
+	szaehler = 1;
+	tzaehler = 1;
 	
-function ordnung(auswahl)
+function ordnung()
 {	
-	container 		= document.getElementById('chooseContainer');
-	teacherSource 	= document.getElementById('teacherSource');
-	subjectSource 	= document.getElementById('subjectSource');
-	disable('auswahl');
+	selectSwitch	= document.getElementById('selectSwitch').selectedIndex;
+	container		= document.getElementById('chooseContainer');
+	selectionTop 	= document.getElementById('selectionTop');
+	listContainer 	= document.getElementById('listContainer');
+	teacherSource 	= document.getElementById('teacherlist');
+	subjectSource 	= document.getElementById('subjectlist');
 	
-	if(auswahl == "1")
-	{
-			teacherTop 				= document.createElement('div');
-			teacherTop.id 			= 'teacherList';
-			teacherTop.className 	= 'selectTop';
-			//teacherTop.innerHTML 	= 'Lehrer: ';
-			teacherTop.innerHTML 	+= teacherSource.innerHTML;
-			container.appendChild(teacherTop);
-				
+	document.getElementById('selectSwitch').disabled = 'true';
+
+			hiddenSwitch			= document.createElement('input');
+			hiddenSwitch.type 		= 'hidden';
+			hiddenSwitch.name 		= 'switch';
+			hiddenSwitch.value 		= selectSwitch;
+			container.appendChild(hiddenSwitch);
 			
-			subjectContainer		= document.createElement('div');
-			subjectContainer.id 	= 'subjectContainer';
-			subjectContainer.className 	= 'selectContainer';
-			container.appendChild(subjectContainer);
-			
-			subject0				= document.createElement('div');
-			subject0.id 			= 'subject0';
+			teacher0				= document.createElement('select');
+			teacher0.id 			= 'id_teacher0';
+			teacher0.name			= 'teacher[0]';
+			teacher0.innerHTML		= teacherSource.innerHTML;
+						
+			subject0				= document.createElement('select');
+			subject0.id 			= 'id_subject0';
+			subject0.name			= 'subject[0]';
 			subject0.innerHTML		= subjectSource.innerHTML;
-			subjectContainer.appendChild(subject0);
+			
+	if(selectSwitch == "1")
+	{
+			
+			//selectionTop.innerHTML 	+= document.getElementById('teacherSource').innerHTML;
+
+			selectionTop.appendChild(teacher0);
+			
+			listContainer.appendChild(subject0);
+			
 			
 			container.innerHTML 	+= '<input type="button" onclick="addSubject();" value="weiteres Fach">';
 	}
-	else if(auswahl == "2")
+	else if(selectSwitch == "2")
 	{
 
-			subjectTop 				= document.createElement('div');
+			//selectionTop.innerHTML 	+= subjectSource.innerHTML;
+
+			selectionTop.appendChild(subject0);
+
+			listContainer.appendChild(teacher0);
 			
-			subjectTop.id 			= 'subjectList';
-			subjectTop.className 	= 'selectTop';
-			
-			subjectTop.innerHTML 	= subjectSource.innerHTML;
-			container.appendChild(subjectTop);
-				
-			
-			teacherContainer		= document.createElement('div');
-			teacherContainer.id 	= 'teacherContainer';
-			teacherContainer.className 	= 'selectContainer';
-			
-			container.appendChild(teacherContainer);
-			
-			teacher0				= document.createElement('div');
-			teacher0.id 			= 'teacher0';
-			teacherContainer.appendChild(teacher0);
-			teacher0.innerHTML		= teacherSource.innerHTML;
 			
 			container.innerHTML 	+= '<input type="button" onclick="addTeacher();" value="weiterer Lehrer">';
-	
-			subjectUnset = false;
-	
-			
-		
+
 
 	}
 
@@ -68,28 +61,27 @@ function ordnung(auswahl)
 function addSubject()
 {
 
-		subjectContainer 	= document.getElementById('subjectContainer'); 
-		newSubject 		= document.createElement('div');
-		subjectContainer.appendChild(newSubject);
-		newSubject.id	= 'subject'+subjectzaehler;
-		newSubject.innerHTML = document.getElementById('subjectSource').innerHTML;
-		subjectzaehler++;
+		subject					= document.createElement('select');
+		subject.id 				= 'id_subject'+szaehler;
+		subject.name			= 'subject['+szaehler+']';
+		subject.innerHTML		= subjectSource.innerHTML;
+		
+		document.getElementById('listContainer').appendChild(subject);
+		szaehler++;
+		
+		
 
 }
 function addTeacher()
 {
+		teacher					= document.createElement('select');
+		teacher.id 				= 'id_teacher'+tzaehler;
+		teacher.name			= 'teacher['+tzaehler+']';
+		teacher.innerHTML		= teacherSource.innerHTML;
+		
+		document.getElementById('listContainer').appendChild(teacher);
+		tzaehler++;
 
-		teacherContainer 	= document.getElementById('teacherContainer'); 
-		newTeacher 		= document.createElement('div');
-		teacherContainer.appendChild(newTeacher);
-		newTeacher.id	= 'teacher'+teacherzaehler;
-		newTeacher.innerHTML = document.getElementById('teacherSource').innerHTML;
-		teacherzaehler++;
-
-}
-function disable(object)
-{
-	document.getElementById(object).disabled="true";
 }
 
 function resetList()

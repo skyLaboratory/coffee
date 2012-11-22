@@ -282,7 +282,7 @@ class view
 		$selection = "";
 		foreach($array as $part)
 		{
-			$selection .= "<option id=".$part['id'].">".$part['name']."</option>";
+			$selection .= "<option value=".$part['id'].">".$part['name']."</option>";
 			
 		}
 		return $selection;
@@ -293,7 +293,7 @@ class view
 		$output = '
 		<form method="post" action="?v=teacher-subject&a=addSubjectTeacher">
 		<p>Zuordnung nach:
-			<select name="auswahl" id="auswahl" size="1" onchange="ordnung(this.form.auswahl.options[this.form.auswahl.selectedIndex].value)">
+			<select id="selectSwitch" size="1" onchange="ordnung()">
 				<option selected >------------</option>
 				<option value="1">Lehrer->F&auml;cher</option>
 				<option value="2">F&auml;cher->Lehrer</option>
@@ -301,23 +301,27 @@ class view
 			<input type="button" value="Reset" onclick="resetList()">
 		</p>
 		<div id="chooseContainer">
-		
+			<div id="selectionTop">
+			</div>
+			<div id="listContainer">
+			</div>
 		</div>
 	    <hr>
 	<input type="submit" value="Absenden">
     </form>
-    
-	<div id="teacherSource" style="display:none">
-		<select name="teacherlist[]" size="1">
-			<option id="0" selected>---</option>
-			'.$this->selctionList($teacherList).'
-		</select>
-	</div>
-	<div id="subjectSource" style="display:none">
-		<select name="subjetlist[]" size="1">
-			<option id="0" selected>---</option>
-			'.$this->selctionList($subjectList).'
-		</select>
+    <div id="source" style="display:none">    
+		<div id="teacherSource">
+			<select id="teacherlist" size="1">
+				<option value="0" selected>---</option>
+				'.$this->selctionList($teacherList).'
+			</select>
+		</div>
+		<div id="subjectSource">
+			<select id="subjectlist"  size="1">
+				<option value="0" selected>---</option>
+				'.$this->selctionList($subjectList).'
+			</select>
+		</div>
 	</div>
 ';
 return $output;
