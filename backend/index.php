@@ -11,13 +11,14 @@ require_once("classes/class.user.php");
 require_once("classes/class.view.php");
 require_once("classes/class.teacher.php");
 require_once("classes/class.faecher.php");
-
+require_once("classes/class.zuordnung.php");
 
 $view 		= new view();
 $database	= new database();
 $user 		= new userAdministration($database);
 $teacher	= new teacher($database);
 $subject	= new subject($database);
+$teacher_subject = new teacher_subject($database);
 
 $database->databaseName = "backend";
 
@@ -111,6 +112,20 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			case "subjectDelete":
 				if($subject->deleteSubject($_GET['id']))
 					$message 		= "Fach gel&oul;scht";
+				break;
+			
+			case "addSubjectTeacher":
+				
+				$list['teacher'] = $_POST['teacherlist'];
+				$list['subject'] = $_POST['subjectlist'];
+				 
+				
+				$teacher_subject->saveCombination($_POST['auswahl'], $list);
+					
+				/*
+if($subject->deleteSubject($_GET['id']))
+					$message 		= "Fach gel&oul;scht";
+*/
 				break;
 	
 		}
