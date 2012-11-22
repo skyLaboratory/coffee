@@ -61,45 +61,38 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 	//ACTIONS
 	try
 	{
+		$messageType		= 1;
 		switch($_GET['a'])
 		{
 			case "userAddSave":
 					$userInfos 		= $_POST['user'];
 					$message		= $user->addUser($userInfos);
-					$messageType	= 1;
 				break;
 				
 			case "userEditSave":
 					$userInfos 			= $_POST['user'];
 					$userInfos['id']	= $_GET['id'];				
 					$message			= $user->editUser($userInfos);
-					$messageType		= 1;
+					
 				break;
 			
 			case "userDelete":
-				if($user->deleteUser($_GET['id']))
-					$message 		= "Benutzer gel&ouml;scht";
-	
+					$message 		= $user->deleteUser($_GET['id']);
 				break;
 			
 			case "teacherAddSave":
-				$data = $_POST['form'];
-				if($teacher->addTeacher($data))
-					$message 		= "Neuen Lehrer angelegt";
-	
+					$data = $_POST['form'];
+					$message 		= $teacher->addTeacher($data);
 				break;
 				
 			case "teacherEditSave":
-				$data 		= $_POST['form'];
-				$data['id'] = $_GET['id'];
-				if($teacher->editTeacher($data))
-					$message 		= "Lehrer bearbeitet";
+					$data 		= $_POST['form'];
+					$data['id'] = $_GET['id'];
+					$message	= $teacher->editTeacher($data);	 
 				break;
 			
 			case "teacherDelete":
-				if($teacher->deleteTeacher($_GET['id']))
-					$message 		= "Lehrer entfernt";
-	
+					$message 		= $teacher->deleteTeacher($_GET['id']);
 				break;
 				
 			case "subjectAddSave":
