@@ -84,8 +84,13 @@ class database
 			return false;
 	}
 	
-	public function entryExist($name)
-	{}
+	public function entryExist($table,$colum,$subject)
+	{
+		if($this->db->querySend("SELECT * FROM ".$table." WHERE colum = $subject"))
+			return true;
+		else 
+			return false;
+	}
 	
 
 }

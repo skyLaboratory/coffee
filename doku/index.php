@@ -131,7 +131,7 @@ else
 			$info = $outputAPI->functionsInfoFromDatabase($_GET['what']);
 			
 			echo "<div id='head'>";
-			echo "<h1>Function bearbeiten - ".$info[0]."</h1></div>";
+			echo "<h1>Funktion bearbeiten - ".$info[0]."</h1></div>";
 			echo "<div id='contentField'>";
 			echo "<div id='form'>";
 			echo "<ul><li><label>Name der Funktion:</label> <input type='text' name='name' value='".$info[0]."' /></li>";
@@ -149,6 +149,9 @@ else
 			$back = $_POST['back'];
 			$info = $_POST['info'];
 			
+			$store = new storeFunction;
+			$argsID = $store->safeArgs($args);
+			
 			if($_POST['toClass'] == 'noClass')
 			{
 				$toClass = NULL;
@@ -164,8 +167,9 @@ else
 				die();
 			}
 			
-			$store = new storeFunction;
-			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$args,3,NULL);
+			die();
+			
+			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$argsID,3,NULL);
 			$store->safeFunction();
 			header('LOCATION: index.php?error=1');
 			die();

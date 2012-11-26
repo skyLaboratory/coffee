@@ -164,5 +164,38 @@ class storeFunction
 		
 		return $array;
 	}
+	
+	public function safeArgs($arg);
+	{
+		try
+		{
+			$this->db->make_connect();
+		}
+		catch(Exeption $ex2)
+		{
+			die($e->getCode());
+		}
+		
+		$exist = existArg($arg);
+		
+		return $exist;
+	}
+	
+	public function existArg($arg);
+	{
+		try
+		{
+			$this->db->make_connect();
+		}
+		catch(Exeption $ex2)
+		{
+			die($e->getCode());
+		}
+		
+		if($this->db->querySend("SELECT * FROM args WHERE name = $arg"))
+			return true;
+		else 
+			return false;
+	}
 }
 ?>

@@ -94,7 +94,6 @@ class teacher
 			return true;
 		else 
 			return false;
-		
 	}
 	
 	public function deleteTeacher($id)
