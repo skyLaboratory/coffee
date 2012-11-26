@@ -1,15 +1,22 @@
+/* THIS FILE CONTAINS ONLY THE STRUCTURE OF THE DATABASE */
+
+DROP DATABASE `backend` IF EXISTS;
+
 CREATE DATABASE `backend` ;
 
+/* USER-ADMINISTRATION TABLE */
 CREATE TABLE `backend`.`user` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `name` VARCHAR( 500 ) NOT NULL ,
 `passwort` VARCHAR( 1000 ) NOT NULL ,
 `email` VARCHAR( 1000 ) NOT NULL ,
+`salt` TEXT NOT NULL,
 `restore` BOOL NOT NULL ,
 `restore-salt` VARCHAR( 1000 ) NOT NULL,
 UNIQUE KEY (`name`)
 ) ENGINE = MYISAM ;
 
+/* FAECHER TABLE */
 CREATE TABLE `backend`.`faecher` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `name` VARCHAR( 500 ) NOT NULL ,
@@ -36,10 +43,6 @@ CREATE TABLE `backend`.`lehrer` (
 UNIQUE KEY (`vorname`,`name`)
 ) ENGINE = MYISAM ;
 
-CREATE TABLE `backend`.`bone` (
-`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`code` TEXT NOT NULL 
-) ENGINE = MYISAM ;
 
 CREATE TABLE `backend`.`user-rights` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -49,19 +52,25 @@ CREATE TABLE `backend`.`user-rights` (
 `user` BOOL NOT NULL ,
 `guest` BOOL NOT NULL
 ) ENGINE = MYISAM ;
+/* TABLE TO DEFINE A PROXY */
+CREATE TABLE `backend`.`proxys` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `day` int(11) DEFAULT NULL,
+  `lesson` int(11) DEFAULT NULL,
+  `teacher-id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM;
 
-CREATE TABLE `backend`.`aktuelle-vertretung` (
-`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`vertretender-lehrer-id` INT NOT NULL ,
-`kranker-lehrer-id` INT NOT NULL ,
-`stunde` INT NOT NULL ,
-`fach-id`INT NOT NULL 
-) ENGINE = MYISAM ;
+CREATE TABLE `backend`.`stundenplan` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tf-id` int(11) DEFAULT NULL,
+  `stunden-id` int(11) DEFAULT NULL,
+  `klassen-id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM;
 
-CREATE TABLE `backend`.`vertetungen` (
-`lehrer-id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`stunde` INT NOT NULL ,
-`kranker-lehrer-id` INT NOT NULL ,
-`fach-id` INT NOT NULL ,
-`lehrer-fach`INT NOT NULL 
-) ENGINE = MYISAM ;
+CREATE TABLE `backend`.`felder` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM;
