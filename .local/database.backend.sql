@@ -6,20 +6,23 @@ CREATE TABLE `backend`.`user` (
 `passwort` VARCHAR( 1000 ) NOT NULL ,
 `email` VARCHAR( 1000 ) NOT NULL ,
 `restore` BOOL NOT NULL ,
-`restore-salt` VARCHAR( 1000 ) NOT NULL
+`restore-salt` VARCHAR( 1000 ) NOT NULL,
+UNIQUE KEY (`name`)
 ) ENGINE = MYISAM ;
 
 CREATE TABLE `backend`.`faecher` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `name` VARCHAR( 500 ) NOT NULL ,
 `kuerzel` VARCHAR( 1000 ) NOT NULL ,
-`beschreibung` VARCHAR( 1000 ) NOT NULL 
+`beschreibung` VARCHAR( 1000 ) NOT NULL ,
+UNIQUE KEY (`name`)
 ) ENGINE = MYISAM ;
 
 CREATE TABLE `backend`.`lehrer-faecher`(
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `lehrer-id` INT NOT NULL ,
-`fach-id`INT NOT NULL 
+`fach-id`INT NOT NULL ,
+UNIQUE KEY (`lehrer-id`, `fach-id`)
 ) ENGINE = MYISAM ;
 
 CREATE TABLE `backend`.`lehrer` (
@@ -27,8 +30,10 @@ CREATE TABLE `backend`.`lehrer` (
 `name` VARCHAR( 500 ) NOT NULL ,
 `vorname`VARCHAR( 500 ) NOT NULL ,
 `kuerzel` VARCHAR( 500 ) NOT NULL,
+`notice` VARCHAR( 500 ) NOT NULL ,
 `email`VARCHAR( 1000 ) NOT NULL,
-`vertretungen` INT NOT NULL
+`vertretungen` INT NOT NULL,
+UNIQUE KEY (`vorname`,`name`)
 ) ENGINE = MYISAM ;
 
 CREATE TABLE `backend`.`bone` (

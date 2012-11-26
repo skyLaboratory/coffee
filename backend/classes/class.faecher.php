@@ -72,7 +72,7 @@ class subject
 
 	public function listAllSubject()
 	{
-		$userList = $this->db->queryAsAssoc("SELECT id, name, kuerzel, beschreibung FROM ".$this->tableName);
+		$userList = $this->db->queryAsAssoc("SELECT id, name, kuerzel, beschreibung FROM ".$this->tableName." ORDER BY name");
 		
 		return $userList;	
 	}
