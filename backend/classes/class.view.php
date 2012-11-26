@@ -39,10 +39,10 @@ class view
 		$output = 
 		'<div class="leftMenu">
 		<ul>
-		<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
-		<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
-		<li><a href="?v=teacher-subject">Lehrer-Fächer-Zuordnung</a>
-		</li>
+			<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
+			<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
+			<li><a href="?v=teacher-subject">Lehrer-Fächer-Zuordnung</a></li>
+			<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung anzeigen</a></li>
 		</ul>
 		</div>';
 	
@@ -327,5 +327,35 @@ class view
 return $output;
 		
 	}
+	
+	public function lfCombination($dataArray)
+	{
+		$output .= "<h2>Lehrer->Fächer</h2>\n";
+		$output .= $this->multiTable($dataArray[0]);
+		$output .= "<h2>Fächer->Lehrer</h2>\n";
+		$output .= $this->multiTable($dataArray[1]);
+		
+		return $output;
+	}
+	
+	private function multiTable($array)
+	{
+		$table = "<table>\n";	
+		foreach($array as $key=>$data)
+		{
+			$table .= "<tr><td>".$key."</td>\n";
+			$table .= "<td>\n";
+			foreach($data as $lowLevelData)
+			{
+				$table .= "<li style='list-style-type:none'>".$lowLevelData."</li>\n";
+			}
+			
+			$table .= "</td></tr>\n";
+			
+		}
+		$table .= "</table>\n";
+		return $table;
+	}
 }
+
 

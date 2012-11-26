@@ -84,10 +84,29 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 		
 	}
 	
+	public function listComnination()
+	{
+		$list = $this->db->queryAsAssoc("SELECT `lehrer`.`name` as 'lehrerName',`faecher`.`name` as 'faecherName' FROM `lehrer-faecher` 
+		INNER JOIN `faecher` ON `faecher`.`id` = `lehrer-faecher`.`fach-id`
+		INNER JOIN `lehrer` ON `lehrer`.`id`=`lehrer-faecher`.`lehrer-id`");
+		
+		foreach($list as $row)
+		{
+			$ordList[0][$row['lehrerName']][] = $row['faecherName'];
+			$ordList[1][$row['faecherName']][] = $row['lehrerName'];
+			
+		}	
+
+		return $ordList;
+
+		
+	}
+	
 	
 
 	public function getSubjectDetails($id)
 	{
+	
 		if(is_numeric($id))
 		{
 			if($userDetails = $this->db->queryAsSingelRowAssoc("SELECT * FROM ".$this->tableName." WHERE id = $id"))

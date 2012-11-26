@@ -117,13 +117,9 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			case "addSubjectTeacher":
 							
 				$message = $teacher_subject->saveCombination($_POST);
-					
-				/*
-if($subject->deleteSubject($_GET['id']))
-					$message 		= "Fach gel&oul;scht";
-*/
 				break;
-	
+			
+				
 		}
 	}
 	catch(Exception $e)
@@ -207,6 +203,14 @@ if($subject->deleteSubject($_GET['id']))
 			$contentField .= $view->viewLehrerFachZuordnung($teacher->listAllTeacher(),$subject->listAllSubject());
 			$leftMenu		.= view::viewLeftMenu();
 			break;
+			
+		case "listCombination":
+		
+			$contentField .= $view->lfCombination($teacher_subject->listComnination());
+			$leftMenu		.= view::viewLeftMenu();
+
+				break;
+
 			
 		case "home":
 		default:
