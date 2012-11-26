@@ -33,7 +33,7 @@ class database
 		$resource = mysql_query($sql);
 		if(mysql_num_rows($resource) == 0)	
 		{
-			throw new Exception("no result","0x0000002");
+			throw new Exception("No result",3);
 		}
 		
 		while($assocRow = mysql_fetch_assoc($resource))
