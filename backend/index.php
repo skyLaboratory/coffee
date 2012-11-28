@@ -235,6 +235,7 @@ else
 {	
 	//Loginpage
 	$message = $view->messageBox($message,$messageType,1);
+	$contentField  = '<div id="contentLogin">';
 	$contentField .= $view->ViewLogin();
 
 }

@@ -27,3 +27,9 @@ Leon Bergmann - 21.11.2012 21:54 Uhr
 Leon Bergmann - 21.11.2012 23:56 Uhr 
 	backend/classes/class.chooseTeacher.php
 		- write a litte algo to calculate a proxy
+		
+Leon Bergmann - 28.11.2012 11:28 Uhr 
+	backend/style_backend.css
+		- fixed the position of the LoginBox
+	backend/index.php
+		- added the LoginBox style
