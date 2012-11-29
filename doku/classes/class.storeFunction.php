@@ -87,12 +87,12 @@ class storeFunction
 		}
 		else
 		{
-			$sql   .= "UPDATE function SET ";
-			$sql   .= "name					= '".$this->funcName."', ";
-			$sql   .= "kurz-beschreibung	= '".$this->description."', ";
-			$sql   .= "version				= $this->version, ";
-			$sql   .= "date					= $now ";
-			$sql   .= "WHERE ID 			= $this->functionID;";
+			$sql   .= "UPDATE functions SET ";
+			$sql   .= "´name´				= '".$this->funcName."', ";
+			$sql   .= "´kurz-beschreibung´	= '".$this->description."', ";
+			$sql   .= "´version´			= $this->version, ";
+			$sql   .= "´date´				= $now ";
+			$sql   .= "WHERE ID				= '$this->functionID'";
 		}
 		$sql = str_replace("\t","", $sql);
 		return $sql;
@@ -114,6 +114,14 @@ class storeFunction
 		}
 		
 		
+	}
+	
+	public function updateFunction()
+	{
+		$aSQL = $this->makeFunctionSQL();
+		$this->db->querySend($aSQL);
+		
+		return $aSQL;
 	}
 	
 	// make the SQL for the args
@@ -165,7 +173,7 @@ class storeFunction
 		return $array;
 	}
 	
-	public function safeArgs($arg);
+	/*public function safeArgs($arg);
 	{
 		try
 		{
@@ -196,6 +204,6 @@ class storeFunction
 			return true;
 		else 
 			return false;
-	}
+	}*/
 }
 ?>

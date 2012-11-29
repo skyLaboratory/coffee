@@ -40,6 +40,9 @@ if(!isset($_GET['type']))
 			case 2;
 				echo "<div class='error'>Fehler beim anlegen der Funktion</div>";
 				break;
+			case 3;
+				echo "<div class='message'>Funktion geupdated</div>";
+				break;
 		}
 	}
 	
@@ -134,6 +137,8 @@ else
 			echo "<h1>Funktion bearbeiten - ".$info[0]."</h1></div>";
 			echo "<div id='contentField'>";
 			echo "<div id='form'>";
+			echo "<form action='?type=function&action=updatefunction' method='POST'>";
+			echo "<input type='hidden' name='id' value='".$_GET['what']."' />";
 			echo "<ul><li><label>Name der Funktion:</label> <input type='text' name='name' value='".$info[0]."' /></li>";
 			echo "<li><label>Args:</label> <input type='text' name='args' value='".$info[1]."' /></li>";
 			echo "<li><label>Return-Wert(e):</label> <input type='text' name='back' value='".$info[3]."' /></li>";
@@ -150,7 +155,6 @@ else
 			$info = $_POST['info'];
 			
 			$store = new storeFunction;
-			$argsID = $store->safeArgs($args);
 			
 			if($_POST['toClass'] == 'noClass')
 			{
@@ -166,18 +170,47 @@ else
 				header('LOCATION: index.php?error=2');
 				die();
 			}
-			
-			die();
-			
+
 			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$argsID,3,NULL);
 			$store->safeFunction();
+			
 			header('LOCATION: index.php?error=1');
 			die();
 		}
+		
+		if($action == 'updatefunction')
+		{
+			$name = $_POST['name'];
+			$args = $_POST['args'];
+			$back = $_POST['back'];
+			$info = $_POST['info'];
+			$id = $_POST['id'];
+			
+			$store = new storeFunction;
+			
+			if($_POST['toClass'] == 'noClass')
+			{
+				$toClass = NULL;
+			}
+			else
+			{
+				$toClass = $_POST['toClass'];
+			}
+			
+			if($toClass == 'false')
+			{
+				header('LOCATION: index.php?error=2');
+				die();
+			}
+
+			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$argsID,3,true);
+			echo $store->updateFunction();
+		
+			die();
+			header('LOCATION: index.php?error=3');
+			die();
+		}
 	}
-	
-	//header('LOCATION: index.php');
-	//die();
 }
 
 echo "</body>\n</html>";
