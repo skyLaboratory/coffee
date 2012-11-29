@@ -65,8 +65,11 @@ function addSubject()
 		subject.id 				= 'id_subject'+szaehler;
 		subject.name			= 'subject['+szaehler+']';
 		subject.innerHTML		= subjectSource.innerHTML;
+				
+		subjectOut				= document.createElement('p');
+		subjectOut.appendChild(subject);
 		
-		document.getElementById('listContainer').appendChild(subject);
+		document.getElementById('listContainer').appendChild(subjectOut);
 		szaehler++;
 		
 		
@@ -74,12 +77,16 @@ function addSubject()
 }
 function addTeacher()
 {
+		
 		teacher					= document.createElement('select');
 		teacher.id 				= 'id_teacher'+tzaehler;
 		teacher.name			= 'teacher['+tzaehler+']';
 		teacher.innerHTML		= teacherSource.innerHTML;
 		
-		document.getElementById('listContainer').appendChild(teacher);
+		teacherOut				= document.createElement('p');
+		teacherOut.appendChild(teacher);
+		
+		document.getElementById('listContainer').appendChild(teacherOut);
 		tzaehler++;
 
 }
