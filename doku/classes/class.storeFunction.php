@@ -88,10 +88,9 @@ class storeFunction
 		else
 		{
 			$sql   .= "UPDATE functions SET ";
-			$sql   .= "´name´				= '".$this->funcName."', ";
-			$sql   .= "´kurz-beschreibung´	= '".$this->description."', ";
-			$sql   .= "´version´			= $this->version, ";
-			$sql   .= "´date´				= $now ";
+			$sql   .= "`name`				= '".$this->funcName."', ";
+			$sql   .= "`kurz-beschreibung`	= '".$this->description."', ";
+			$sql   .= "`date`				= $now ";
 			$sql   .= "WHERE ID				= '$this->functionID'";
 		}
 		$sql = str_replace("\t","", $sql);
