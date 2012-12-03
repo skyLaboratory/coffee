@@ -133,12 +133,16 @@ else
 			}
 			$info = $outputAPI->functionsInfoFromDatabase($_GET['what']);
 			
+			$classesoutput = $outputAPI->showAsOption("classes",$_GET['what']);
 			echo "<div id='head'>";
 			echo "<h1>Funktion bearbeiten - ".$info[0]."</h1></div>";
 			echo "<div id='contentField'>";
 			echo "<div id='form'>";
 			echo "<form action='?type=function&action=updatefunction' method='POST'>";
 			echo "<input type='hidden' name='id' value='".$_GET['what']."' />";
+			echo "<option value='noClass'>Funktion keiner Klasse zuweisen</option>";
+			echo $classesoutput;
+			echo "</select>";
 			echo "<ul><li><label>Name der Funktion:</label> <input type='text' name='name' value='".$info[0]."' /></li>";
 			echo "<li><label>Args:</label> <input type='text' name='args' value='".$info[1]."' /></li>";
 			echo "<li><label>Return-Wert(e):</label> <input type='text' name='back' value='".$info[3]."' /></li>";
@@ -206,7 +210,6 @@ else
 			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$argsID,3,true);
 			echo $store->updateFunction();
 		
-			die();
 			header('LOCATION: index.php?error=3');
 			die();
 		}

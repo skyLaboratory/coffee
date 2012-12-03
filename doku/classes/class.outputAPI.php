@@ -108,7 +108,7 @@ class outputAPI
         return $result;
     }
 	
-	public function showAsOption($what)
+	public function showAsOption($what,$id = false)
 	{
 		try
 		{
@@ -127,7 +127,18 @@ class outputAPI
 			
 			for($i=0;$i<=$dem;$i++)
 			{
-				@$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
+				if($id == false)
+				{
+					@$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
+				}
+				elseif($id == $WorkArray[$i]["id"])
+				{
+					@$result .= "<option value='".$WorkArray[$i]["id"]."' checked>".$WorkArray[$i]["name"]."</option>\n";
+				}
+				else
+				{
+					@$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
+				}
 			}
 			return $result;
 		}
