@@ -47,7 +47,9 @@ class chooseTeacher
 		{
 			$value = 100;
 		}
-
+		
+		$value = $value - ($_DATA['h'] / 100);
+		
 		return $value;	
 	}
 	
