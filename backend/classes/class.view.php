@@ -41,8 +41,8 @@ class view
 		<ul>
 			<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
 			<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
-			<li><a href="?v=teacher-subject">Lehrer-Fächer-Zuordnung</a></li>
-			<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung anzeigen</a></li>
+			<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung verwalten</a></li>
+			<li><a href="?v=proxy">Vertretungsstunden</a></li>
 		</ul>
 		</div>';
 	
@@ -282,7 +282,7 @@ class view
 		$selection = "";
 		foreach($array as $part)
 		{
-			$selection .= "<option value=".$part['id'].">".$part['name']."</option>";
+			$selection .= "				<option value=".$part['id'].">".$part['name']."</option>\n";
 			
 		}
 		return $selection;
@@ -312,15 +312,15 @@ class view
     <div id="source" style="display:none">    
 		<div id="teacherSource">
 			<select id="teacherlist" size="1">
-				<option value="0" selected>---</option>
-				'.$this->selctionList($teacherList).'
-			</select>
+				<option value="0" selected>---</option>'
+				.$this->selctionList($teacherList).
+				'</select>
 		</div>
 		<div id="subjectSource">
 			<select id="subjectlist"  size="1">
-				<option value="0" selected>---</option>
-				'.$this->selctionList($subjectList).'
-			</select>
+				<option value="0" selected>---</option>\n'
+				.$this->selctionList($subjectList).
+			'</select>
 		</div>
 	</div>
 ';
@@ -347,7 +347,7 @@ return $output;
 			$table .= "<td>\n";
 			foreach($data as $lowLevelData)
 			{
-				$table .= "<li style='list-style-type:none'>".$lowLevelData."</li>\n";
+				$table .= "<li style='list-style-type:none'>".$lowLevelData[0]." <a onclick='if(!confirm(\"Zuweisung `".$key." - ".$lowLevelData[0]."` entfernen?\")) return false;' href=?v=".$_GET['v']."&a=delete-subject-teacher&id=".$lowLevelData[1]." style='padding-left: 10px;float: right'>x</a></li>\n";
 			}
 			
 			$table .= "</td></tr>\n";
@@ -355,6 +355,35 @@ return $output;
 		}
 		$table .= "</table>\n";
 		return $table;
+	}
+	
+	public function viewProxy($teacherList)
+	{
+		$output = "<h2>Vertretbare Stunden</h2>";
+	$output .= '<form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
+		<p>Lehrer:<select name="teacher" size="1">
+				<option value="0" selected>---</option>'
+				.$this->selctionList($teacherList).
+				'</select></p>';
+			
+		$output .= '<p>Tag:
+			<select name="tag" size="1">
+			<option value="0" selected>---</option>\n
+			<option value="1">Montag</option>\n
+			<option value="2">Dienstag</option>\n
+			<option value="3">Mittwoch</option>\n
+			<option value="4">Donnerstag</option>\n
+			<option value="5">Freitag</option>\n
+			<option value="6">Samstag</option>\n
+			<option value="7">Sonntag</option>\n
+			</select></p>
+			<p>Stunde/n: <i>(Schema: 9-10) </i><input type="date" size="5" maxlength="5" name="stunde" >
+			<input type="submit" value="Absenden">
+			';				
+		return $output;
+			
+		
+		
 	}
 }
 

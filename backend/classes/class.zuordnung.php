@@ -106,14 +106,13 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 	
 	public function listComnination()
 	{
-		$list = $this->db->queryAsAssoc("SELECT `lehrer`.`name` as 'lehrerName',`faecher`.`name` as 'faecherName' FROM `lehrer-faecher` 
+		$list = $this->db->queryAsAssoc("SELECT `lehrer`.`name` as 'lehrerName',`faecher`.`name` as 'faecherName', `lehrer-faecher`.`id` FROM `lehrer-faecher` 
 		INNER JOIN `faecher` ON `faecher`.`id` = `lehrer-faecher`.`fach-id`
 		INNER JOIN `lehrer` ON `lehrer`.`id`=`lehrer-faecher`.`lehrer-id`");
-		
 		foreach($list as $row)
 		{
-			$ordList[0][$row['lehrerName']][] = $row['faecherName'];
-			$ordList[1][$row['faecherName']][] = $row['lehrerName'];
+			$ordList[0][$row['lehrerName']][] = array($row['faecherName'],$row['id']);
+			$ordList[1][$row['faecherName']][] = array($row['lehrerName'],$row['id']);
 			
 		}	
 
@@ -160,12 +159,12 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 		
 	}
 	
-	public function deleteSubject($id)
+	public function deleteZuordnung($id)
 	{
 		if(!is_numeric($id)) return false; 
 		
 		if($this->db->querySend("DELETE FROM `".$this->tableName."` WHERE `id` = $id"))
-			return true;
+			return "Zuordnung entfernt";
 		else
 			return false;
 		

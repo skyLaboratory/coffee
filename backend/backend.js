@@ -2,6 +2,9 @@
 	subjectUnset	= true;
 	szaehler = 1;
 	tzaehler = 1;
+	zaehler = Array();
+	zaehler['teacher'] = 0;
+	zaehler['subject'] = 0;
 	
 function ordnung()
 {	
@@ -37,10 +40,10 @@ function ordnung()
 
 			selectionTop.appendChild(teacher0);
 			
-			listContainer.appendChild(subject0);
+
+			addNext('subject');
 			
-			
-			container.innerHTML 	+= '<input type="button" onclick="addSubject();" value="weiteres Fach">';
+			container.innerHTML 	+= '<input type="button" onclick="addNext(\'subject\');" value="weiteres Fach">';
 	}
 	else if(selectSwitch == "2")
 	{
@@ -49,53 +52,37 @@ function ordnung()
 
 			selectionTop.appendChild(subject0);
 
-			listContainer.appendChild(teacher0);
+			addNext('teacher');
 			
-			
-			container.innerHTML 	+= '<input type="button" onclick="addTeacher();" value="weiterer Lehrer">';
+			container.innerHTML 	+= '<input type="button" onclick="addNext(\'teacher\');" value="weiterer Lehrer">';
 
 
 	}
 
 }
-function addSubject()
-{
 
-		subject					= document.createElement('select');
-		subject.id 				= 'id_subject'+szaehler;
-		subject.name			= 'subject['+szaehler+']';
-		subject.innerHTML		= subjectSource.innerHTML;
-				
-		subjectOut				= document.createElement('p');
-		subjectOut.appendChild(subject);
-		
-		document.getElementById('listContainer').appendChild(subjectOut);
-		szaehler++;
-		
-		
-
-}
-function addTeacher()
+function addNext(sort)
 {
 		
-		teacher					= document.createElement('select');
-		teacher.id 				= 'id_teacher'+tzaehler;
-		teacher.name			= 'teacher['+tzaehler+']';
-		teacher.innerHTML		= teacherSource.innerHTML;
+		obj					= document.createElement('select');
+		obj.id 				= 'id_'+sort+zaehler[sort];
+		obj.name			= sort+'['+zaehler[sort]+']';
+		obj.innerHTML		= document.getElementById(sort+'list').innerHTML;
 		
-		teacherOut				= document.createElement('p');
-		teacherOut.appendChild(teacher);
+		objOut				= document.createElement('p');
+		objOut.appendChild(obj);
 		
-		document.getElementById('listContainer').appendChild(teacherOut);
-		tzaehler++;
+		document.getElementById('listContainer').appendChild(objOut);
+		zaehler[sort]++;
 
 }
+
 
 function resetList()
 {
 	if(confirm('Reset?'))
 	{
-		document.getElementById('auswahl').disabled = "false";
+		//document.getElementById('auswahl').disabled = "false";
 		//window.location.reload();
 		
 	}

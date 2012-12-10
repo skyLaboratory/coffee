@@ -12,6 +12,7 @@ require_once("classes/class.view.php");
 require_once("classes/class.teacher.php");
 require_once("classes/class.faecher.php");
 require_once("classes/class.zuordnung.php");
+require_once("classes/class.stunden.php");
 
 $view 		= new view();
 $database	= new database();
@@ -19,6 +20,7 @@ $user 		= new userAdministration($database);
 $teacher	= new teacher($database);
 $subject	= new subject($database);
 $teacher_subject = new teacher_subject($database);
+$teacher_lession = new teacher_lession($database);
 
 $database->databaseName = "backend";
 
@@ -66,30 +68,30 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 		switch($_GET['a'])
 		{
 			case "userAddSave":
-					$userInfos 		= $_POST['user'];
-					$message		= $user->addUser($userInfos);
+				$userInfos 		= $_POST['user'];
+				$message		= $user->addUser($userInfos);
 				break;
 				
 			case "userEditSave":
-					$userInfos 			= $_POST['user'];
-					$userInfos['id']	= $_GET['id'];				
-					$message			= $user->editUser($userInfos);
+				$userInfos 			= $_POST['user'];
+				$userInfos['id']	= $_GET['id'];				
+				$message			= $user->editUser($userInfos);
 					
 				break;
 			
 			case "userDelete":
-					$message 		= $user->deleteUser($_GET['id']);
+				$message 		= $user->deleteUser($_GET['id']);
 				break;
 			
 			case "teacherAddSave":
-					$data = $_POST['form'];
-					$message 		= $teacher->addTeacher($data);
+				$data = $_POST['form'];
+				$message 		= $teacher->addTeacher($data);
 				break;
 				
 			case "teacherEditSave":
-					$data 		= $_POST['form'];
-					$data['id'] = $_GET['id'];
-					$message	= $teacher->editTeacher($data);	 
+				$data 		= $_POST['form'];
+				$data['id'] = $_GET['id'];
+				$message	= $teacher->editTeacher($data);	 
 				break;
 			
 			case "teacherDelete":
@@ -117,6 +119,15 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			case "addSubjectTeacher":
 							
 				$message = $teacher_subject->saveCombination($_POST);
+				break;
+				
+			case "delete-subject-teacher":
+							
+				$message = $teacher_subject->deleteZuordnung($_GET['id']);
+				break;
+				
+			case "saveTeacherProxy":		
+				$message = $teacher_lession->saveCombination($_POST);
 				break;
 			
 				
@@ -208,11 +219,15 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				break;
 				
 			case "listCombination":
-			
+				$contentField .= "<h2>Lehrer-F&auml;cher-Zuordnung</h2><ul><a href='?v=teacher-subject'>Zuordnung hinzuf&uuml;gen</a><h3>Zuordnung</h3><ul>";
 				$contentField .= $view->lfCombination($teacher_subject->listComnination());
 				$leftMenu		.= view::viewLeftMenu();
-	
-					break;
+				break;
+
+			case "proxy":
+				$contentField 	.= $view->viewProxy($teacher->listAllTeacher());
+				$leftMenu		.= view::viewLeftMenu();
+				break;
 	
 				
 			case "home":
