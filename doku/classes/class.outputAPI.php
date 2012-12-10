@@ -211,7 +211,14 @@ class outputAPI
 		
 		return $result;
 	}
-	
+ 
+	public function makeStringAnArray($string)
+	{
+		$arr = explode(',', $string);
+		$array = array_map('trim', $arr);
+		
+		return $array;
+	}
 } 
 
 ?>

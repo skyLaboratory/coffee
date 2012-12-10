@@ -72,7 +72,7 @@ else
 			echo "<h1>Hinzufügen einer Klasse</h1></div>";
 			echo "<div id='contentField'><a href='index.php'>Zur&uuml;ck</a>";
 			echo "<div id='form'>";
-			echo "<form action='' method='POST'>";
+			echo "<form action='?type=class&action=safeclass' method='POST'>";
 			echo "<ul><li><label>Name der Klasse:</label><input type='text' name='name' /></li>";
 			echo "<li><label>Version:</lable><input type='text' name='version' /></li>";
 			echo "<li><label>Args:</label><input type='text' name='args' /></li>";
@@ -100,6 +100,20 @@ else
 			echo "<li><input type='submit' value='Klasse bearbeiten' /></li>";
 			echo "</form></div>";
 			die();
+		}
+		
+		if($action == 'safeclass')
+		{
+			$store 		= new storeFunction;
+			$output 	= new outputAPI;
+			$args 		= $output->makeStringAnArray($_POST['args']);
+			$counted	= count($args);
+			
+			for($i=0;$i<$counted;$i++)
+			{
+				$aktualarg = $args[$i];
+				$argsID = $store->makeArgsID($aktualarg);
+			}
 		}
 	}
 	
