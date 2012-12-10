@@ -39,7 +39,7 @@ if(!isset($_GET['type']))
 				echo "<div class='message'>Funktion angelegt</div>";
 				break;
 			case 2;
-				echo "<div class='error'>Fehler beim anlegen der Funktion</div>";
+				echo "<div class='error'>Fehler beim anlegen/updaten der Funktion</div>";
 				break;
 			case 3;
 				echo "<div class='message'>Funktion geupdated</div>";
@@ -160,19 +160,19 @@ else
 			
 			$store = new storeFunction;
 			
+			if($_POST['toClass'] == 'false')
+			{
+				header('LOCATION: index.php?error=2');
+				die();
+			}
+			
 			if($_POST['toClass'] == 'noClass')
 			{
-				$toClass = NULL;
+				$toClass = 0;
 			}
 			else
 			{
 				$toClass = $_POST['toClass'];
-			}
-			
-			if($toClass == 'false')
-			{
-				header('LOCATION: index.php?error=2');
-				die();
 			}
 
 			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$argsID,3,NULL);
@@ -192,24 +192,24 @@ else
 			
 			$store = new storeFunction;
 			
+			if($_POST['toClass'] == 'false')
+			{
+				header('LOCATION: index.php?error=2');
+				die();
+			}
+			
 			if($_POST['toClass'] == 'noClass')
 			{
-				$toClass = NULL;
+				$toClass = 0;
 			}
 			else
 			{
 				$toClass = $_POST['toClass'];
 			}
 			
-			if($toClass == 'false')
-			{
-				header('LOCATION: index.php?error=2');
-				die();
-			}
-			
 			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$argsID,3,true);
-			echo $store->updateFunction();
-			die();
+			$store->updateFunction();
+			
 			header('LOCATION: index.php?error=3');
 			die();
 		}
