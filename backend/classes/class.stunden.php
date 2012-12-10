@@ -5,7 +5,8 @@
 class teacher_lession
 {
 	private $db;
-	public $tableName = "lehrer-stunden";
+	public $maxStunden = 12;
+	public $tableName = "lehrer-freie-stunden";
 	
 	
 	public function __construct($database)
@@ -25,29 +26,59 @@ class teacher_lession
 	{
 		$wochentage = array(1=>"Montag",2=>"Dienstag",3=>"Mittwoch",4=>"Donnerstag",5=>"Freitag",6=>"Samstag",7=>"Sonntag");
 				
-		$timecodeSplit = explode('x', $timecode);
-		if(empty($timecode) or $timecodeSplit[0] < 1 or $timecodeSplit[0] > 7 or $timecodeSplit[1] < 1 or  $timecodeSplit[1] > 12)
-			die('Eingabe fehlerhaft!');
+		
+		$this->checkTimecode($timecode);
 			
+		$timecodeSplit = explode('x', $timecode);	
 		$tag 	= $wochentage[$timecodeSplit[0]];
 		$stunde = $timecodeSplit[1];
 		
 		return "Am ".$tag." in der ".$stunde.". Stunde";
-	
-
-		
+			
 	}
+	
+	private function checkFormDate($stunde)
+	{
+		$stunde = preg_replace("/[^0-9-]/" ,"" , $stunde);
+		if(is_numeric($stunde) && strlen($stunde) <= 2 && $stunde >= 1 && $stunde <= 12)
+		{
+			return array($stunde);
+		}
+		else
+		{
+			//Möglicherweise mit Komma getrennte mehrfach auswahl		
+			$stunde = explode("-", $stunde);
+			if($stunde[0] >= 1 && $stunde[0] < $this->maxStunden && $stunde[1] >= 1 && $stunde[1] <= $this->maxStunden && $stunde[0] <= $stunde[1])
+			{
+				
+				for($i=$stunde[0];$i<=$stunde[1];$i++)
+				{
+					$std_array[] = $i;
+				}
+								
+			}
+				return $std_array; 
+				//implode(",", $std_array);	
+		}	
+	}
+	
 	public function saveCombination($form)
 	{
 		//$this->checkTimecode();
+
+		//return $this->checkFormDate($form['stunde']);
+		foreach($this->checkFormDate($form['stunde']) as $einzelneStunde)
+		{
+			$timecode = $form['day']."x".$einzelneStunde;
+			$sqlData[] = "('".$form['teacher']."','".$timecode."')";
+			
+		}
+		return $sql = "Insert INTO `".$this->tableName."` (`lehrer-id`,`timecode`) VALUES ".implode(", ", $sqlData);
 		
-		if(!is_numeric($form['switch']))
-			return false;
-			
-			
 	//throw new Exception("Datenbankfehler.", 3);
 				
 	}
+	
 	private function lfZuordnungQuerySend($sqlData)
 	{
 		$sql = "Insert INTO `".$this->tableName."` (`lehrer-id`,`fach-id`) VALUES ".implode(", ", $sqlData);

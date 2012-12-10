@@ -291,7 +291,7 @@ class view
 	public function viewLehrerFachZuordnung($teacherList,$subjectList)
 	{
 		$output = '
-		<form method="post" action="?v=teacher-subject&a=addSubjectTeacher">
+		<form method="post" action="?v=listCombination&a=addSubjectTeacher">
 		<p>Zuordnung nach:
 			<select id="selectSwitch" size="1" onchange="ordnung()">
 				<option selected >------------</option>
@@ -367,17 +367,17 @@ return $output;
 				'</select></p>';
 			
 		$output .= '<p>Tag:
-			<select name="tag" size="1">
-			<option value="0" selected>---</option>\n
-			<option value="1">Montag</option>\n
-			<option value="2">Dienstag</option>\n
-			<option value="3">Mittwoch</option>\n
-			<option value="4">Donnerstag</option>\n
-			<option value="5">Freitag</option>\n
-			<option value="6">Samstag</option>\n
-			<option value="7">Sonntag</option>\n
+			<select name="day" size="1">
+				<option value="0" selected>---</option>\n
+				<option value="1">Montag</option>\n
+				<option value="2">Dienstag</option>\n
+				<option value="3">Mittwoch</option>\n
+				<option value="4">Donnerstag</option>\n
+				<option value="5">Freitag</option>\n
+				<option value="6">Samstag</option>\n
+				<option value="7">Sonntag</option>\n
 			</select></p>
-			<p>Stunde/n: <i>(Schema: 9-10) </i><input type="date" size="5" maxlength="5" name="stunde" >
+			<p>Stunde/n: <i>(Erlaubt: Stunden von 1 bis 12 oder Zeiträume 1-12) </i><input type="text" size="5" maxlength="5" name="stunde" >
 			<input type="submit" value="Absenden">
 			';				
 		return $output;
