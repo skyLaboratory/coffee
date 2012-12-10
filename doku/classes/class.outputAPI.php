@@ -121,26 +121,25 @@ class outputAPI
 		
 		try
 		{
-			$result = "";
-			$WorkArray = $this->db->queryAsAssoc("SELECT name,id FROM ".$what);
-			$dem = count($WorkArray);
-			
-			for($i=0;$i<=$dem;$i++)
+			if(!$id)
 			{
-				if($id == false)
+				$result = "";
+				$WorkArray = $this->db->queryAsAssoc("SELECT name,id FROM ".$what);
+				$dem = count($WorkArray);
+			
+				for($i=0;$i<=$dem;$i++)
 				{
 					@$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
 				}
-				elseif($id == $WorkArray[$i]["id"])
-				{
-					@$result .= "<option value='".$WorkArray[$i]["id"]."' checked>".$WorkArray[$i]["name"]."</option>\n";
-				}
-				else
-				{
-					@$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
-				}
+				return $result;
 			}
-			return $result;
+			else
+			{
+				$result = "";
+				$WorkArray = $this->queryAsSingelRowAssoc("SELECT name,id FROM classes WHERE id = ".$id);
+				
+				return $WorkArray;
+			}
 		}
 		catch(Exception $e)
 		{

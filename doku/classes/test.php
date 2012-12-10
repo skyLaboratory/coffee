@@ -10,10 +10,10 @@ $args['Name'][2]  = "Number";
 $store->safeAndValidateData("echo","Gibt eine Variable aus",1,1,1,"output of Value",1,1,$args,3,NULL);
 $store->safeFunction(); */
 
-require_once("class.storeFunction.php");
+require_once("class.outputAPI.php");
 
-$store = new storeFunction;
-$argsID = $store->existArg($args);
+$output = new outputAPI;
+echo $output->showAsOption("classes",1);
 
 
 ?>

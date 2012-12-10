@@ -133,7 +133,7 @@ else
 			}
 			$info = $outputAPI->functionsInfoFromDatabase($_GET['what']);
 			
-			$classesoutput = $outputAPI->showAsOption("classes",$_GET['what']);
+			$classesoutput = $outputAPI->showAsOption("functions",$_GET['what']);
 			echo "<div id='head'>";
 			echo "<h1>Funktion bearbeiten - ".$info[0]."</h1></div>";
 			echo "<div id='contentField'>";
