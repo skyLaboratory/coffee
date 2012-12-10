@@ -1,7 +1,8 @@
 ﻿<?php
 //Autor: Patrick Kellenter
 //Datum: 08.11.2012 - 17:30 Uhr
-//Update: Leon Bergmann - 14.11.2012 11:54 Uhr 
+//Update: Patrick Kellenter - 10.12.2012 13:09 Uhr
+error_reporting(0);
 require_once('classes/class.outputAPI.php');
 require_once('classes/class.storeFunction.php');
 $outputAPI = new outputAPI;
@@ -69,7 +70,7 @@ else
 		{
 			echo "<div id='head'>";
 			echo "<h1>Hinzufügen einer Klasse</h1></div>";
-			echo "<div id='contentField'>";
+			echo "<div id='contentField'><a href='index.php'>Zur&uuml;ck</a>";
 			echo "<div id='form'>";
 			echo "<form action='' method='POST'>";
 			echo "<ul><li><label>Name der Klasse:</label><input type='text' name='name' /></li>";
@@ -90,7 +91,7 @@ else
 			
 			echo "<div id='head'>";
 			echo "<h1>Klasse bearbeiten - ".$info[0]."</h1>";
-			echo "<div id='contentField'>";
+			echo "<div id='contentField'><a href='index.php'>Zur&uuml;ck</a>";
 			echo "<div id='form'>";
 			echo "<form action='' method='POST'>";
 			echo "<ul><li><label>Name der Klasse:</label><input type='text' name='name' value='".$info[0]."' /></li>";
@@ -110,7 +111,7 @@ else
 			$classesoutput = $outputAPI->showAsOption("classes");
 			echo "<div id='head'>";
 			echo "<h1>Hinzufügen einer Funktion</h1></div>";
-			echo "<div id='contentField'>";
+			echo "<div id='contentField'><a href='index.php'>Zur&uuml;ck</a>";
 			echo "<div id='form'>";
 			echo "<form action='?type=function&action=safefunction' method='POST'>Bitte Klasse auswählen: <select name='toClass'>";
 			echo "<option value='noClass'>Funktion keiner Klasse zuweisen</option>";
@@ -133,14 +134,13 @@ else
 			}
 			$info = $outputAPI->functionsInfoFromDatabase($_GET['what']);
 			
-			$classesoutput = $outputAPI->showAsOption("functions",$_GET['what']);
+			$classesoutput = $outputAPI->showAsOption("classes",$info[5]);
 			echo "<div id='head'>";
 			echo "<h1>Funktion bearbeiten - ".$info[0]."</h1></div>";
-			echo "<div id='contentField'>";
+			echo "<div id='contentField'><a href='index.php'>Zur&uuml;ck</a>";
 			echo "<div id='form'>";
 			echo "<form action='?type=function&action=updatefunction' method='POST'>";
-			echo "<input type='hidden' name='id' value='".$_GET['what']."' />";
-			echo "<option value='noClass'>Funktion keiner Klasse zuweisen</option>";
+			echo "<input type='hidden' name='id' value='".$_GET['what']."' /><select name='toClass'>";
 			echo $classesoutput;
 			echo "</select>";
 			echo "<ul><li><label>Name der Funktion:</label> <input type='text' name='name' value='".$info[0]."' /></li>";
@@ -206,10 +206,10 @@ else
 				header('LOCATION: index.php?error=2');
 				die();
 			}
-
+			
 			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$argsID,3,true);
 			echo $store->updateFunction();
-		
+			die();
 			header('LOCATION: index.php?error=3');
 			die();
 		}

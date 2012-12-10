@@ -108,7 +108,7 @@ class outputAPI
         return $result;
     }
 	
-	public function showAsOption($what,$id = false)
+	public function showAsOption($what,$classIDgiven = NULL)
 	{
 		try
 		{
@@ -121,25 +121,36 @@ class outputAPI
 		
 		try
 		{
-			if(!$id)
-			{
-				$result = "";
-				$WorkArray = $this->db->queryAsAssoc("SELECT name,id FROM ".$what);
-				$dem = count($WorkArray);
+			$result = "";
+			$WorkArray = $this->db->queryAsAssoc("SELECT name,id FROM ".$what);
+			$dem = count($WorkArray);
 			
-				for($i=0;$i<=$dem;$i++)
-				{
-					@$result .= "<option value='".$WorkArray[$i]["id"]."'>".$WorkArray[$i]["name"]."</option>\n";
-				}
-				return $result;
-			}
-			else
+			if(!is_null($classIDgiven))
 			{
-				$result = "";
-				$WorkArray = $this->queryAsSingelRowAssoc("SELECT name,id FROM classes WHERE id = ".$id);
-				
-				return $WorkArray;
+				$result .= "<option value='noClass'";
+					
+				if($classIDgiven == 0)
+				{
+					$result .= " selected";
+				}
+					
+				$result .= ">Funktion keiner Klasse zuweisen</option>";
 			}
+			
+			for($i=0;$i<=$dem;$i++)
+			{
+				@$result .= "<option value='".$WorkArray[$i]["id"]."' ";
+				if(!is_null($classIDgiven))
+				{
+					if($classIDgiven == $WorkArray[$i]["id"] AND !$classIDgiven == 0 AND !is_null($classIDgiven))
+					{
+						$result .= "selected";
+					}
+				}
+				@$result .= ">".$WorkArray[$i]["name"]."</option>\n";
+			}
+			
+			return $result;
 		}
 		catch(Exception $e)
 		{
@@ -175,6 +186,7 @@ class outputAPI
 		$result[2] = $WorkArray[0]["kurz-beschreibung"];
 		$result[3] = $WorkArray[0]["return-wert"];
 		$result[4] = $id;
+		$result[5] = $WorkArray[0]["class-id"];
 		
 		return $result;
 	}
