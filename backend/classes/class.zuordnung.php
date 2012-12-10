@@ -1,7 +1,7 @@
 <?php
 // Autor: Florian Giller
 // Date : 15.11.2012
-
+// Update: Leon Bergmann - 10.12.2012 08:39 Uhr 
 class teacher_subject
 {
 	private $db;
@@ -132,14 +132,16 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 			if($userDetails = $this->db->queryAsSingelRowAssoc("SELECT * FROM ".$this->tableName." WHERE id = $id"))
 			{
 				return $userDetails;
-				
-				
 			}
-			
-			else return false;
+			else 
+			{
+				return false;
+			}
 		}
-		
-		else return false;	
+		else
+		{
+			return false;	
+		}
 	}
 
 	public function listAllSubject()

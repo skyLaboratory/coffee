@@ -2,11 +2,11 @@
 <project>
 	<name>Vertretungsplan</name>
 	
-	<version>0.0.1</version>
+	<version>0.1</version>
 	
-	<status>Planing</status>
+	<status>Working</status>
 	
-	<lastEdit>Leon Bergmann - 07.11.2012 14:44 Uhr</lastEdit>
+	<lastEdit>Leon Bergmann - 10.12.2012 08:25 Uhr </lastEdit>
 	
 	<lastVersionUpdate>false</lastVersionUpdate>
 	
@@ -14,7 +14,6 @@
 		<authorSub>Leon Bergmann</authorSub>
 		<authorSub>Florian Giller</authorSub>
 		<authorSub>Patrick Kellenter</authorSub>
-		<authorSub>Michael Baumgarten</authorSub>
 	</author>
 	
 	<copyright>
@@ -27,7 +26,7 @@
 	
 	<database>
 		<server>Mysql - 5.8.x</server>
-		<connect>PDO | Msqli | php</connect>
+		<connect>PHP | MYSQL | MYSQLI</connect>
 		
 		<security>
 			<user></user>
