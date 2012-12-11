@@ -2,7 +2,7 @@
 //Autor: Patrick Kellenter
 //Datum: 08.11.2012 - 17:30 Uhr
 //Update: Patrick Kellenter - 10.12.2012 13:09 Uhr
-error_reporting(0);
+error_reporting(-1);
 require_once('classes/class.outputAPI.php');
 require_once('classes/class.storeFunction.php');
 $outputAPI = new outputAPI;
@@ -111,8 +111,10 @@ else
 			
 			for($i=0;$i<$counted;$i++)
 			{
-				$aktualarg = $args[$i];
-				$argsID = $store->makeArgsID($aktualarg);
+				echo $args[$i]."<br />";
+				$argsID = $store->makeArgsID($args[$i]);
+				echo $argsID."<br />";
+				echo "<br />";
 			}
 		}
 	}

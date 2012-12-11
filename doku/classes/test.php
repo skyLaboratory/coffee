@@ -10,10 +10,11 @@ $args['Name'][2]  = "Number";
 $store->safeAndValidateData("echo","Gibt eine Variable aus",1,1,1,"output of Value",1,1,$args,3,NULL);
 $store->safeFunction(); */
 
-require_once("class.outputAPI.php");
+require_once('../../static/class.database.php');
 
-$output = new outputAPI;
-echo $output->showAsOption("classes",1);
+$database = new database;
+$database->make_connect();
 
+echo mysql_num_rows("SELECT * FROM ".$table." WHERE ".$column." = '".$subject."'");
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 // Autor: Florian Giller
 // Date : 05.11.2012
-// Update: Leon Bergmann - 14.11.2012 11:54 Uhr  
+// Update: Patrick Kellenter 10.12.2012 - 20:55 Uhr
 class database
 {
 	private $connection = false;
@@ -84,13 +84,9 @@ class database
 			return false;
 	}
 	
-	public function entryExist($table,$colum,$subject)
+	public function entryExist($table,$column,$subject,$content)
 	{
-	
-		if($this->querySend("SELECT * FROM ".$table." WHERE colum = $subject"))
-			return true;
-		else 
-			return false;
+		
 	}
 	
 
