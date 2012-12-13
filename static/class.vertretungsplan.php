@@ -96,16 +96,12 @@ class vertretungsplan
        $_DATA	= $this->_DATA;
        $tmp		= array();
        
-       $count	= count($_DATA);
-       for($i = 0; $i < $count; $i++)
+       foreach ($_DATA as $row) 
        {
-	       $result	=	convertDate($array[$i]['Date']);
-	       
-	       $tmp[$result['day']][$result['hour']]['Datum']		= $_DATA[$i]['Datum'];
-	       $tmp[$result['day']][$result['hour']]['Lehrer']		= $_DATA[$i]['Lehrer'];
-	       $tmp[$result['day']][$result['hour']]['Fach']		= $_DATA[$i]['Fach'];
-	       $tmp[$result['day']][$result['hour']]['Klasse']		= $_DATA[$i]['Klasse'];
-	       $tmp[$result['day']][$result['hour']]['Vertretung'] 	= $_DATA[$i]['Vertretung'];
+
+	       	$result	=	convertDate($row['Date']);
+	       	$array[$result['day'].'<br>'.$row['Datum']][$result['hour']][] = array('Fach' => $row['Fach'], 'Klasse' => $row['Klasse'], 'Lehrer' => $row['Lehrer'], 'Vertreter' => $row['Vertretung']  );
+
 	   }
 	   
 	   $this->_DATA = $tmp;      
@@ -121,28 +117,56 @@ class vertretungsplan
      
     private function generateOutput()
     {
-	    
-	    $result = '<table class="mainTable"><tbody><tr><th>Stunden</th>';
-	    $_DATA	= $this->_DATA;
-		$Keys	= array_keys($_DATA);
-		
-		foreach($Keys as $key)
+	    $html = '<table><tr>';
+
+		foreach ($array as $key_tag => $tag) 
 		{
-			$tag	= $this->convertDate($key,true);
-			$date	= $this->convertTime($_DATA[$key]['Datum']);
-			$result .= '<th>'.$tag.'<br />'.$date.'</th>';
+		
+		    $html .= '<td><table border="1" border="black">
+		            <tbody>
+		            <tr>
+		            <th>Stunden</th>
+		            <th>'.$key_tag.'</th>
+		            </tr>';
+		            
+		    foreach ($tag as $key_stunde => $stunde)
+		    {
+		    
+		        $html .= '<tr>
+		                <td>'.$key_stunde.'.</td>
+		                <td>
+		                    <table border="1" border="black">
+		                    <tbody>
+		                        <tr>
+		                            <th>Klasse</th>
+		                            <th>Lehrer</th>
+		                            <th>Vertretung</th>
+		                        </tr>';
+		                        
+		                        foreach ($stunde as $vertretung)
+		                        {
+		                        
+		                            $html .= '<tr>
+		                                        <td>'.$vertretung['Klasse'].'</td>
+		                                        <td>'.$vertretung['Lehrer'].'</td>
+		                                        <td>'.$vertretung['Vertreter'].'</td>
+		                                    </tr>';
+		                                    
+		                        }
+		                        
+		        $html .=    '</tbody>
+		                    </table>
+		                </td>
+		            </tr>';
+		            
+		    }
+		            
+		    $html .= '</tbody>
+		            </table></td>';
+		            
 		}
 		
-		$result	.= '</tr>';
-		
-		foreach($Keys as $key)
-		{
-			$stunde	= $this->convertDate($key,false,true);
-			$table	= $this->subTable($_DATA[$key]);
-			$result .= '<tr>';
-			$result .= '<td>'.$stunde.'</td>';
-			$result .= '</tr>'
-		}
+		return  $html."</tr><table>"; 
     }
 }
 ?>
