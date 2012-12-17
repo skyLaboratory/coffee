@@ -69,26 +69,85 @@ class email
 		}			
 	}
 	
-	private function prepareMassMail()
+	/**
+	 * prepareMail function.
+	 * 
+	 * @access private
+	 * @return array
+	 */
+	public function prepareMail()
 	{
-		if(!is_array($emails))
+		
+		if(is_null($this->sender))
+		{
+			$this->sender = 'notify@sky-lab.de';
+		}
+		
+		$header  = 'MIME-Version: 1.0' . "\r\n";
+		$header .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
+		$header .= 'X-Mailer: PHP/' . phpversion()."\r\n";	
+		
+		$tmp = array();
+		if(is_array($this->email))
+		{
+			$count = count($this->email);
+			
+			for($i = 0; $i <= $count; $i++)
+			{
+				$header			   .= 'To: '.$this->name[$i].' <'.$this->email[$i].'>'."\r\n";
+				$header			   .= 'From: Notification <'.$this->sender.'>'."\r\n";
+				
+				$message			= $this->replaceName($this->content,$this->name[$i]);
+				
+				$tmp[$i]['header']	= $header; 
+				$tmp[$i]['mail']	= $this->email[$i];
+				$tmp[$i]['subject']	= $this->subject;
+				$tmp[$i]['content']	= $message;	
+			}
+		}
+		else
+		{
+				$header			   .= 'To: '.$this->name.' <'.$this->email.'>'."\r\n";
+				$header			   .= 'From: Notification <'.$this->sender.'>'."\r\n";
+				
+				$tmp[0]['header']	= $header; 
+				$tmp[0]['mail']	= $this->email[$i];
+				$tmp[0]['subject']	= $this->subject;
+				$tmp[0]['content']	= $message;		
+		}
+		
+		return $tmp;
+	}
+
+	/**
+	 * mailSend function.
+	 * 
+	 * @access public
+	 * @param mixed $mails
+	 * @return void
+	 */
+	public function mailSend($mails)
+	{
+		if(!is_array($mails))
 		{
 			return false;
 		}
+		else
+		{
+			mail($mail['mail'],$mail['subject'],$mail['content'],$mail['header']);
+		}
 		
-		$tmp = array();
-		
-		
+		return true;
 	}
 	
 	/**
 	 * massMailSend function.
 	 * 
-	 * @access private
+	 * @access public
 	 * @param mixed $mails
 	 * @return void
 	 */
-	private function massMailSend($mails)
+	public function massMailSend($mails)
 	{
 
 		foreach($mails as $mail)
@@ -98,29 +157,17 @@ class email
 		
 		return true;
 	}
-
 	/**
 	 * replaceName function.
 	 * 
 	 * @access private
 	 * @param mixed $content
 	 * @param mixed $names
-	 * @return array
+	 * @return string
 	 */
 	private function replaceName($content,$names)
 	{
-		if(!is_array($name))
-		{
-			return false;
-		}
-		
-		$content = array();
-		
-		foreach($names as $name)
-		{
-			$content[] = str_replace('#name#', $name, $content);
-		}
-	
+		$content[] = str_replace('#name#', $name, $content);
 		return $content;
 	}
 
