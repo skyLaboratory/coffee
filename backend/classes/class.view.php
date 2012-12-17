@@ -291,6 +291,10 @@ class view
 	public function viewLehrerFachZuordnung($teacherList,$subjectList)
 	{
 		$output = '
+		<script type="text/javascript">
+		var teacherList = eval(\'('.json_encode($teacherList).')\');
+		var subjectList = eval(\'('.json_encode($subjectList).')\');
+		</script>
 		<form method="post" action="?v=listCombination&a=addSubjectTeacher">
 		<p>Zuordnung nach:
 			<select id="selectSwitch" size="1" onchange="ordnung()">
@@ -308,22 +312,8 @@ class view
 		</div>
 	    <hr>
 	<input type="submit" value="Absenden">
-    </form>
-    <div id="source" style="display:none">    
-		<div id="teacherSource">
-			<select id="teacherlist" size="1">
-				<option value="0" selected>---</option>'
-				.$this->selctionList($teacherList).
-				'</select>
-		</div>
-		<div id="subjectSource">
-			<select id="subjectlist"  size="1">
-				<option value="0" selected>---</option>\n'
-				.$this->selctionList($subjectList).
-			'</select>
-		</div>
-	</div>
-';
+    </form>';
+	
 return $output;
 		
 	}

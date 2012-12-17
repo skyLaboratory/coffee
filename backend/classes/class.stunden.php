@@ -33,7 +33,7 @@ class teacher_lession
 		$tag 	= $wochentage[$timecodeSplit[0]];
 		$stunde = $timecodeSplit[1];
 		
-		return "Am ".$tag." in der ".$stunde.". Stunde";
+		return $tag." in der ".$stunde.". Stunde";
 			
 	}
 	
@@ -55,11 +55,15 @@ class teacher_lession
 				{
 					$std_array[] = $i;
 				}
-								
-			}
+				
 				return $std_array; 
-				//implode(",", $std_array);	
-		}	
+				//implode(",", $std_array);			
+			}
+			else throw new Exception("Eingegebene Stundenangabe fehlerhaft.", 3);
+				
+			
+		}
+			
 	}
 	
 	public function saveCombination($form)
@@ -67,13 +71,35 @@ class teacher_lession
 		//$this->checkTimecode();
 
 		//return $this->checkFormDate($form['stunde']);
+		if(empty($form['teacher']))
+			throw new Exception("Lehrer nicht ausgew&auml;hlt.", 3);
+		elseif(empty($form['day']))
+			throw new Exception("Tag nicht ausgew&auml;hlt.", 3);
+		elseif(empty($form['stunde']))
+			throw new Exception("Stunde/n nicht ausgef&uuml;llt.", 3);
+
 		foreach($this->checkFormDate($form['stunde']) as $einzelneStunde)
 		{
 			$timecode = $form['day']."x".$einzelneStunde;
-			$sqlData[] = "('".$form['teacher']."','".$timecode."')";
+			$sqlData[] = "(".$form['teacher'].",'".$timecode."')";
 			
 		}
-		return $sql = "Insert INTO `".$this->tableName."` (`lehrer-id`,`timecode`) VALUES ".implode(", ", $sqlData);
+		$sql = "Insert INTO `".$this->tableName."` (`lehrer-id`,`timecode`) VALUES ".implode(", ", $sqlData);
+		if($this->db->querySend($sql))
+			return "Eintrag hinzugef&uuml;gt";
+		else
+		{
+			/*
+if(substr(mysql_error(),0,15) == 'Duplicate entry')
+			
+			
+			$entry 	= explode("-",mysql_error());
+			return $entry[1];
+*/
+			//$this->timecodeAsText($timecode)
+			throw new Exception("Eintrag fehlerheft.", 3);	
+		}
+		
 		
 	//throw new Exception("Datenbankfehler.", 3);
 				
