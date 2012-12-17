@@ -8,6 +8,41 @@
 class email
 {
 	/**
+	 * email
+	 * 
+	 * @var mixed
+	 * @access protected
+	 */
+	protected $email;
+	/**
+	 * name
+	 * 
+	 * @var mixed
+	 * @access protected
+	 */
+	protected $name;
+	/**
+	 * subject
+	 * 
+	 * @var mixed
+	 * @access protected
+	 */
+	protected $subject;
+	/**
+	 * content
+	 * 
+	 * @var mixed
+	 * @access protected
+	 */
+	protected $content;
+	/**
+	 * sender
+	 * 
+	 * @var mixed
+	 * @access protected
+	 */
+	protected $sender;
+	/**
 	 * __construct function.
 	 * 
 	 * @access public
@@ -26,20 +61,24 @@ class email
 		}
 		else
 		{
-			if(is_array($email))
-			{
-				$content	= $this->replaceName($content,$name);
-				$this->massMailSend($email,$name,$subject,$content,$sender);
-			}
+			$this->email	= $email;
+			$this->name		= $name;
+			$this->subject	= $subject;
+			$this->content	= $content;
+			$this->sender	= $sender;
 		}			
 	}
 	
-	private function prepareMassMail($emails)
+	private function prepareMassMail()
 	{
 		if(!is_array($emails))
 		{
 			return false;
 		}
+		
+		$tmp = array();
+		
+		
 	}
 	
 	/**
