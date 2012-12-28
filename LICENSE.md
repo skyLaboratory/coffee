@@ -14,7 +14,7 @@ Selbst dann nicht, wenn der Autor zuvor in Kenntnis gesetzt wurde, von
 möglichen entstehenden Schäden.
 Der Benutzer ist verpflichtet tägliche Sicherungen seiner Daten zu machen, so
 dass bei Verlust dieser, die Daten jederzeit wieder hergestellt werden können.
-Der Benutzer trägt sämtliche Risiken udn Verantwortung!
+Der Benutzer trägt sämtliche Risiken und Verantwortung!
 
 ## Einschränkungen
 Die Software darf nirgends eingesetzt, installiert und betrieben werden, wenn
