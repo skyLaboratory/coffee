@@ -1,93 +1,102 @@
 <?php
-// Autor: Florian Giller
-// Date : 05.11.2012
-// Update: Patrick Kellenter 10.12.2012 - 20:55 Uhr
-class database
+/*
+* Autor:  Leon Bergmann
+* Datum:  31.12.2012 00:51 Uhr 
+* Update: 01.01.2013 15:41 Uhr  
+*/
+class database extends PDO
 {
-	private $connection = false;
-	public $databaseName = null;
-	
-	public function make_connect()
-	{
-		mysql_connect("localhost","root","");
-		if(!mysql_select_db($this->databaseName))
-		{
-			throw new Exception('No Database',1);
-		}
-		else
-		{
-			$this->connection = true;
-		}
+	//safeing the instance
+	private static $instance;
 		
-	}
-	private function checkConnection()
+	public function __construct($table)
 	{
-		if(!$this->connection)
-		$this->make_connect();
-		
-	}
-
-	public function queryAsAssoc($sql)
-	{
-		$this->checkConnection();
-		$resource = mysql_query($sql);
-		if(mysql_num_rows($resource) == 0)	
-		{
-			throw new Exception("No result",3);
+	 	try
+	 	{
+			parent::__construct("mysql:host=localhost;port=3306;dbname=$table;","root","",array(PDO::ATTR_PERSISTENT => true));
 		}
-		
-		while($assocRow = mysql_fetch_assoc($resource))
+		catch(Exception $e)
 		{
-			$assocArray[] = $assocRow;
-			
+			throw new Exception($e->getMessage());
 		}
-		return $assocArray;
 	}
 	
-	public function queryAsSingelRowAssoc($sql)
+	public static function singelton($table)
 	{
-		$this->checkConnection();
-		$resource = mysql_query($sql);
-		$assocRow = mysql_fetch_assoc($resource);
-		return $assocRow;
-	}
-	public function queryAsObject($sql)
-	{
-		$this->checkConnection();
-		$resource = mysql_query($sql);
-		if($resource == 0)
+		if(!isset(self::$instance))
 		{
-			return false;
+			self::$instance = new database($table);
 		}
-		
-		if($assocRow = mysql_fetch_object($resource))
-			return $assocRow;
-		else
-			return false;
+		return self::$instance;
 	}
 	
-	public function querySend($sql)
+	public function queryAsObject($query)
 	{
-		$this->checkConnection();
-		if(mysql_query($sql)) 
-			return true;
-		else 
-			return false;
+		try{
+			$result = $this->query($query);
+			$result = $result->fetchObject();
+			return $result;
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e->getMessage());
+		}
 	}
 	
-	public function getResourceID($sql)
+	public function queryAsSingelRowAssoc($query)
 	{
-		$this->checkConnection();
-		if($res = mysql_query($sql)) 
-			return $res;
-		else 
-			return false;
-	}
-	
-	public function entryExist($table,$column,$subject,$content)
-	{
-		
+		try
+		{
+			$result = $this->query($query);
+			$result = $result->fetch(PDO::FETCH_ASSOC);
+			return $result;
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e-getMessage());
+		}
 	}
 	
 
+	
+	public function queryAsAssoc($query)
+	{
+		try{
+			$result = $this->query($query);
+			$result = $result->fetchAll(PDO::FETCH_ASSOC);
+			return $result;
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e-getMessage());
+		}
+	}
+	
+	public function querySend($query)
+	{
+		try{
+			$result = $this->query($query);
+			if($result)
+				return true;
+			else
+				return false;
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e-getMessage());
+		}
+	}
+	
+	public function getResourceID($query)
+	{
+		try{
+			$result = $this->query($query);
+			return $result;
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e-getMessage());
+		}
+	}
 }
+?>
