@@ -75,7 +75,8 @@ else
 			echo "<form action='?type=class&action=safeclass' method='POST'>";
 			echo "<ul><li><label>Name der Klasse:</label><input type='text' name='name' /></li>";
 			echo "<li><label>Version:</lable><input type='text' name='version' /></li>";
-			echo "<li><label>Args:</label><input type='text' name='args' /></li>";
+			echo "<li><label>Args-Namen:</label><input type='text' name='args' /></li>";
+			echo "<li><label>Args-Werte:</label><input type='text' name='argsvalue' /></li>";
 			echo "<li><input type='submit' value='Neue Klasse anlegen' /></li>";
 			echo "</form></div>";	
 		}
@@ -104,18 +105,11 @@ else
 		
 		if($action == 'safeclass')
 		{
-			$store 		= new storeFunction;
-			$output 	= new outputAPI;
-			$args 		= $output->makeStringAnArray($_POST['args']);
-			$counted	= count($args);
+			$name = $_POST['name'];
+			$version = $_POST['version'];
+			$args = $_POST['args'];
 			
-			for($i=0;$i<$counted;$i++)
-			{
-				echo $args[$i]."<br />";
-				$argsID = $store->makeArgsID($args[$i]);
-				echo $argsID."<br />";
-				echo "<br />";
-			}
+			
 		}
 	}
 	
@@ -134,7 +128,8 @@ else
 			echo $classesoutput;
 			echo "</select>";
 			echo "<ul><li><label>Name der Funktion:</label> <input type='text' name='name' /></li>";
-			echo "<li><label>Args:</label> <input type='text' name='args' /></li>";
+			echo "<li><label>Args-Namen:</label> <input type='text' name='args' /></li>";
+			echo "<li><label>Args-Werte:</label> <input type='text' name='argsvalue' /></li>";
 			echo "<li><label>Return-Wert(e):</label> <input type='text' name='back' /></li>";
 			echo "<li><label>Kurzbeschreibung:</label> <textarea name='info' cols='50' rows='10'/></textarea></li>";
 			echo "<input type='submit' value='Neue Funktion anlegen' /></form></div>";
@@ -160,7 +155,8 @@ else
 			echo $classesoutput;
 			echo "</select>";
 			echo "<ul><li><label>Name der Funktion:</label> <input type='text' name='name' value='".$info[0]."' /></li>";
-			echo "<li><label>Args:</label> <input type='text' name='args' value='".$info[1]."' /></li>";
+			echo "<li><label>Args-Namen:</label> <input type='text' name='args' value='".$info[1]."' /></li>";
+			echo "<li><label>Args-Werte:</label> <input type='text' name='argsvalue' value='".$info[1]."' /></li>";
 			echo "<li><label>Return-Wert(e):</label> <input type='text' name='back' value='".$info[3]."' /></li>";
 			echo "<li><label>Kurzbeschreibung:</label> <textarea name='info' cols='50' rows='10' />".$info[2]."</textarea></li>";
 			echo "<input type='submit' value='Neue Daten speichern' /></form></div>";
@@ -171,10 +167,12 @@ else
 		{
 			$name = $_POST['name'];
 			$args = $_POST['args'];
+			$argsvalue = $_POST['argsvalue'];
 			$back = $_POST['back'];
 			$info = $_POST['info'];
 			
 			$store = new storeFunction;
+			$output = new outputAPI;
 			
 			if($_POST['toClass'] == 'false')
 			{
@@ -190,8 +188,12 @@ else
 			{
 				$toClass = $_POST['toClass'];
 			}
-
+			
+			$argsarray = $output->makeStringAnArray($args);
+			$valuearray = $output->makeStringAnArray($argsvalue);
+			die();
 			$store->safeAndValidateData($name,$info,$toClass,1,1,$back,1,1,$argsID,3,NULL);
+			$store->safeArgs($args,$argsvalue);
 			$store->safeFunction();
 			
 			header('LOCATION: index.php?error=1');

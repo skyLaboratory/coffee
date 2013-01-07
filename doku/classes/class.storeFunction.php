@@ -125,7 +125,7 @@ class storeFunction
 	}
 	
 	// make the SQL for the args
-	private function makeArgsSQL($argName,$argValue)
+	private function safeArgs($argName,$argValue)
 	{
 		$sql = NULL;
 		$now = time();
@@ -143,8 +143,19 @@ class storeFunction
 		}
 		
 		$sql = str_replace("\t","", $sql);
+		$this->db->querySend($sql);
+		
 		return $sql;
 		
+	}
+	
+	public function createNewFunctionsID()
+	{
+		echo "<pre>";
+		$maxID = $this->db->queryAsObject("SELECT * FORM functions");
+		$ID = $maxID->id;
+		
+		return $ID;
 	}
 	
 	// escape strings in array
@@ -171,14 +182,6 @@ class storeFunction
 		}
 		
 		return $array;
-	}
-	
-	//Args function
-	public function makeArgsID($args)
-	{
-		
-		
-		return $entry;
 	}
 }
 ?>
