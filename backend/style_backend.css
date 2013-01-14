@@ -237,6 +237,15 @@ h2
 	padding: 3px;
 	border-radius: 5px;
 }
+.noneList
+{
+	list-style-type:none;
+}
+.tableListeElement
+{
+	padding-left: 10px;
+	float: right;
+}
 
 a
 {

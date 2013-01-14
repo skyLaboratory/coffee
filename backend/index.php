@@ -131,6 +131,12 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			case "saveTeacherProxy":		
 				$message = $teacher_lession->saveCombination($_POST);
 				break;
+				
+			case "delete-proxy-teacher":
+							
+				$message = $teacher_lession->deleteEntry($_GET['id']);
+				break;
+			
 			
 				
 		}
@@ -149,20 +155,20 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 		{
 
 			case "userlist":
-					$contentField 	.= "<h2>Benutzerverwaltung</h2><ul>";
-					$contentField 	.= "<a href='?v=useradd'>Benutzer hinzuf&uuml;gen</a>";
-					$contentField 	.= "<h3>Benutzerliste</h3><ul>";
-					$contentField 	.= $view->viewUserList($user->listAllUsers());	
+				$contentField 	.= "<h2>Benutzerverwaltung</h2><ul>";
+				$contentField 	.= "<a href='?v=useradd'>Benutzer hinzuf&uuml;gen</a>";
+				$contentField 	.= "<h3>Benutzerliste</h3><ul>";
+				$contentField 	.= $view->viewUserList($user->listAllUsers());	
 				break;
 	
 			case "useradd":
-					$contentField 	.= "<h2>Benutzer anlegen</h2><ul>";
-					$contentField 	.= $view->viewUserFormular(null);	
+				$contentField 	.= "<h2>Benutzer anlegen</h2><ul>";
+				$contentField 	.= $view->viewUserFormular(null);	
 				break;
 			
 			case "management":
-					$contentField	.= "<h2>Verwaltung</h2>";
-					$leftMenu		.= view::viewLeftMenu();
+				$contentField	.= "<h2>Verwaltung</h2>";
+				$leftMenu		.= view::viewLeftMenu();
 				break;
 			
 			case "useredit":
@@ -226,11 +232,17 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$leftMenu		.= view::viewLeftMenu();
 				break;
 
-			case "proxy":
-				$contentField 	.= $view->viewProxy($teacher->listAllTeacher());
+			case "proxyAdd":
+				$contentField 	.= $view->viewNewProxy($teacher->listAllTeacher());
 				$leftMenu		.= view::viewLeftMenu();
 				break;
-			
+	
+			case "proxy":
+				$contentField 	.= "<a href='?v=proxyAdd'>Vertretung add</a>";
+				$contentField .= $view->viewProxy($teacher_lession->listComnination());
+				$leftMenu		.= view::viewLeftMenu();
+				break;
+							
 			case "roomlist":
 				$contentField	.= $view->viewRoom();
 				$leftMenu		.= view::viewLeftMenu();
