@@ -13,7 +13,7 @@ require_once("classes/class.teacher.php");
 require_once("classes/class.faecher.php");
 require_once("classes/class.zuordnung.php");
 require_once("classes/class.stunden.php");
-//require_once("classes/class.room.php");
+require_once("classes/class.room.php");
 
 $view 				= new view();
 $database			= database::singelton("backend");
@@ -22,7 +22,7 @@ $teacher			= new teacher($database);
 $subject			= new subject($database);
 $teacher_subject 	= new teacher_subject($database);
 $teacher_lession 	= new teacher_lession($database);
-//$room				= new room($database);
+$room				= new room($database);
 
 
 
@@ -132,6 +132,17 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$message = $teacher_lession->saveCombination($_POST);
 				break;
 			
+			case "roomEdit":
+				$message = $room->editRoom($_POST);
+				break;
+			
+			case "safeRoom":
+				$message = $room->safeRoom($_POST,$_GET['new']);
+				break;
+			
+			case "deleteRoom":
+                $message = $room->deleteRoom($_GET['id']);
+                break;
 				
 		}
 	}
@@ -232,10 +243,14 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				break;
 			
 			case "roomlist":
-				$contentField	.= $view->viewRoom();
+				$contentField	.= $view->viewRoom($room->getRoomList());
 				$leftMenu		.= view::viewLeftMenu();
 				break;
-				
+			case "roomEdit":
+				$contentField	.= $view->editRoom($room->getRoomData($_GET['id']));
+				$leftMenu		.= view::viewLeftMenu();
+				break;
+			
 			case "home":
 			default:
 				$contentField .= "<h2>Willkommen auf der Startseite</h2>";
