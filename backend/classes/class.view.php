@@ -41,6 +41,7 @@ class view
 		<ul>
 			<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
 			<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
+			<li><a href="?v=raumlist">Raumverwaltung</a></li>
 			<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung verwalten</a></li>
 			<li><a href="?v=proxy">Vertretungsstunden</a></li>
 		</ul>
@@ -350,7 +351,7 @@ return $output;
 	public function viewProxy($teacherList)
 	{
 		$output = "<h2>Vertretbare Stunden</h2>";
-	$output .= '<form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
+		$output .= '<form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
 		<p>Lehrer:<select name="teacher" size="1">
 				<option value="0" selected>---</option>'
 				.$this->selctionList($teacherList).
@@ -372,8 +373,18 @@ return $output;
 			';				
 		return $output;
 			
-		
-		
+	}
+	
+	public function viewRoom($roomList)
+	{
+		$output		= "<h2>Raumverwaltung</h2>";
+		$output	   .= "<table><tr><th>Raumname</th></tr>";
+		foreach($roomList as $room)
+		{
+			$output .= "<tr><td>".$room."</td></tr>";
+		}
+		$output		.= "</table>";
+		return $output;
 	}
 }
 

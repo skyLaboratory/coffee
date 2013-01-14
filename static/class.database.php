@@ -2,7 +2,7 @@
 /*
 * Autor:  Leon Bergmann
 * Datum:  31.12.2012 00:51 Uhr 
-* Update: 01.01.2013 15:41 Uhr  
+* Update: Leon Bergmann - 07.01.2013 14:33 Uhr   
 */
 class database extends PDO
 {
@@ -21,11 +21,11 @@ class database extends PDO
 		}
 	}
 	
-	public static function singelton($table)
+	public static function singelton($db)
 	{
 		if(!isset(self::$instance))
 		{
-			self::$instance = new database($table);
+			self::$instance = new database($db);
 		}
 		return self::$instance;
 	}
