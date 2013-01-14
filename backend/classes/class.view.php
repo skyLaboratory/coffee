@@ -34,20 +34,27 @@ class view
 		return $output;
 	}
 	
-	public static function viewLeftMenu()
+	public static function viewLeftMenu($menuPoint)
 	{
-		$output = 
-		'<div class="leftMenu">
-		<ul>
-			<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
-			<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
-			<li><a href="?v=roomlist">Raumverwaltung</a></li>
-			<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung verwalten</a></li>
-			<li><a href="?v=proxy">Vertretungsstunden</a></li>
-		</ul>
-		</div>';
-	
-		return $output;
+		$output = '<div class="leftMenu">
+				<ul>';
+		switch($menuPoint)
+		{
+			case "school":
+				$output .= '<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
+					<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
+					<li><a href="?v=roomlist">Raumverwaltung</a></li>
+					<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung verwalten</a></li>
+					<li><a href="?v=proxy">Vertretungsstunden</a></li>';
+			break;
+			
+			case "plan":
+				$output .= '
+							<li><a href="?v=roomPlan">Raumplan &Auml;nderungen</li>
+							<li><a href="?v=lessonPlan">Vertretungsplan</a></li>
+						  ';
+		}
+		return $output."</ul></div>";
 	}
 	
 	public function viewMenu()
@@ -405,6 +412,21 @@ return $output;
 						</form>
 					</ul>
 				</div> ';
+		return $output;
+	}
+
+	public function viewRoomPlan($roomList)
+	{
+		foreach($roomList as $room)
+		{
+			$option .= '<option value="'.$room['id'].'">'.$room['name'].'</option>';
+		}
+		$div	 = '<div id="0"><select id="from[0]" name="from[0]"><option value="0">-------</option>'.$option.'<select><span> ------> </span><select id="to[0]" name="to[0]"><option value="0">-------</option>'.$option.'</select></div>';
+		
+		$output  = '<form id="roomPlan" method="post" action="?v='.$_GET['v'].'&a=safeRoomChanges">'.$div.'</form>';
+		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($roomList).')\');</script>';
+		$output	.= '<button onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
+		$output	.= '<button onclick="safe();">Speichern</button>';
 		return $output;
 	}
 }

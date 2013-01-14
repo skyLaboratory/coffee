@@ -72,5 +72,6 @@ class room
 		    throw new Exception("Fehler bei der ");
 	    }
     }
+
 }
 ?>
