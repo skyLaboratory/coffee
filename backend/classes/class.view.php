@@ -34,20 +34,27 @@ class view
 		return $output;
 	}
 	
-	public static function viewLeftMenu()
+	public static function viewLeftMenu($menuPoint)
 	{
-		$output = 
-		'<div class="leftMenu">
-		<ul>
-			<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
-			<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
-			<li><a href="?v=roomlist">Raumverwaltung</a></li>
-			<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung verwalten</a></li>
-			<li><a href="?v=proxy">Vertretungsstunden</a></li>
-		</ul>
-		</div>';
-	
-		return $output;
+		$output = '<div class="leftMenu">
+				<ul>';
+		switch($menuPoint)
+		{
+			case "school":
+				$output .= '<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
+					<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
+					<li><a href="?v=roomlist">Raumverwaltung</a></li>
+					<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung verwalten</a></li>
+					<li><a href="?v=proxy">Vertretungsstunden</a></li>';
+			break;
+			
+			case "plan":
+				$output .= '
+							<li><a href="?v=roomPlan">Raumplan &Auml;nderungen</li>
+							<li><a href="?v=lessonPlan">Vertretungsplan</a></li>
+						  ';
+		}
+		return $output."</ul></div>";
 	}
 	
 	public function viewMenu()
@@ -322,33 +329,34 @@ return $output;
 	public function lfCombination($dataArray)
 	{
 		$output .= "<h2>Lehrer->Fächer</h2>\n";
-		$output .= $this->multiTable($dataArray[0]);
+		$output .= $this->multiTable($dataArray[0],'delete-subject-teacher');
 		$output .= "<h2>Fächer->Lehrer</h2>\n";
-		$output .= $this->multiTable($dataArray[1]);
+		$output .= $this->multiTable($dataArray[1],'delete-subject-teacher');
 		
 		return $output;
 	}
 	
-	private function multiTable($array)
+	private function multiTable($array,$action)
 	{
 		$table = "<table>\n";	
 		foreach($array as $key=>$data)
 		{
 			$table .= "<tr><td>".$key."</td>\n";
-			$table .= "<td>\n";
+			$table .= "<td><ul class='noneList'>\n";
 			foreach($data as $lowLevelData)
 			{
-				$table .= "<li style='list-style-type:none'>".$lowLevelData[0]." <a onclick='if(!confirm(\"Zuweisung `".$key." - ".$lowLevelData[0]."` entfernen?\")) return false;' href=?v=".$_GET['v']."&a=delete-subject-teacher&id=".$lowLevelData[1]." style='padding-left: 10px;float: right'>x</a></li>\n";
+				$table .= "<li>".$lowLevelData[0]." <a class='tableListeElement' onclick='if(!confirm(\"Zuweisung `".$key." - ".$lowLevelData[0]."` entfernen?\")) return false;' href=?v=".$_GET['v']."&a=".$action."&id=".$lowLevelData[1].">x</a></li>\n";
+
 			}
 			
-			$table .= "</td></tr>\n";
+			$table .= "</ul></td></tr>\n";
 			
 		}
 		$table .= "</table>\n";
 		return $table;
 	}
 	
-	public function viewProxy($teacherList)
+	public function viewNewProxy($teacherList)
 	{
 		$output = "<h2>Vertretbare Stunden</h2>";
 		$output .= '<form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
@@ -405,6 +413,26 @@ return $output;
 						</form>
 					</ul>
 				</div> ';
+		return $output;
+	}
+	
+	public function viewProxy($dataArray)
+	{
+		return $this->multiTable($dataArray,'delete-proxy-teacher');
+	}
+	
+	public function viewRoomPlan($roomList)
+	{
+		foreach($roomList as $room)
+		{
+			$option .= '<option value="'.$room['id'].'">'.$room['name'].'</option>';
+		}
+		$div	 = '<div id="0"><select id="from[0]" name="from[0]"><option value="0">-------</option>'.$option.'<select><span> ------> </span><select id="to[0]" name="to[0]"><option value="0">-------</option>'.$option.'</select></div>';
+		
+		$output  = '<form id="roomPlan" method="post" action="?v='.$_GET['v'].'&a=safeRoomChanges">'.$div.'</form>';
+		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($roomList).')\');</script>';
+		$output	.= '<button onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
+		$output	.= '<button onclick="safe();">Speichern</button>';
 		return $output;
 	}
 }
