@@ -4,8 +4,8 @@
 #
 */
 
-	var zaehler = Array();
-
+var zaehler = Array();
+var counter = 1;
 function ordnung()
 {	
 	selectSwitch	= document.getElementById('selectSwitch').selectedIndex;
@@ -53,6 +53,50 @@ function addList(sort, sourceArray, position = 'listContainer')
 		optionAdd(sourceArray, obj.id);
 		zaehler[sort]++;
 
+}
+
+
+function newRoomChangeField()
+{
+	var container;
+	var placeholder;
+	
+	placeholder		= document.createElement("span");
+	placeholder.innerHTML += " ------> ";
+	
+	if(!counter)
+	{
+		counter = 0;
+	}
+	container		= document.createElement('div');
+	container.id	= counter;
+	container.name	= counter;
+	
+	document.getElementById("roomPlan").appendChild(container);
+	
+	addRoomList(rooms,"from["+counter+"]",container.id);
+	document.getElementById(container.id).appendChild(placeholder);
+	addRoomList(rooms,"to["+counter+"]",container.id);
+	counter++;
+}
+
+
+function addRoomList(sourceArray,id,position)
+{
+	var obj;
+	var objOut;
+	obj			= document.createElement('select');
+	obj.id		= id;
+	obj.name	= id;
+	
+	document.getElementById(position).appendChild(obj);
+	optionAdd(sourceArray, obj.id);
+	
+}
+
+function safe()
+{
+	document.getElementById("roomPlan").submit();
 }
 
 

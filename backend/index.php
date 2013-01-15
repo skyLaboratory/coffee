@@ -16,7 +16,7 @@ require_once("classes/class.stunden.php");
 require_once("classes/class.room.php");
 
 $view 				= new view();
-$database			= database::singelton("backend");
+$database			= database::singelton("coffee");
 $user 				= new userAdministration($database);
 $teacher			= new teacher($database);
 $subject			= new subject($database);
@@ -132,6 +132,10 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$message = $teacher_lession->saveCombination($_POST);
 				break;
 			
+			case "delete-proxy-teacher":				
+				$message = $teacher_lession->deleteEntry($_GET['id']);
+				break;
+				
 			case "roomEdit":
 				$message = $room->editRoom($_POST);
 				break;
@@ -173,7 +177,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			
 			case "management":
 					$contentField	.= "<h2>Verwaltung</h2>";
-					$leftMenu		.= view::viewLeftMenu();
+					$leftMenu		.= view::viewLeftMenu("school");
 				break;
 			
 			case "useredit":
@@ -187,13 +191,13 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				//$contentField 	.= "<h2>Benutzerhinzuf&uuml;gen</h2><ul>";
 				$contentField 	.= "<a href='?v=teacheradd'>Lehrer hinzuf&uuml;gen</a>";
 				$contentField 	.= "<h3>Lehrerliste</h3><ul>";
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
 				$contentField 	.= $view->viewTeacherList($teacher->listAllTeacher());			
 				break;
 	
 			case "teacheradd":
 				$contentField 	.= "<h2>Lehrer hinzuf&uuml;gen</h2><div class='form'><ul>";
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
 				$contentField 	.= $view->viewTeacherFormular(array());	
 				break;
 	
@@ -201,7 +205,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$contentField 	.= "<h2>Lehrer bearbeiten</h2><div class='form'><ul>";
 				$contentField 	.= $view->viewTeacherFormular($teacher->getTeacherDetails($_GET['id']));
 				$contentField   .= view::viewTeacherFaecher($teacher->getAllFeacherForTeacher($_GET['id']));
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
 				//$contentField 	.= $view->viewUserAddFormular();
 				break;
 				
@@ -210,47 +214,65 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$contentField 	.= "<a href='?v=subjectadd'>Fach hinzuf&uuml;gen</a>";
 				$contentField 	.= "<h3>F&auml;cherliste</h3><ul>";
 				$contentField 	.= $view->viewSubjectList($subject->listAllSubject());
-				$leftMenu		.= view::viewLeftMenu();			
+				$leftMenu		.= view::viewLeftMenu("school");			
 				break;
 	
 			case "subjectadd":
 				$contentField 	.= "<h2>Fach hinzuf&uuml;gen</h2><ul>";
 				$contentField 	.= $view->viewSubjectFormular(array());
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
 				break;
 	
 			case "subjectedit":
 				$contentField 	.= "<h2>F&auml;cher bearbeiten</h2><ul>";
 				$contentField 	.= $view->viewSubjectFormular($subject->getSubjectDetails($_GET['id']));
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
 				//$contentField 	.= $view->viewUserAddFormular();
 				break;
 			case "teacher-subject":
 				$contentField .= "<h2>Lehrer F&auml;cher zuordnen</h2>";
 				$contentField .= $view->viewLehrerFachZuordnung($teacher->listAllTeacher(),$subject->listAllSubject());
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu	  .= view::viewLeftMenu("school");
 				break;
 				
 			case "listCombination":
 				$contentField .= "<h2>Lehrer-F&auml;cher-Zuordnung</h2><ul><a href='?v=teacher-subject'>Zuordnung hinzuf&uuml;gen</a><h3>Zuordnung</h3><ul>";
 				$contentField .= $view->lfCombination($teacher_subject->listComnination());
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
 				break;
-
-			case "proxy":
-				$contentField 	.= $view->viewProxy($teacher->listAllTeacher());
+				
+			
+			case "proxyAdd":
+				$contentField 	.= $view->viewNewProxy($teacher->listAllTeacher());
 				$leftMenu		.= view::viewLeftMenu();
+				break;	
+				
+			case "proxy":
+				$contentField 	.= "<a href='?v=proxyAdd'>Vertretung add</a>";
+				$contentField   .= $view->viewProxy($teacher_lession->listComnination());
+				$leftMenu		.= view::viewLeftMenu("school");
 				break;
 			
 			case "roomlist":
 				$contentField	.= $view->viewRoom($room->getRoomList());
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
 				break;
 			case "roomEdit":
 				$contentField	.= $view->editRoom($room->getRoomData($_GET['id']));
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
+				break;
+			case "plan":
+				$contentField	.= "<h2>Vertretungsplan</h2>";
+				$leftMenu		.= view::viewLeftMenu("plan");
 				break;
 			
+			case "roomPlan":
+				$contentField	.= $view->viewRoomPlan($room->getRoomList());	
+				$leftMenu		.= view::viewLeftMenu("plan");
+				break;
+				
+				
+				
 			case "home":
 			default:
 				$contentField .= "<h2>Willkommen auf der Startseite</h2>";
