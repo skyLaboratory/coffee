@@ -16,7 +16,7 @@ require_once("classes/class.stunden.php");
 require_once("classes/class.room.php");
 
 $view 				= new view();
-$database			= database::singelton("backend");
+$database			= database::singelton("coffee");
 $user 				= new userAdministration($database);
 $teacher			= new teacher($database);
 $subject			= new subject($database);
@@ -132,6 +132,10 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$message = $teacher_lession->saveCombination($_POST);
 				break;
 			
+			case "delete-proxy-teacher":				
+				$message = $teacher_lession->deleteEntry($_GET['id']);
+				break;
+				
 			case "roomEdit":
 				$message = $room->editRoom($_POST);
 				break;
@@ -236,9 +240,16 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$contentField .= $view->lfCombination($teacher_subject->listComnination());
 				$leftMenu		.= view::viewLeftMenu("school");
 				break;
-
+				
+			
+			case "proxyAdd":
+				$contentField 	.= $view->viewNewProxy($teacher->listAllTeacher());
+				$leftMenu		.= view::viewLeftMenu();
+				break;	
+				
 			case "proxy":
-				$contentField 	.= $view->viewProxy($teacher->listAllTeacher());
+				$contentField 	.= "<a href='?v=proxyAdd'>Vertretung add</a>";
+				$contentField   .= $view->viewProxy($teacher_lession->listComnination());
 				$leftMenu		.= view::viewLeftMenu("school");
 				break;
 			
