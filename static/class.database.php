@@ -13,7 +13,7 @@ class database extends PDO
 	{
 	 	try
 	 	{
-			parent::__construct("mysql:host=localhost;port=3306;dbname=$table;","root","",array(PDO::ATTR_PERSISTENT => true));
+			parent::__construct("mysql:host=sky-lab.de;port=3306;dbname=$table;","coffee","WWMt85SECQ8Tr5jN",array(PDO::ATTR_PERSISTENT => true));
 		}
 		catch(Exception $e)
 		{

@@ -16,7 +16,7 @@ require_once("classes/class.stunden.php");
 //require_once("classes/class.room.php");
 
 $view 				= new view();
-$database			= database::singelton("backend");
+$database			= database::singelton("coffee");
 $user 				= new userAdministration($database);
 $teacher			= new teacher($database);
 $subject			= new subject($database);
