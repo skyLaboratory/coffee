@@ -41,7 +41,7 @@ class view
 		<ul>
 			<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
 			<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
-			<li><a href="?v=raumlist">Raumverwaltung</a></li>
+			<li><a href="?v=roomlist">Raumverwaltung</a></li>
 			<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung verwalten</a></li>
 			<li><a href="?v=proxy">Vertretungsstunden</a></li>
 		</ul>
@@ -378,12 +378,33 @@ return $output;
 	public function viewRoom($roomList)
 	{
 		$output		= "<h2>Raumverwaltung</h2>";
-		$output	   .= "<table><tr><th>Raumname</th></tr>";
+		$output	   .= "<table><tr><th>Raumname</th><th>K&uuml;rzel</th></tr>";
 		foreach($roomList as $room)
 		{
-			$output .= "<tr><td>".$room."</td></tr>";
+    		$output .= "<tr>";
+    		$output .= "<td>".$room['name']."</td>";
+    		$output .= "<td>".$room['short']."</td>";
+    		$output .= "<td><a href='?v=roomEdit&id=".$room['id']."'>bearbeiten</td>";
+    		$output .= "<td><a onclick='if(!confirm(\"Eintrag ".$room['name']." entfernen?\")) return false;' href='?v=".$_GET['v']."&a=deleteRoom&id=".$room['id']."'>l&ouml;schen</a></td>";
+    		$output .= "</tr>";
 		}
-		$output		.= "</table>";
+		$output	   .= "</table>";
+		$output    .= '<br /><form action="?v='.$_GET['v'].'&a=safeRoom" method="post"><label>Raumname: </label><input type="text" name="name"><span style="padding-left: 20px;"></span><label>K&uuml;rzel: </label><input type="text" name="short"><br><input type="submit" value="Speichern"></form>';
+		return $output;
+	}
+
+	public function editRoom($data)
+	{
+		$output ='<h2>Raum: '.$data['name'].' bearbeiten</h2><div class="form">
+					<ul>
+						<form action="?v=roomlist&a=safeRoom&new=0" method="post">
+							<li><label>Raumname: </label><input type="text" name="name" value="'.$data['name'].'"/></li>
+							<li><label>K&uuml;rzel: </label><input type="text" name="short" value="'.$data['short'].'" /></li>
+							<button class="formbutton" type="submit">Speichern</button>
+							<input type="hidden" name="id" value="'.$data['id'].'"/>
+						</form>
+					</ul>
+				</div> ';
 		return $output;
 	}
 	
