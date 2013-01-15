@@ -322,36 +322,36 @@ return $output;
 	public function lfCombination($dataArray)
 	{
 		$output .= "<h2>Lehrer->Fächer</h2>\n";
-		$output .= $this->multiTable($dataArray[0]);
+		$output .= $this->multiTable($dataArray[0],'delete-subject-teacher');
 		$output .= "<h2>Fächer->Lehrer</h2>\n";
-		$output .= $this->multiTable($dataArray[1]);
+		$output .= $this->multiTable($dataArray[1],'delete-subject-teacher');
 		
 		return $output;
-	}
-	
-	private function multiTable($array)
+	}	
+	private function multiTable($array,$action)
 	{
 		$table = "<table>\n";	
 		foreach($array as $key=>$data)
 		{
 			$table .= "<tr><td>".$key."</td>\n";
-			$table .= "<td>\n";
+			$table .= "<td><ul class='noneList'>\n";
 			foreach($data as $lowLevelData)
 			{
-				$table .= "<li style='list-style-type:none'>".$lowLevelData[0]." <a onclick='if(!confirm(\"Zuweisung `".$key." - ".$lowLevelData[0]."` entfernen?\")) return false;' href=?v=".$_GET['v']."&a=delete-subject-teacher&id=".$lowLevelData[1]." style='padding-left: 10px;float: right'>x</a></li>\n";
+				$table .= "<li>".$lowLevelData[0]." <a class='tableListeElement' onclick='if(!confirm(\"Zuweisung `".$key." - ".$lowLevelData[0]."` entfernen?\")) return false;' href=?v=".$_GET['v']."&a=".$action."&id=".$lowLevelData[1].">x</a></li>\n";
+
 			}
 			
-			$table .= "</td></tr>\n";
+			$table .= "</ul></td></tr>\n";
 			
 		}
 		$table .= "</table>\n";
 		return $table;
 	}
 	
-	public function viewProxy($teacherList)
+	public function viewNewProxy($teacherList)
 	{
 		$output = "<h2>Vertretbare Stunden</h2>";
-		$output .= '<form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
+	$output .= '<form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
 		<p>Lehrer:<select name="teacher" size="1">
 				<option value="0" selected>---</option>'
 				.$this->selctionList($teacherList).
@@ -407,6 +407,15 @@ return $output;
 				</div> ';
 		return $output;
 	}
+	
+	public function viewProxy($dataArray)
+	{
+		return $this->multiTable($dataArray,'delete-proxy-teacher');
+
+	
+	
+	}
+
 }
 
 

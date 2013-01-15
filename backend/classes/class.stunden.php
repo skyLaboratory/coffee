@@ -33,7 +33,7 @@ class teacher_lession
 		$tag 	= $wochentage[$timecodeSplit[0]];
 		$stunde = $timecodeSplit[1];
 		
-		return $tag." in der ".$stunde.". Stunde";
+		return $tag." ".$stunde.". Std.";
 			
 	}
 	
@@ -111,23 +111,21 @@ if(substr(mysql_error(),0,15) == 'Duplicate entry')
 		return $this->db->querySend($sql);
 	}
 	
+		
 	public function listComnination()
 	{
-		$list = $this->db->queryAsAssoc("SELECT `lehrer`.`name` as 'lehrerName',`faecher`.`name` as 'faecherName« FROM `lehrer-faecher` 
-		INNER JOIN `faecher` ON `faecher`.`id` = `lehrer-faecher`.`fach-id`
-		INNER JOIN `lehrer` ON `lehrer`.`id`=`lehrer-faecher`.`lehrer-id`");
+		$array =  $this->db->queryAsAssoc("SELECT `lehrer`.`name` as 'lehrerName', `lehrer-freie-stunden`.`id`, `lehrer-freie-stunden`.`timecode` 
+		FROM `lehrer-freie-stunden` 
+		INNER JOIN `lehrer` ON `lehrer`.`id`=`lehrer-freie-stunden`.`lehrer-id`");
 		
-		foreach($list as $row)
+		foreach($array as $entry)
 		{
-			$ordList[0][$row['lehrerName']][] = $row['faecherName'];
-			$ordList[1][$row['faecherName']][] = $row['lehrerName'];
-			
-		}	
+			$new[$entry['lehrerName']][] = array($this->timecodeAsText($entry['timecode']),$entry['id']);
 
-		return $ordList;
-
-		
+		}
+		return $new;
 	}
+
 	
 	
 
@@ -165,12 +163,12 @@ if(substr(mysql_error(),0,15) == 'Duplicate entry')
 		
 	}
 	
-	public function deleteSubject($id)
+	public function deleteEntry($id)
 	{
 		if(!is_numeric($id)) return false; 
 		
 		if($this->db->querySend("DELETE FROM `".$this->tableName."` WHERE `id` = $id"))
-			return true;
+			return "Eintrag entfernt";
 		else
 			return false;
 		
