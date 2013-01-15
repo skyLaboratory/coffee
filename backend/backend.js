@@ -73,7 +73,7 @@ function newRoomChangeField()
 	container.name	= counter;
 	
 	document.getElementById("roomPlan").appendChild(container);
-	
+	addList(lessons, container.id);
 	addRoomList(rooms,"from["+counter+"]",container.id);
 	document.getElementById(container.id).appendChild(placeholder);
 	addRoomList(rooms,"to["+counter+"]",container.id);

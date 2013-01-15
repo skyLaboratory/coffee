@@ -8,12 +8,14 @@ class database extends PDO
 {
 	//safeing the instance
 	private static $instance;
+	private static $db;
 		
-	public function __construct($table)
+	public function __construct($db)
 	{
 	 	try
 	 	{
-			parent::__construct("mysql:host=localhost;port=3306;dbname=$table;","root","",array(PDO::ATTR_PERSISTENT => true));
+			parent::__construct("mysql:host=sky-lab.de;port=3306;dbname=$db;","coffee","WWMt85SECQ8Tr5jN",array(PDO::ATTR_PERSISTENT => true));
+			self::$db = $db;
 		}
 		catch(Exception $e)
 		{
@@ -23,7 +25,7 @@ class database extends PDO
 	
 	public static function singelton($db)
 	{
-		if(!isset(self::$instance))
+		if(!isset(self::$instance) and self::$db != $db)
 		{
 			self::$instance = new database($db);
 		}

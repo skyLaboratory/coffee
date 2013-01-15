@@ -23,18 +23,18 @@ class room
     
     public function getRoomList()
     {
-        return $this->db->queryAsAssoc("Select id,name,short From `raum` order by name ASC");
+        return $this->db->queryAsAssoc("Select id,name,short From `rooms` order by name ASC");
     }
 
     public function safeRoom($data)
     {
 	    if(!isset($data['id']))
 	    {
-		    $query = "Insert Into raum (name,short) VALUES ('".$data['name']."','".$data['short']."')";
+		    $query = "Insert Into rooms (name,short) VALUES ('".$data['name']."','".$data['short']."')";
 	    }
 	    else
 	    {
-		    $query = "Update `raum` set `name` = '".$data['name']."', short = '".$data['short']."' where id=".$data['id'];
+		    $query = "Update `rooms` set `name` = '".$data['name']."', short = '".$data['short']."' where id=".$data['id'];
 	    }
        
        if($this->db->querySend($query))
@@ -50,7 +50,7 @@ class room
 
     public function deleteRoom($id)
     {
-        if($this->db->querySend("Delete From `raum` where id=$id"))
+        if($this->db->querySend("Delete From `rooms` where id=$id"))
         {
             return "Der Raum wurde erfolgreich entfernt";
         }
@@ -64,7 +64,7 @@ class room
     {
 	    try
 	    {
-	    	$data = $this->db->queryAsSingelRowAssoc("Select id,name,short From `raum` where id=$id");
+	    	$data = $this->db->queryAsSingelRowAssoc("Select id,name,short From `rooms` where id=$id");
 	    	return $data;
 	    }
 	    catch(Exception $e)
