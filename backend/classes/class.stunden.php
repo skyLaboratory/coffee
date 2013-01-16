@@ -84,7 +84,7 @@ class teacher_lession
 			$sqlData[] = "(".$form['teacher'].",'".$timecode."')";
 			
 		}
-		$sql = "Insert INTO `".$this->tableName."` (`lehrer-id`,`timecode`) VALUES ".implode(", ", $sqlData);
+		$sql = "Insert IGNORE  INTO `".$this->tableName."` (`lehrer-id`,`timecode`) VALUES ".implode(", ", $sqlData);
 		if($this->db->querySend($sql))
 			return "Eintrag hinzugef&uuml;gt";
 		else

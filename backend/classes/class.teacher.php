@@ -31,6 +31,10 @@ class teacher
 			throw new Exception("Dieser Lehrer ist bereits vorhanden.",3);
 		}
 		
+		if(empty($kuerzel))
+		{
+			$kuerzel = $this->createShort($name,$vorname);
+		}
 
 		$sql = "INSERT INTO ".$this->tableName." (vorname, name, kuerzel, email) VALUES ('$vorname', '$name', '$kuerzel', '$email')";
 		if($this->db->querySend($sql))
@@ -54,7 +58,12 @@ class teacher
 		{
 			throw new Exception("Bitte w&aulm;hlen Sie eine Leherer aus.",3);
 		}
-			
+		
+		if(empty($kuerzel))
+		{
+			$kuerzel = $this->createShort($name,$vorname);
+		}
+		
 		$sql = "UPDATE ".$this->tableName." SET vorname='".$vorname."', name='".$name."', email='".$email."', kuerzel='".$kuerzel."' WHERE id = $id";
 		if($this->db->querySend($sql))
 		{
@@ -110,17 +119,21 @@ class teacher
 		
 	}
 	
+	private function createShort($name,$vorname)
+	{
+		$result	= '';
+		$name	= $vorname." ".$name;
+		$parts	= preg_split("/ |-/", $name);
+		foreach($parts as $part)
+		{
+			$result .= strtoupper($part{0});
+		}
+		return $result;
+	}
 	public function getAllFeacherForTeacher($teacherID)
 	{
-		$res 	= $this->db->getResourceID("SELECT `lehrer`.`name` as 'lehrerName',`faecher`.`name` FROM `lehrer-faecher` INNER JOIN `faecher` ON `faecher`.`id` = `lehrer-faecher`.`fach-id` INNER JOIN `lehrer` ON `lehrer`.`id` = `lehrer-faecher`.`lehrer-id` WHERE `lehrer`.`id` = $teacherID");
-		$result = array();
-		while($row = mysql_fetch_array($res))
-		{
-			$result[]['fach']	= $row['name'];
-			@$result[]['stunde']	= $row['stunde'];
-		}
-	
-		return $result;
+
+		return "";
 	}
 
 }
