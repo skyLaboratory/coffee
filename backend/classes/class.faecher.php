@@ -86,6 +86,19 @@ class subject
 		
 	}
 	
+	private function format($format,$subject)
+	{
+		$format	= explode("x", $format);
+		$subject 	= substr($subject,0,$format[0]);
+		for($i = 0; $i < $format[1]; $i++)
+		{
+			$result	.= strtoupper($subject{$i});
+		}
+		$result .= substr($subject,$format[1],$format[0]);
+		
+		return $result;
+	}
+	
 	public function deleteSubject($id)
 	{
 		if(!is_numeric($id)) return false; 
