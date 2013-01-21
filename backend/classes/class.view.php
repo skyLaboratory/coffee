@@ -358,14 +358,14 @@ return $output;
 	
 	public function viewNewProxy($teacherList)
 	{
-		$output = "<h2>Vertretbare Stunden</h2>";
-		$output .= '<form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
-		<p>Lehrer:<select name="teacher" size="1">
+		$output = "<h2>Vertretbare Stunden</h2>\n";
+		$output .= '<div class="form"><ul><form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
+		<li><label>Lehrer:</label><select name="teacher" size="1">
 				<option value="0" selected>---</option>'
 				.$this->selctionList($teacherList).
-				'</select></p>';
+				'</select></li>';
 			
-		$output .= '<p>Tag:
+		$output .= '<li><label>Tag:</label>
 			<select name="day" size="1">
 				<option value="0" selected>---</option>\n
 				<option value="1">Montag</option>\n
@@ -375,9 +375,10 @@ return $output;
 				<option value="5">Freitag</option>\n
 				<option value="6">Samstag</option>\n
 				<option value="7">Sonntag</option>\n
-			</select></p>
-			<p>Stunde/n: <i>(Erlaubt: Stunden von 1 bis 12 oder Zeiträume 1-12) </i><input type="text" size="5" maxlength="5" name="stunde" >
-			<input type="submit" value="Absenden">
+			</select></li>
+			<li><label>Stunde/n: *</label><input type="text" size="5" maxlength="5" name="stunde" ></li>
+			<input class="formbutton" type="submit" value="Absenden">
+			<li><label>* (Erlaubt: Stunden von 1 bis 12 oder Zeiträume 1-12)</label></li></form></ul></div>
 			';				
 		return $output;
 			

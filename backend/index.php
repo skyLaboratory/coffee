@@ -244,11 +244,12 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 			
 			case "proxyAdd":
 				$contentField 	.= $view->viewNewProxy($teacher->listAllTeacher());
-				$leftMenu		.= view::viewLeftMenu();
+				$leftMenu		.= view::viewLeftMenu("school");
 				break;	
 				
 			case "proxy":
-				$contentField 	.= "<a href='?v=proxyAdd'>Vertretung add</a>";
+				$contentField .= "<h2>Lehrer Freistunden zuordnen</h2>";
+				$contentField 	.= "<ul><a href='?v=proxyAdd'>Vertretung add</a></ul>";
 				$contentField   .= $view->viewProxy($teacher_lession->listComnination());
 				$leftMenu		.= view::viewLeftMenu("school");
 				break;

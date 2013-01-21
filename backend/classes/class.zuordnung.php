@@ -100,7 +100,7 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 	}
 	private function lfZuordnungQuerySend($sqlData)
 	{
-		$sql = "Insert INTO `".$this->tableName."` (`lehrer-id`,`fach-id`) VALUES ".implode(", ", $sqlData);
+		$sql = "Insert IGNORE INTO `".$this->tableName."` (`lehrer-id`,`fach-id`) VALUES ".implode(", ", $sqlData);
 		return $this->db->querySend($sql);
 	}
 	
