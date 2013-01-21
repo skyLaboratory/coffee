@@ -2,11 +2,9 @@
 // Autor: Florian Giller
 // Date : 05.11.2012
 // Update: Leon Bergmann - 21.11.2012 20:00 Uhr  
-session_start();
-
+require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.settings.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.database.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.loginAPI.php");
-
 require_once("classes/class.user.php");
 require_once("classes/class.view.php");
 require_once("classes/class.teacher.php");
@@ -17,6 +15,7 @@ require_once("classes/class.room.php");
 
 $view 				= new view();
 $database			= database::singelton("coffee");
+$settings			= settings::singelton();
 $user 				= new userAdministration($database);
 $teacher			= new teacher($database);
 $subject			= new subject($database);
@@ -30,7 +29,7 @@ $contentField = "<div id='content'>";
 
 if(isset($_GET['dev1']))
 {
-	$_SESSION['auth'] = true;
+	$settings->setSession('auth',true);
 }
 //Wenn User nicht eingeloggt
 
@@ -41,7 +40,7 @@ if(isset($_GET['dev1']))
 		try
 		{
 			$login		= new loginAPI("backend",$database);
-			$login->makeLogin($_POST['username'],$_POST['passwort']);
+			$login		->makeLogin($_POST['username'],$_POST['passwort'],$settings);
 		}
 		catch(Exception $e)
 		{
@@ -59,7 +58,7 @@ if(isset($_GET['dev1']))
 
 //Wenn User eingeloggt
 //
-if($_SESSION['auth'] and !isset($_GET['dev']))
+if($settings->getSession('auth') and !isset($_GET['dev']))
 {
 	$menu = "";
 	$menu = $view->viewMenu();
@@ -261,6 +260,7 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$contentField	.= $view->editRoom($room->getRoomData($_GET['id']));
 				$leftMenu		.= view::viewLeftMenu("school");
 				break;
+			
 			case "plan":
 				$contentField	.= "<h2>Vertretungsplan</h2>";
 				$leftMenu		.= view::viewLeftMenu("plan");
@@ -270,7 +270,6 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$contentField	.= $view->viewRoomPlan($room->getRoomList());	
 				$leftMenu		.= view::viewLeftMenu("plan");
 				break;
-				
 				
 				
 			case "home":

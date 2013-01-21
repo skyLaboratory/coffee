@@ -69,7 +69,7 @@ class loginAPI
 		
 	}
 	
-	public function makeLogin($username,$passwort)
+	public function makeLogin($username,$passwort,$sessionHanlder)
 	{
 		
 		if(empty($username))
@@ -95,7 +95,7 @@ class loginAPI
 		if($this->validLogin($passwortDB,$passwort,$salt))
 		{
 			$this->username = $username;
-			if($this->setSessions())
+			if($this->setSessions($sessionHanlder))
 			{
 				return true;
 			}
@@ -133,20 +133,20 @@ class loginAPI
 		}
 	}
 	
-	private function setSessions()
+	private function setSessions($sessionHanlder)
 	{
 
 		if($this->loginType == "backend")
 		{
-			$_SESSION['auth'] = true;
+			$sessionHanlder->setSession('auth',true);
 		}
 		else
 		{
-			$_SESSION['FrontendAuth'] = true;	
+			$sessionHanlder->setSession('FrontendAuth',true);
+	
 		}
 		
-		$_SESSION['username']	= $this->username;
-		
+		$sessionHanlder->setSession('username',$this->username);		
 		return true;
 	}
 }

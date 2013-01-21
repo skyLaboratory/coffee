@@ -106,7 +106,11 @@ function optionAdd(array, parrentObjID)
 	parrentObj.options[parrentObj.length] = new Option('-------', '0',true);
 	for(key in array)
 	{
-		parrentObj.options[parrentObj.length] = new Option(array[key]['name'], array[key]['id']);
+		if(array[key]['vorname'])
+			parrentObj.options[parrentObj.length] = new Option(array[key]['vorname']+" "+array[key]['name'], array[key]['id']);
+		else
+			parrentObj.options[parrentObj.length] = new Option(array[key]['name'], array[key]['id']);
+
 	}
 }
 
