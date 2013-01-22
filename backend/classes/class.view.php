@@ -201,6 +201,7 @@ class view
 		if(!empty($data)) 	$action = "teacherEditSave&id=".$data['id'];
 		else				$action = "teacherAddSave";
 		$output = '<form action="?v=teacherlist&a='.$action.'" method="post">
+		<li><label>Anrede / Title:</label><input type="text" name="form[anrede]" value="'.$data['anrede'].'"/></li>
 		<li><label>Vorname:</label><input type="text" name="form[vorname]" value="'.$data['vorname'].'"/></li>
 		<li><label>Nachname:</label><input type="text" name="form[name]" value="'.$data['name'].'"/></li>		
 		<li><label>Kürzel:</label><input type="text" name="form[kuerzel]" value="'.$data['kuerzel'].'"/></li>
@@ -359,14 +360,14 @@ return $output;
 	
 	public function viewNewProxy($teacherList)
 	{
-		$output = "<h2>Vertretbare Stunden</h2>\n";
-		$output .= '<div class="form"><ul><form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
-		<li><label>Lehrer:</label><select name="teacher" size="1">
+		$output = "<h2>Vertretbare Stunden</h2>";
+		$output .= '<form action="?v='.$_GET['v'].'&a=saveTeacherProxy" method="post">
+		<p>Lehrer:<select name="teacher" size="1">
 				<option value="0" selected>---</option>'
 				.$this->selctionList($teacherList).
-				'</select></li>';
+				'</select></p>';
 			
-		$output .= '<li><label>Tag:</label>
+		$output .= '<p>Tag:
 			<select name="day" size="1">
 				<option value="0" selected>---</option>\n
 				<option value="1">Montag</option>\n
@@ -376,10 +377,9 @@ return $output;
 				<option value="5">Freitag</option>\n
 				<option value="6">Samstag</option>\n
 				<option value="7">Sonntag</option>\n
-			</select></li>
-			<li><label>Stunde/n: *</label><input type="text" size="5" maxlength="5" name="stunde" ></li>
-			<input class="formbutton" type="submit" value="Absenden">
-			<li><label>* (Erlaubt: Stunden von 1 bis 12 oder Zeiträume 1-12)</label></li></form></ul></div>
+			</select></p>
+			<p>Stunde/n: <i>(Erlaubt: Stunden von 1 bis 12 oder Zeiträume 1-12) </i><input type="text" size="5" maxlength="5" name="stunde" >
+			<input type="submit" value="Absenden">
 			';				
 		return $output;
 			
@@ -437,24 +437,16 @@ return $output;
 		$output	.= '<button onclick="safe();">Speichern</button>';
 		return $output;
 	}
-	
 	public function newProxySet($data)
 	{
 		$output = "DIE WAHL!";
 		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($data).')\');</script>';
-		
-		$output  .= '<form onload="newProxyInformField();" id="vertretungAuswahl" method="post" action="?v='.$_GET['v'].'&a=newProxySet">
-	
-		</form>';
+		$output .= '<form onload="newProxyInformField();" id="vertretungAuswahl" method="post" action="?v='.$_GET['v'].'&a=newProxySet"></form>';
 		$output	.= '<button onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
 		$output	.= '<button onclick="safe();">Speichern</button>';
 		
-				
 		return $output;
-		
-		
 	}
-	
 }
 
 

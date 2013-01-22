@@ -55,42 +55,6 @@ function addList(sort, sourceArray, position = 'listContainer')
 
 }
 
-function newProxyInformField()
-{
-	var container;
-	var placeholder;
-	
-	placeholder		= document.createElement("span");
-	
-	if(!counter)
-	{
-		counter = 0;
-	}
-	container		= document.createElement('div');
-	container.id	= counter;
-	container.name	= counter;
-	
-	document.getElementById("vertretungAuswahl").appendChild(container);
-	
-	addRoomList(rooms,"from["+counter+"]",container.id);
-	document.getElementById(container.id).appendChild(placeholder);
-	addRoomList(rooms,"to["+counter+"]",container.id);
-	counter++;
-//---------------------------------------------------------------------------------------
-	container		= document.getElementById('chooseContainer');
-	selectionTop 	= document.getElementById('selectionTop');
-	listContainer 	= document.getElementById('listContainer');
-	
-			
-
-		addList('teacher', teacherList, position = 'selectionTop');
-		addList('subject', subjectList);
-	
-	document.getElementById("vertretungAuswahl").appendChild(container);
-
-}
-
-
 
 function newRoomChangeField()
 {
@@ -142,7 +106,11 @@ function optionAdd(array, parrentObjID)
 	parrentObj.options[parrentObj.length] = new Option('-------', '0',true);
 	for(key in array)
 	{
-		parrentObj.options[parrentObj.length] = new Option(array[key]['name'], array[key]['id']);
+		if(array[key]['vorname'])
+			parrentObj.options[parrentObj.length] = new Option(array[key]['vorname']+" "+array[key]['name'], array[key]['id']);
+		else
+			parrentObj.options[parrentObj.length] = new Option(array[key]['name'], array[key]['id']);
+
 	}
 }
 

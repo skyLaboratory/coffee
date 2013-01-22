@@ -79,8 +79,6 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 		else 
 			return "Zuordnung fehlgechlagen.";
 	}
-					
-	
 	
 	public function listComnination()
 	{
