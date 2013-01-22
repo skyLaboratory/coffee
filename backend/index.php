@@ -270,7 +270,12 @@ if($settings->getSession('auth') and !isset($_GET['dev']))
 				$contentField	.= $view->viewRoomPlan($room->getRoomList());	
 				$leftMenu		.= view::viewLeftMenu("plan");
 				break;
-				
+			
+			case "newProxyInform";
+				$data = array("teacher"=>$teacher->listAllTeacher(),"subjects"=>$subject->listAllSubject());
+				$contentField	.= $view->newProxySet($data);
+				$leftMenu		.= view::viewLeftMenu("plan");
+				break;
 				
 			case "home":
 			default:
