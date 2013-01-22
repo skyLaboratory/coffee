@@ -200,6 +200,7 @@ class view
 		if(!empty($data)) 	$action = "teacherEditSave&id=".$data['id'];
 		else				$action = "teacherAddSave";
 		$output = '<form action="?v=teacherlist&a='.$action.'" method="post">
+		<li><label>Anrede / Title:</label><input type="text" name="form[anrede]" value="'.$data['anrede'].'"/></li>
 		<li><label>Vorname:</label><input type="text" name="form[vorname]" value="'.$data['vorname'].'"/></li>
 		<li><label>Nachname:</label><input type="text" name="form[name]" value="'.$data['name'].'"/></li>		
 		<li><label>Kürzel:</label><input type="text" name="form[kuerzel]" value="'.$data['kuerzel'].'"/></li>
