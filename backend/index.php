@@ -2,6 +2,7 @@
 // Autor: Florian Giller
 // Date : 05.11.2012
 // Update: Leon Bergmann - 21.11.2012 20:00 Uhr  
+error_reporting(0);
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.settings.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.database.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.loginAPI.php");
