@@ -19,6 +19,7 @@ class teacher
 		$name 		= $formularArray['name'];
 		$vorname 	= $formularArray['vorname'];
 		$kuerzel 	= $formularArray['kuerzel'];	
+		$anrede		= $formularArray['anrede'];
 		$email 		= $formularArray['email'];
 		
 		
@@ -51,7 +52,8 @@ class teacher
 		$id 		= $formularArray['id'];
 		$name 		= $formularArray['name'];
 		$vorname 	= $formularArray['vorname'];
-		$kuerzel 	= $formularArray['kuerzel'];	
+		$kuerzel 	= $formularArray['kuerzel'];
+		$anrede		= $formularArray['anrede'];	
 		$email 		= $formularArray['email'];
 
 		if(!is_numeric($id) or empty($name))
@@ -64,7 +66,7 @@ class teacher
 			$kuerzel = $this->createShort($name,$vorname);
 		}
 		
-		$sql = "UPDATE ".$this->tableName." SET vorname='".$vorname."', name='".$name."', email='".$email."', kuerzel='".$kuerzel."' WHERE id = $id";
+		$sql = "UPDATE ".$this->tableName." SET vorname='".$vorname."', name='".$name."', email='".$email."', kuerzel='".$kuerzel."', anrede ='".$anrede."' WHERE id = $id";
 		if($this->db->querySend($sql))
 		{
 			
@@ -130,6 +132,7 @@ class teacher
 		}
 		return $result;
 	}
+	
 	public function getAllFeacherForTeacher($teacherID)
 	{
 

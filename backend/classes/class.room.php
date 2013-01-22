@@ -28,6 +28,16 @@ class room
 
     public function safeRoom($data)
     {
+	    if(empty($data) or !is_array($data))
+	    {
+		    throw new Exception("Bitte f&uuml;llen Sie alle Felder aus",3);
+	    }
+	    
+	    if(empty($data['name']))
+	    {
+		    throw new Exception("Bitt geben Sie einen Raumnamen ein",3);
+	    }
+	    
 	    if(!isset($data['id']))
 	    {
 		    $query = "Insert Into rooms (name,short) VALUES ('".$data['name']."','".$data['short']."')";
@@ -41,15 +51,15 @@ class room
        {
            return "Erfolgreich gespeichert";
        }
-       else
-       {
-           throw new Exception($query,3);
-       }
-       
     }
 
     public function deleteRoom($id)
     {
+        if(empty($id))
+        {
+	        throw new Exception("Bitte w&auml;hlen Sie einen Raum aus",3);
+        }
+        
         if($this->db->querySend("Delete From `rooms` where id=$id"))
         {
             return "Der Raum wurde erfolgreich entfernt";
@@ -69,7 +79,7 @@ class room
 	    }
 	    catch(Exception $e)
 	    {
-		    throw new Exception("Fehler bei der ");
+		    throw new Exception("Unknow Error",3);
 	    }
     }
 
