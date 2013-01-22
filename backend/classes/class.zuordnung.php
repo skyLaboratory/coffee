@@ -71,38 +71,16 @@ class teacher_subject
 if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 			return false;
 */
-		if(!$this->lfZuordnungQuerySend($sqlData))
-		{
-			$this->dbZuweisungsFehler($sqlData);
-				
-		}	
-		else
-			return "Zuordnung wurde gespeichert.";
-
-		
-	}
-	private function dbZuweisungsFehler($sqlData)
-	{
-		while(substr(mysql_error(),0,15) == 'Duplicate entry')
-		{
-			$entry 	= explode("'",mysql_error());
-			//$row  	= explode("-",$entry[1]);
-			unset($sqlData[$entry[1]]);
-			if(empty($sqlData))
-				throw new Exception("Alle Zuweisung bereits vorhanden",2);
-			else
-				if($this->lfZuordnungQuerySend($sqlData))
-					throw new Exception("Eine oder mehrere Zuweisung sind bereits vorhanden. Weitere Zuweisungen wurden jedoch gespeichert.", 2);
-					
-		}
-		throw new Exception("Datenbankfehler.", 3);
-				
-	}
-	private function lfZuordnungQuerySend($sqlData)
-	{
 		$sql = "Insert IGNORE INTO `".$this->tableName."` (`lehrer-id`,`fach-id`) VALUES ".implode(", ", $sqlData);
-		return $this->db->querySend($sql);
+		
+		
+		if($this->db->querySend($sql))
+			return "Zuordnung wurde gespeichert.";
+		else 
+			return "Zuordnung fehlgechlagen.";
 	}
+					
+	
 	
 	public function listComnination()
 	{

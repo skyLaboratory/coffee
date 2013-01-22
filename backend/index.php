@@ -272,7 +272,12 @@ if($_SESSION['auth'] and !isset($_GET['dev']))
 				$leftMenu		.= view::viewLeftMenu("plan");
 				break;
 				
-				
+			case "newProxyInform";
+				$data = array("teacher"=>$teacher->listAllTeacher(),"subjects"=>$subject->listAllSubject());
+				$contentField	.= $view->newProxySet($data);
+				$leftMenu		.= view::viewLeftMenu("plan");
+
+				break;
 				
 			case "home":
 			default:
