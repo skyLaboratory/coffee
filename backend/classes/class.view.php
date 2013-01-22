@@ -51,6 +51,7 @@ class view
 			case "plan":
 				$output .= '
 							<li><a href="?v=roomPlan">Raumplan &Auml;nderungen</li>
+							<li><a href="?v=newProxyInform">Lehrer vertreten</li>
 							<li><a href="?v=lessonPlan">Vertretungsplan</a></li>
 						  ';
 		}
@@ -179,7 +180,7 @@ class view
 			$table .= "<td>".$userInfos['vorname']."</td>\n";
 			$table .= "<td>".$userInfos['name']."</td>\n";
 			$table .= "<td>".$userInfos['kuerzel']."</td>\n";
-			$table .= "<td>".$userInfos['email']."</td>\n";
+			$table .= "<td> <a href='mailto:".$userInfos['email']."'>".$userInfos['email']."</a></td>\n";
 			$table .= "<td><a href = '?v=teacheredit&id=".$userInfos['id']."'>bearbeiten</a></td>\n";
 			$table .= "<td><a onclick='if(!confirm(\"Eintrag von ".$userInfos['name']." entfernen?\")) return false;' href = '?v=teacherlist&a=teacherDelete&id=".$userInfos['id']."' >entfernen</a></td>\n";
 
@@ -434,6 +435,16 @@ return $output;
 		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($roomList).')\');</script>';
 		$output	.= '<button onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
 		$output	.= '<button onclick="safe();">Speichern</button>';
+		return $output;
+	}
+	public function newProxySet($data)
+	{
+		$output = "DIE WAHL!";
+		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($data).')\');</script>';
+		$output .= '<form onload="newProxyInformField();" id="vertretungAuswahl" method="post" action="?v='.$_GET['v'].'&a=newProxySet"></form>';
+		$output	.= '<button onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
+		$output	.= '<button onclick="safe();">Speichern</button>';
+		
 		return $output;
 	}
 }
