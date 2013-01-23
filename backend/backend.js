@@ -1,11 +1,18 @@
+
 /*
-#	function addList(sort, sourceArray, position = 'listContainer')
-#	sort: Gruppenname, sourceArray: Quellarray, position: ID des Parent
-#
+* Autor: Florian Giller & Leon Bergmann
+* Datum: 20.12.2012 12:34 Uhr
+* Update: Leon Bergmann - 23.01.2013 18:38 Uhr 
+* License: LICENSE.md
+*
+*	function addList(sort, sourceArray, position = 'listContainer')
+*	sort: Gruppenname, sourceArray: Quellarray, position: ID des Parent
+*
 */
 
 var zaehler = Array();
 var counter = 1;
+
 function ordnung()
 {	
 	selectSwitch	= document.getElementById('selectSwitch').selectedIndex;
@@ -55,43 +62,79 @@ function addList(sort, sourceArray, position = 'listContainer')
 
 }
 
+function addListFromExsistingList(dataID, newName, newNamePattern)
+{
+	var tmp		= document.getElementById(dataID).cloneNode(true);
+	tmp.name	= newNamePattern.replace("#", newName);
+	return tmp;
+}
+
+function createContainer(type, setID, setName = false, content = false, cssClass = false)
+{
+	var tmp	= document.createElement(type);
+	
+	if(setName)
+	{
+		tmp.name	= setName;
+		tmp.id		= setID;
+	}
+	else
+	{
+		tmp.id		= setID;
+		tmp.name	= setID;
+	}
+
+	if(content)
+	{
+		tmp.innerHTML += content;
+	}
+	
+	if(cssClass)
+	{
+		tmp.className = cssClass;
+	}
+	
+	return tmp;
+}
 
 function newRoomChangeField()
 {
-	var container;
-	var placeholder;
-	
-	placeholder		= document.createElement("span");
-	placeholder.innerHTML += " ------> ";
-	
+	// check if we have a couter if not set it to 0
 	if(!counter)
 	{
 		counter = 0;
 	}
-	container		= document.createElement('div');
-	container.id	= counter;
-	container.name	= counter;
+	// create the HTML Part and the lists
+	var form		= document.getElementById('roomPlan');
+	var container	= createContainer('div',counter,false,false,'roomPlan');
+	var placeholder	= createContainer('span',counter,false,' ------> ');
+	var days		= addListFromExsistingList('day[0]', counter,'day[#]');
+	var lessons		= addListFromExsistingList('lesson[0]', counter,'lesson[#]');
+	var	to			= addRoomList(rooms,"to["+counter+"]",container.id);
+	var from		= addRoomList(rooms,"from["+counter+"]",container.id);
 	
-	document.getElementById("roomPlan").appendChild(container);
-	
-	addRoomList(rooms,"from["+counter+"]",container.id);
-	document.getElementById(container.id).appendChild(placeholder);
-	addRoomList(rooms,"to["+counter+"]",container.id);
+	// putt all to gether 
+	form.appendChild(container);
+	container.appendChild(days);
+	container.appendChild(lessons);
+	container.appendChild(from);
+	container.appendChild(placeholder);
+	container.appendChild(to);
+	// increment the Counter
 	counter++;
 }
 
 
-function addRoomList(sourceArray,id,position)
+function addRoomList(sourceArray, id)
 {
-	var obj;
-	var objOut;
-	obj			= document.createElement('select');
-	obj.id		= id;
-	obj.name	= id;
-	
-	document.getElementById(position).appendChild(obj);
-	optionAdd(sourceArray, obj.id);
-	
+	var obj = createContainer('select',id);
+	obj.options[obj.length]	= new Option('-------','0',true);
+	for(key in sourceArray)	
+	{
+		obj.options[obj.length]	= new Option(sourceArray[key]['name'], sourceArray[key]['id']);
+	}
+
+	return obj;
 }
 
 function safe()
@@ -102,6 +145,7 @@ function safe()
 
 function optionAdd(array, parrentObjID)
 {
+
 	parrentObj = document.getElementById(parrentObjID);
 	parrentObj.options[parrentObj.length] = new Option('-------', '0',true);
 	for(key in array)
@@ -110,8 +154,8 @@ function optionAdd(array, parrentObjID)
 			parrentObj.options[parrentObj.length] = new Option(array[key]['vorname']+" "+array[key]['name'], array[key]['id']);
 		else
 			parrentObj.options[parrentObj.length] = new Option(array[key]['name'], array[key]['id']);
-
 	}
+
 }
 
 function resetList()

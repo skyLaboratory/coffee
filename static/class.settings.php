@@ -7,35 +7,87 @@
 */
 final class settings
 {
+	/**
+	 * instance
+	 * 
+	 * @var mixed
+	 * @access public
+	 * @static
+	 */
 	public static $instance;
 	
-	public function __construct()
+	/**
+	 * db
+	 * 
+	 * @var mixed
+	 * @access public
+	 */
+	public $db;
+	
+	/**
+	 * __construct function.
+	 * 
+	 * @access public
+	 * @param mixed $db
+	 * @return void
+	 */
+	public function __construct($db)
 	{
 		session_start();
+		$this->db = $db;
 	}
 	
-	public static function singelton()
+	/**
+	 * singelton function.
+	 * 
+	 * @access public
+	 * @static
+	 * @return void
+	 */
+	public static function singelton($db)
 	{
 		if(!isset(self::$instance))
 		{
-			self::$instance = new settings;
+			self::$instance = new settings($db);
 		}
 	
 		return self::$instance;
 	} 
 	
+	/**
+	 * setSession function.
+	 * 
+	 * @access public
+	 * @param mixed $name
+	 * @param mixed $value
+	 * @return void
+	 */
 	public function setSession($name,$value)
 	{
 		$name				= md5($name);
 		$_SESSION[$name]	= $value;
 	}
 	
+	/**
+	 * getSession function.
+	 * 
+	 * @access public
+	 * @param mixed $name
+	 * @return void
+	 */
 	public function getSession($name)
 	{
 		$name				= md5($name);
 		return 				$_SESSION[$name];
 	}
 	
+	/**
+	 * setArrayToSession function.
+	 * 
+	 * @access public
+	 * @param mixed $array
+	 * @return void
+	 */
 	public function setArrayToSession($array)
 	{
 		if(!is_array($array))
@@ -51,12 +103,23 @@ final class settings
 		
 		return true;
 	}
-
-	public function __invoke()
+	
+	/**
+	 * setSettingsToSessions function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function setSettingsToSessions()
 	{
-		echo "<pre>";
-		print_r($_SESSION);
-		echo "</pre>";
+		$settings 	= $this->db->queryAsAssoc("Select name,value from settings");
+		$tmp 		= array();
+		foreach($settings as $element)
+		{
+			$tmp[$element['name']] = $element['value'];
+		}
+		$this->setArrayToSession($tmp);
+		unset($tmp,$settings);
 	}
 }
 ?>

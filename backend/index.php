@@ -1,7 +1,8 @@
 <?php
 // Autor: Florian Giller
 // Date : 05.11.2012
-// Update: Leon Bergmann - 21.11.2012 20:00 Uhr  
+// Update: Leon Bergmann - 23.01.2013 08:53 Uhr   
+error_reporting(0);
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.settings.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.database.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/coffee/static/class.loginAPI.php");
@@ -13,9 +14,10 @@ require_once("classes/class.zuordnung.php");
 require_once("classes/class.stunden.php");
 require_once("classes/class.room.php");
 
+
 $view 				= new view();
 $database			= database::singelton("coffee");
-$settings			= settings::singelton();
+$settings			= settings::singelton($database);
 $user 				= new userAdministration($database);
 $teacher			= new teacher($database);
 $subject			= new subject($database);
@@ -62,6 +64,7 @@ if($settings->getSession('auth') and !isset($_GET['dev']))
 {
 	$menu = "";
 	$menu = $view->viewMenu();
+	$settings->setSettingsToSessions();
 	//ACTIONS
 	try
 	{
@@ -267,7 +270,7 @@ if($settings->getSession('auth') and !isset($_GET['dev']))
 				break;
 			
 			case "roomPlan":
-				$contentField	.= $view->viewRoomPlan($room->getRoomList());	
+				$contentField	.= $view->viewRoomPlan($room->getRoomList(),$settings);	
 				$leftMenu		.= view::viewLeftMenu("plan");
 				break;
 			
