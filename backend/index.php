@@ -191,7 +191,7 @@ if($settings->getSession('auth') and !isset($_GET['dev']))
 				$contentField 	.= "<a href='?v=teacheradd'>Lehrer hinzuf&uuml;gen</a>";
 				$contentField 	.= "<h3>Lehrerliste</h3><ul>";
 				$leftMenu		.= view::viewLeftMenu("school");
-				$contentField 	.= $view->viewTeacherList($teacher->listAllTeacher());			
+				$contentField 	.= $view->viewTeacherList($teacher->listAllTeacherDetails());			
 				break;
 	
 			case "teacheradd":

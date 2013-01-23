@@ -44,7 +44,7 @@ class view
 				$output .= '<li><a href="?v=teacherlist">Lehrerverwaltung</a></li>
 					<li><a href="?v=subjectlist">Fächerverwaltung</a></li>
 					<li><a href="?v=roomlist">Raumverwaltung</a></li>
-					<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung verwalten</a></li>
+					<li><a href="?v=listCombination">Lehrer-Fächer-Zuordnung</a></li>
 					<li><a href="?v=proxy">Vertretungsstunden</a></li>';
 			break;
 			
@@ -167,6 +167,7 @@ class view
 		//NR Spalte erzeugen
 		//$table .= "<th><h4>Nr.</h4></th>\n";
 		//Tielspalten erzeugen
+		$table .= "<th><h4>Anrede</h4></th>\n";
 		$table .= "<th><h4>Vorname</h4></th>\n";	
 		$table .= "<th><h4>Name</h4></th>\n";	
 		$table .= "<th><h4>Kürzel</h4></th>\n";		
@@ -177,6 +178,7 @@ class view
 		foreach($userArray as $userInfos)
 		{
 			$table .= "<tr>\n";
+			$table .= "<td>".$userInfos['anrede']."</td>\n";
 			$table .= "<td>".$userInfos['vorname']."</td>\n";
 			$table .= "<td>".$userInfos['name']."</td>\n";
 			$table .= "<td>".$userInfos['kuerzel']."</td>\n";
