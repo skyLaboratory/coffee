@@ -214,6 +214,13 @@ h2
 	font-style: oblique;
 }
 
+form label
+{
+	font-size: 16px;
+	font-weight: lighter;
+	font-style: oblique;
+}
+
 .form ul li input 
 {
 	display: block;
@@ -227,7 +234,7 @@ h2
 	font-style: italic;
 }
 
-.form .formbutton
+.formbutton
 {
 	background-color: #333;
 	font-size: 14px;
@@ -237,15 +244,18 @@ h2
 	padding: 3px;
 	border-radius: 5px;
 }
+
 .noneList
 {
 	list-style-type:none;
 }
+
 .tableListeElement
 {
 	padding-left: 10px;
 	float: right;
 }
+
 a
 {
  color: blue;
@@ -317,6 +327,7 @@ a
 {
 	box-shadow: 0px 0px 8px black;
 }
+
 #login .formbutton
 {
 	background-color: #333;
@@ -326,4 +337,19 @@ a
 	color: white;
 	padding: 3px;
 	border-radius: 5px;
+}
+
+.roomPlan
+{
+	width: auto;
+	height: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	display: block;
+}
+
+.roomPlan select
+{
+	margin-left: 5px;
+	margin-right: 5px;
 }
