@@ -426,6 +426,9 @@ return $output;
 	public function viewRoomPlan($roomList,$settings)
 	{
 		
+		$maxLessons	= $settings->getSession('max-lessons');
+		$maxDay		= $settings->getSession('max-day');
+		
 		date_default_timezone_set('Europe/Berlin');
 		setlocale(LC_ALL, 'de_DE');
 
@@ -436,9 +439,6 @@ return $output;
 			
 			$days  .= "<option value='".$value."'>$text</option>";
 		}
-		
-		$maxLessons	= $settings->getSession('max-lessons');
-		$maxDay		= $settings->getSession('max-day');
 		
 		for($i = 1; $i <= $maxLessons; $i++)
 		{
