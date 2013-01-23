@@ -50,8 +50,8 @@ class view
 			
 			case "plan":
 				$output .= '
-							<li><a href="?v=roomPlan">Raumplan &Auml;nderungen</li>
-							<li><a href="?v=newProxyInform">Lehrer vertreten</li>
+							<li><a href="?v=roomPlan">Raumplan &Auml;nderungen</a></li>
+							<li><a href="?v=newProxyInform">Lehrer vertreten</a></li>
 							<li><a href="?v=lessonPlan">Vertretungsplan</a></li>
 						  ';
 		}
@@ -426,7 +426,16 @@ return $output;
 	public function viewRoomPlan($roomList,$settings)
 	{
 		
-		$daysPre		= array(1 => 'Montag',2 => 'Dienstag',3 => 'Mittwoch',4 =>'Donnerstag',5 => 'Freitag',6 => 'Samstag',7 => 'Sonntag');
+		date_default_timezone_set('Europe/Berlin');
+		setlocale(LC_ALL, 'de_DE');
+
+		for($i = 0; $i <= 7; $i++)
+		{
+			$text	= strftime('%A der %d.%m',strtotime("+$i day"));
+			$value	= strtotime("+$i day");
+			
+			$days  .= "<option value='".$value."'>$text</option>";
+		}
 		
 		$maxLessons	= $settings->getSession('max-lessons');
 		$maxDay		= $settings->getSession('max-day');
@@ -436,10 +445,6 @@ return $output;
 			$lessons .= '<option value="'.$i.'">'.$i.'</option>\n';
 		}
 		
-		for($i = 0; $i <= $maxDay; $i++)
-		{
-			$days .= '<option value="'.$daysPre[$i].'">'.$daysPre[$i].'</option>';
-		}
 		
 		foreach($roomList as $room)
 		{
@@ -450,7 +455,7 @@ return $output;
 		
 		$output	 = '<h2>Tag | Stunde | Raum | neuer Raum</h2>';
 		$output .= '<form id="roomPlan" method="post" action="?v='.$_GET['v'].'&a=safeRoomChanges">'.$div.'</form>';
-		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($roomList).')\'); var maxLessons = eval(\'('.json_encode($maxLessons).')\');var maxDay = eval(\'('.json_encode($maxDay).')\');</script>';
+		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($roomList).')\'); var maxLessons = eval(\'('.json_encode($maxLessons).')\');</script>';
 		$output	.= '<button class="formbutton" onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
 		$output	.= '<button class="formbutton" onclick="safe();">Speichern</button>';
 		return $output;
