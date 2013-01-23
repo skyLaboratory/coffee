@@ -69,10 +69,9 @@ function addListFromExsistingList(dataID, newName, newNamePattern)
 	return tmp;
 }
 
-function createContainer(type,setID,setName = false,content = false)
+function createContainer(type, setID, setName = false, content = false, cssClass = false)
 {
-	var tmp;
-	tmp	= document.createElement(type);
+	var tmp	= document.createElement(type);
 	
 	if(setName)
 	{
@@ -89,7 +88,12 @@ function createContainer(type,setID,setName = false,content = false)
 	{
 		tmp.innerHTML += content;
 	}
-
+	
+	if(cssClass)
+	{
+		tmp.className = cssClass;
+	}
+	
 	return tmp;
 }
 
@@ -102,7 +106,7 @@ function newRoomChangeField()
 	}
 	// create the HTML Part and the lists
 	var form		= document.getElementById('roomPlan');
-	var container	= createContainer('div',counter);
+	var container	= createContainer('div',counter,false,false,'roomPlan');
 	var placeholder	= createContainer('span',counter,false,' ------> ');
 	var days		= addListFromExsistingList('day[0]', counter,'day[#]');
 	var lessons		= addListFromExsistingList('lesson[0]', counter,'lesson[#]');
