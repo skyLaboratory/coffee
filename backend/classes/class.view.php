@@ -399,7 +399,7 @@ return $output;
     		$output .= "</tr>";
 		}
 		$output	   .= "</table>";
-		$output    .= '<br /><form action="?v='.$_GET['v'].'&a=safeRoom" method="post"><label>Raumname: </label><input type="text" name="name"><span style="padding-left: 20px;"></span><label>K&uuml;rzel: </label><input type="text" name="short"><br><input type="submit" value="Speichern"></form>';
+		$output    .= '<br /><form action="?v='.$_GET['v'].'&a=safeRoom" method="post"><label>Raumname: </label><input type="text" name="name"><span style="padding-left: 20px;"></span><label>K&uuml;rzel: </label><input type="text" name="short"><br><input class="formbutton" type="submit" value="Speichern"></form>';
 		return $output;
 	}
 
@@ -446,12 +446,13 @@ return $output;
 			$option .= '<option value="'.$room['id'].'">'.$room['name'].'</option>\n';
 		}
 		
-		$div	 = '<div id="0"><select id="day[0]" name="day[0]">'.$days.'</select><select id="lesson[0]" name="lesson[0]">'.$lessons.'</select><select id="from[0]" name="from[0]"><option value="0">-------</option>'.$option.'<select><span> ------> </span><select id="to[0]" name="to[0]"><option value="0">-------</option>'.$option.'</select></div>';
+		$div	 = '<div id="0" class="roomPlan"><select id="day[0]" name="day[0]">'.$days.'</select><select id="lesson[0]" name="lesson[0]">'.$lessons.'</select><select id="from[0]" name="from[0]"><option value="0">-------</option>'.$option.'<select><span> ------> </span><select id="to[0]" name="to[0]"><option value="0">-------</option>'.$option.'</select></div>';
 		
-		$output  = '<form id="roomPlan" method="post" action="?v='.$_GET['v'].'&a=safeRoomChanges">'.$div.'</form>';
+		$output	 = '<h2>Tag | Stunde | Raum | neuer Raum</h2>';
+		$output .= '<form id="roomPlan" method="post" action="?v='.$_GET['v'].'&a=safeRoomChanges">'.$div.'</form>';
 		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($roomList).')\'); var maxLessons = eval(\'('.json_encode($maxLessons).')\');var maxDay = eval(\'('.json_encode($maxDay).')\');</script>';
-		$output	.= '<button onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
-		$output	.= '<button onclick="safe();">Speichern</button>';
+		$output	.= '<button class="formbutton" onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
+		$output	.= '<button class="formbutton" onclick="safe();">Speichern</button>';
 		return $output;
 	}
 	
