@@ -85,19 +85,20 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 		$list = $this->db->queryAsAssoc("SELECT `lehrer`.`name` as 'lehrerName',`faecher`.`name` as 'faecherName', `lehrer-faecher`.`id` FROM `lehrer-faecher` 
 		INNER JOIN `faecher` ON `faecher`.`id` = `lehrer-faecher`.`fach-id`
 		INNER JOIN `lehrer` ON `lehrer`.`id`=`lehrer-faecher`.`lehrer-id`");
+		
 		foreach($list as $row)
 		{
 			$ordList[0][$row['lehrerName']][] = array($row['faecherName'],$row['id']);
 			$ordList[1][$row['faecherName']][] = array($row['lehrerName'],$row['id']);
 			
 		}	
-
+		ksort($ordList[0]);
+		ksort($ordList[1]);
+		
 		return $ordList;
 
 		
-	}
-	
-	
+	}	
 
 	public function getSubjectDetails($id)
 	{

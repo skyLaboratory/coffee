@@ -94,7 +94,13 @@ class teacher
 
 	public function listAllTeacher()
 	{
-		$userList = $this->db->queryAsAssoc("SELECT id, vorname, name, kuerzel, email FROM ".$this->tableName." ORDER BY name");
+		$userList = $this->db->queryAsAssoc("SELECT id, vorname, name FROM ".$this->tableName." ORDER BY name");
+		
+		return $userList;	
+	}
+	public function listAllTeacherDetails()
+	{
+		$userList = $this->db->queryAsAssoc("SELECT id, anrede, vorname, name, kuerzel, email FROM ".$this->tableName." ORDER BY name");
 		
 		return $userList;	
 	}
