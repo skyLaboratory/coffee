@@ -149,6 +149,10 @@ if($settings->getSession('auth') and !isset($_GET['dev']))
 			case "deleteRoom":
                 $message = $room->deleteRoom($_GET['id']);
                 break;
+            
+            case "safeRoomChanges":
+            	$message = $room->safeNewRoomPlan($_POST);
+            	break;
 				
 		}
 	}

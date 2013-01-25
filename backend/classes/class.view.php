@@ -50,7 +50,7 @@ class view
 			
 			case "plan":
 				$output .= '
-							<li><a href="?v=roomPlan">Raumplan &Auml;nderungen</a></li>
+							<li><a href="?v=roomPlan">Raumplan</a></li>
 							<li><a href="?v=newProxyInform">Lehrer vertreten</a></li>
 							<li><a href="?v=lessonPlan">Vertretungsplan</a></li>
 						  ';
@@ -435,7 +435,7 @@ return $output;
 		for($i = 0; $i <= 7; $i++)
 		{
 			$text	= strftime('%A der %d.%m',strtotime("+$i day"));
-			$value	= strtotime("+$i day");
+			$value	= mktime(0, 0, 0, date('n'), date('j'));
 			
 			$days  .= "<option value='".$value."'>$text</option>";
 		}
