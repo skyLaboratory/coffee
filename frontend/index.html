@@ -1,113 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<meta charset=utf-8 />
-<title>Coffee - Frontend</title>
-
-<style id="jsbin-css">
-html
-{
-  width: 100%;
-  height: 100%;
-}
-
-#head
-{
-  width: 100%;
-  height: 50px;
-  background-color: gray;
-  border-radius: 12px;
-}
-
-#head ul 
-{
-  width: 80%;
-  list-style-type: none;
-}
-
-#head ul li
-{
-  float: left;
-  width: calc(100% / 3);
-  height: 100%;
-}
-
-#head ul li a
-{
-  color: white;
-  font-size: 16px;
-  font-family: Helvetica;
-  font-weight: light;
-  font-style: italic;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  margin-top: 15px;
-  height: calc(100% - 15x;)
-}
-
-.hover
-{
-  width: 0px;
-  height: 0px;
-  border-bottom: 30px solid white;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent; 
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#myPlan
-{
-  display:none;
-}
-
-#mySettings
-{
-  display:none;
-}
-
-#mySocial
-{
-  display: none;
-}
-</style>
-</head>
-<body>
-  <div id="head">
-    <ul>
-      <li><a href="web-professionelle-webseiten-cms-seo-apps.html">myPlan</a></li>
-      <li><a href="mySettings">mySettings</a></li>
-      <li><a href="mySocial">mySocial</a></li>
-    </ul>
-  </div>
-<script>
-$("a").hover(
-  function () 
-  {
-    $(this).append($("<div class='hover'> </div>"));
-  },
-  function () 
-  {
-    $(this).find("div:last").remove();
-  }
-); 
-
-$("a").click(
-  function()
-  {
-   $.ajax({
-    url: 'http://www.sky-lab.de',
-    type: 'GET',
-    success: function(res) {
-        var headline = $(res.responseText).find('html').text();
-        alert(headline);
-    }
-    });
-    return false;
-  }
-);
-</script>
-<body>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<link rel="stylesheet" href="style/style.css" type="text/css"/>
+		<meta charset="utf-8" />
+		<title>Coffee - Frontend</title>
+	</head>
+	<body>
+		<div id="head">
+			<ul>
+				<li><a href="data/data.php?action=myPlan">myPlan</a></li>
+				<li><a href="data/data.php?action=mySettings">mySettings</a></li>
+				<li><a href="data/data.php?action=mySocial">mySocial</a></li>
+			</ul>
+		</div>
+		<div id="content"></div>
+		<div id="footer"></div>
+		<script src="javascript/framework.js"></script>
+		<script>
+			$("a").hover(function(){$(this).append($("<div class='hover'></div>"));},function(){$(this).find("div:last").remove();});
+			$("a").click(
+						function()
+							{
+								var link = $(this).attr("href");
+								load(link);
+								$("#content").fadeIn('slow');
+								return false;	
+							}
+						);
+	
+		</script>
+	</body>
 </html>
