@@ -37,34 +37,38 @@ class teacher_lession
 			
 	}
 	
-	private function checkFormDate($stunde)
+	private function checkFormDate($source)
 	{
-		$stunde = preg_replace("/[^0-9-]/" ,"" , $stunde);
-		if(is_numeric($stunde) && strlen($stunde) <= 2 && $stunde >= 1 && $stunde <= 12)
+		$source = preg_replace("/[^0-9-,]/" ,"" , $source);
+		$mehrfach = explode(",",$source);
+		foreach($mehrfach as $stunde)
 		{
-			return array($stunde);
-		}
-		else
-		{
-			//Möglicherweise mit Komma getrennte mehrfach auswahl		
-			$stunde = explode("-", $stunde);
-			if($stunde[0] >= 1 && $stunde[0] < $this->maxStunden && $stunde[1] >= 1 && $stunde[1] <= $this->maxStunden && $stunde[0] <= $stunde[1])
+			if(is_numeric($stunde) && strlen($stunde) <= 2 && $stunde >= 1 && $stunde <= 12)
 			{
-				
-				for($i=$stunde[0];$i<=$stunde[1];$i++)
-				{
-					$std_array[] = $i;
-				}
-				
-				return $std_array; 
-				//implode(",", $std_array);			
+				$std_array[] = $stunde;
 			}
-			else throw new Exception("Eingegebene Stundenangabe fehlerhaft.", 3);
-				
+			else
+			{
+				//MÃ¶glicherweise mit Komma getrennte mehrfach auswahl		
+				$stunde = explode("-", $stunde);
+				if($stunde[0] >= 1 && $stunde[0] < $this->maxStunden && $stunde[1] >= 1 && $stunde[1] <= $this->maxStunden && $stunde[0] <= $stunde[1])
+				{
+					for($i=$stunde[0];$i<=$stunde[1];$i++)
+					{
+						$std_array[] = $i;
+					}
+					//implode(",", $std_array);			
+			}
+			}
+
 			
 		}
-			
+		
+		return $std_array; 
+					
 	}
+			
+	
 	
 	public function saveCombination($form)
 	{
