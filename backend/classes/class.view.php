@@ -294,8 +294,11 @@ class view
 		$selection = "";
 		foreach($array as $part)
 		{
-			$selection .= "				<option value=".$part['id'].">".$part['name']."</option>\n";
-			
+			if($part['vorname'])
+				$selection .= "				<option value=".$part['id'].">".$part['name'].", ".$part['vorname']."</option>\n";
+			else
+				$selection .= "				<option value=".$part['id'].">".$part['name']."</option>\n";
+
 		}
 		return $selection;
 		
@@ -380,7 +383,7 @@ return $output;
 				<option value="6">Samstag</option>\n
 				<option value="7">Sonntag</option>\n
 			</select></p>
-			<p>Stunde/n: <i>(Erlaubt: Stunden von 1 bis 12 oder Zeiträume 1-12) </i><input type="text" size="5" maxlength="5" name="stunde" >
+			<p>Stunde/n: <i>(Erlaubt: z.B.: 1,4-6 oder 1,4,4,5,6) </i><input type="text" size="10" maxlength="20" name="stunde" >
 			<input type="submit" value="Absenden">
 			';				
 		return $output;
