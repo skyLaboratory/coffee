@@ -1,87 +1,86 @@
+html
+{
+  width: 80%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #EAEAEA;
+}
 
 #head
 {
-	width: 100%;
-	height: 10%;
-	position: fixed;
-	max-height: 120px;
-	min-height: 50px;
-	display: block;
-	background-color: #008141;
-	top: 0px;
-	left: 0px;
+  width: 100%;
+  height: 50px;
+  background-color: gray;
+  border-radius: 12px;
 }
 
-#logo
-{	
-	float: left;
-	height: 100%;
-	width: auto;
-}
-
-#logo img
+#head ul 
 {
-	display: block;
-	height: 100%;
+  width: 80%;
+  list-style-type: none;
 }
 
-#headMenu
+#head ul li
 {
-	width: 100%;
-	height: 100%;
-	display: block;
+  float: left;
+  width: calc(100% / 3);
+  height: 100%;
 }
 
-#headMenu ul
+#head ul li a
 {
-	display: block;
-	margin-top: 0px;
-	height: 100%;
-	list-style-type: none;
+  color: white;
+  font-size: 16px;
+  font-family: Helvetica;
+  font-weight: light;
+  font-style: italic;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  margin-top: 15px;
+  height: calc(100% - 15px;)
 }
 
-#headMenu ul li 
+.hover
 {
-	float: left;
-	display: block;
-	width: calc(100% / 5);
-	height: 100%;
-	border-right: 1px solid black;
+  width: 0px;
+  height: 0px;
+  border-bottom: 30px solid #EAEAEA;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent; 
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#headMenu ul li a
+#content
 {
-	text-align: center;
-	display: block;
+	width: 80%;
+	display: none;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
 	padding-top: 20px;
-	height: calc(100% - 20px) !important;
-	width: 100% !important;
-}
-
-#headMenu ul li a:hover
-{
+	padding-bottom: 20xp;
+	border: 10px solid #008141;
+	border-radius: 6px;
 	background-color: white;
 }
 
-
-#leftSiteMenu
+#content h1
 {
-	height: 80%;
-	width: 10%;
-	max-width: 200px;
-	min-width: 100px;
-	float: left;
-	margin-top: 100px;
-	left:0px;
-	position: fixed;
-	background-color: #008141;
+	font-family: Helvetica;
+	font-style: oblique;
+	font-weight: lighter;
 }
 
-#body
+#content p
 {
-	width: 80%;
-	margin-top: 80px;
-	float: right;
-	margin-left: auto;
-	margin-right: auto;
+	text-align: justify;
+	display: block;
 }
+
+#content h2
+{}

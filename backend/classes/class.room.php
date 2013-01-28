@@ -83,5 +83,33 @@ class room
 	    }
     }
 
+    public function safeNewRoomPlan($_DATA)
+	{
+		for($i = 0; $i < count($_DATA['to']);$i++)
+		{
+			$_time	= $_DATA['day'][$i];
+			$_to	= $_DATA['to'][$i];
+			$_from	= $_DATA['from'][$i];
+			$_hour	= $_DATA['lesson'][$i]; 
+		
+			$this->db->querySend("Insert Into `room-plan` (`date`,`from`,`to`,`lesson`) VALUES('".$_time."','".$_to."','".$_from."','".$_hour."')");
+		}
+	
+		return "Erfolgreich gespeichert";
+	}
+	
+	public function getRoomPlan()
+	{
+		$min	= mktime(0, 0, 0, date('n'), date('j'));;
+		$max	= mktime(0, 0, 0, date('n'), date('j')+7);;
+		
+		$result	= $this->db->queryAsAssoc("
+				Select DATE( FROM_UNIXTIME( `date` ) ) as Datum, lesson as Stunde, a.name as RoomOne, b.name as RoomTo from `room-plan` as c
+				inner join rooms as a ON a.id = c.from
+				inner join rooms as b on b.id = c.to
+				where `date` BETWEEN $min AND $max order by lesson;");
+
+		return $result;
+	}
 }
 ?>
