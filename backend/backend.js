@@ -1,4 +1,3 @@
-
 /*
 * Autor: Florian Giller & Leon Bergmann
 * Datum: 20.12.2012 12:34 Uhr
@@ -64,15 +63,29 @@ function addList(sort, sourceArray, position = 'listContainer')
 
 function addListFromExsistingList(dataID, newName, newNamePattern)
 {
+	// Clone the given List
 	var tmp		= document.getElementById(dataID).cloneNode(true);
+	// change the Name From an Pattern
 	tmp.name	= newNamePattern.replace("#", newName);
 	return tmp;
 }
 
+/**
+ * createContainer function.
+ * create a Container Object from the given args
+ * @access public
+ * @param mixed type
+ * @param mixed setID
+ * @param bool setName (default: false)
+ * @param bool content (default: false)
+ * @param bool cssClass (default: false)
+ * @return container Object
+ */
 function createContainer(type, setID, setName = false, content = false, cssClass = false)
 {
+	// Creating an Element
 	var tmp	= document.createElement(type);
-	
+	// Set Object different Names and IDs when is is nessesary
 	if(setName)
 	{
 		tmp.name	= setName;
@@ -83,12 +96,12 @@ function createContainer(type, setID, setName = false, content = false, cssClass
 		tmp.id		= setID;
 		tmp.name	= setID;
 	}
-
+	// Adding content to the Object
 	if(content)
 	{
 		tmp.innerHTML += content;
 	}
-	
+	// Adding a css class to the Object
 	if(cssClass)
 	{
 		tmp.className = cssClass;
