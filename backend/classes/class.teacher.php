@@ -70,7 +70,7 @@ class teacher
 		if($this->db->querySend($sql))
 		{
 			
-			return "Lehrer wurde erfolgreich beatbeitet.";
+			return "Lehrer wurde erfolgreich bearbeitet.";
 		}
 		
 	}
