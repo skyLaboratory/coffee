@@ -39,7 +39,7 @@ class teacher_subject
 			
 		switch($form['switch'])
 		{
-			//Lehrer->Fächer
+			//Lehrer->Fï¿½cher
 			case "1":
 				$l_id = $form['teacher'][0];
 				$sql = "";
@@ -50,7 +50,7 @@ class teacher_subject
 				}
 				break;
 				
-			//Fächer->Lehrer
+			//Fï¿½cher->Lehrer
 			case "2":
 				$f_id = $form['subject'][0];
 				$sql = "";
@@ -88,9 +88,9 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 		
 		foreach($list as $row)
 		{
-			$ordList[0][$row['lehrerName']][] = array($row['faecherName'],$row['id']);
-			$ordList[1][$row['faecherName']][] = array($row['lehrerName'],$row['id']);
-			
+			$lehrer = $row['lehrerName'].", ".$row['lehrerVorname'];
+			$ordList[0][$lehrer][] = array($row['faecherName'],$row['id']);
+			$ordList[1][$row['faecherName']][] = array($lehrer,$row['id']);			
 		}	
 		ksort($ordList[0]);
 		ksort($ordList[1]);
