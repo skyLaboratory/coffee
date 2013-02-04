@@ -92,7 +92,7 @@ class userAdministration
 			throw new Exception("Bitte w&auml;hlen Sie einen Benutzer aus.",3);
 		}
 		
-		$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."', `last-update` ='".$time."' WHERE id = $id";
+		$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."' WHERE id = $id";
 		
 		if(!empty($passwort1) and !empty($passwort2))
 		{
@@ -106,7 +106,7 @@ class userAdministration
 			
 			if($passwort1 === $passwort2)
 			{
-				$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."', passwort='".$passwort1."', salt='".$salt."',`last-update`='".$time."' WHERE id = $id";
+				$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."' WHERE id = $id";
 			}
 			else
 			{
