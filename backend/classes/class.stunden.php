@@ -118,12 +118,13 @@ if(substr(mysql_error(),0,15) == 'Duplicate entry')
 		
 	public function listComnination()
 	{
-		$array =  $this->db->queryAsAssoc("SELECT `lehrer`.`name` as 'lehrerName', `lehrer-freie-stunden`.`id`, `lehrer-freie-stunden`.`timecode` 
+		$array =  $this->db->queryAsAssoc("SELECT `lehrer`.`name` as 'lehrerName', `lehrer`.`vorname` as 'lehrerVorname', `lehrer-freie-stunden`.`id`, `lehrer-freie-stunden`.`timecode` 
 		FROM `lehrer-freie-stunden` 
 		INNER JOIN `lehrer` ON `lehrer`.`id`=`lehrer-freie-stunden`.`lehrer-id`");
 		
 		foreach($array as $entry)
 		{
+			$entry['lehrerName'] .= ", ".$entry['lehrerVorname'];
 			$new[$entry['lehrerName']][] = array($this->timecodeAsText($entry['timecode']),$entry['id']);
 
 		}
