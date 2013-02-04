@@ -112,10 +112,10 @@ class view
 
 	public function viewUserFormular($data)
 	{
-		if(!empty($data)) 	$action = "userEditSave&id=&id=".$data['id'];
+		if(!empty($data)) 	$action = "userEditSave&id=".$data['id'];
 		else				$action = "userAddSave";
 		
-		$output = '<div class="form"><form action="?v=userlist&a='.$data['id'].'" method="post">
+		$output = '<div class="form"><form action="?v=userlist&a="'.$action.'" method="post">
 		<ul>
 		<li><label>Username:</label><input type="text" name="user[name]" value="'.$data['name'].'"/></li>
 		<li><label>Email:</label><input type="text" name="user[email]" value="'.$data['email'].'"/></li>
