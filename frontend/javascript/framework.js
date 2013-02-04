@@ -1,11 +1,27 @@
 function load(target)
 {
-	$("#content").fadeOut(0);
-	$.getJSON(target,function(data){parser(data);});
+	if(target == "home")
+	{
+		backToHome();
+	}
+	else
+	{
+		$("#content").fadeOut(0);
+		$.getJSON(target,function(data){parser(data);});
+	}
+}
+
+function backToHome()
+{
+	document.getElementById("content").innerHTML = "";
+	$("#content-home").fadeIn(1000);
 }
 
 function parser(data)
 {
+	
+	document.getElementById("content-home").style.display = "none";
+
 	
 	var content		= createContainer("div","ajax-container");
 	var headline 	= createContainer("h1","h1",false,data.title);
@@ -28,7 +44,6 @@ function parser(data)
 	}
 	
 	$("#content").html(content);
-	$("#content").fadeIn(10000);
 }
 
 
