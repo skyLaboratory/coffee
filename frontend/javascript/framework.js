@@ -28,7 +28,7 @@ function parser(data)
 	}
 	
 	$("#content").html(content);
-	$("#content").fadeIn(10000);
+	$("#content").fadeIn('slow');
 }
 
 
