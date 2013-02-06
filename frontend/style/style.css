@@ -1,17 +1,17 @@
 html
 {
-  width: 80%;
+  width: 100%;
   height: 100%;
-  margin-left: auto;
-  margin-right: auto;
   background-color: #EAEAEA;
 }
 
 #head
 {
-  width: 100%;
+  width: 80%;
   height: 80px;
   background-color: gray;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 12px;
 }
 
@@ -56,13 +56,11 @@ html
 .content
 {
 	width: 80%;
+	min-height: 400px;
+	height: : 60%;
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-top: 20px;
-	padding-bottom: 20xp;
 }
 
 
@@ -92,7 +90,7 @@ html
 {
   display: inline-block;
   width: 250px;
-  height: 150px;
+  height: 165px;
   color: white;
   text-align: center;
   font-size: 1.5em;
@@ -137,9 +135,11 @@ div#mails.app
 div#plan.app
 {
 	background-color: rgba(217,136,15,1);
+	background-image: url("images/plan.png");
 }
 
 div#stock.app
 {
 	background-color: rgba(82,0,75,1);
+	background-image: url("images/stock.png");
 }

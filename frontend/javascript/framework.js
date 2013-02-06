@@ -1,20 +1,24 @@
 function load(target)
 {
-	if(target == "home")
-	{
-		backToHome();
-	}
-	else
-	{
-		$("#content").fadeOut(0);
-		$.getJSON(target,function(data){parser(data);});
-	}
+	$.getJSON(target,function(data){parser(data);});
 }
 
 function backToHome()
 {
-	document.getElementById("content").innerHTML = "";
-	$("#content-home").fadeIn(1000);
+	$("#content").animate({opacity : 0}, 300);
+	$("#content").css("display","none");
+	$("#content").css("background-color","white");
+	$("#content-home").css("display","block");
+	$("#content-home").animate({opacity : 1}, 1000);
+}	
+
+
+function fadeInContent(color,target)
+{
+	$("#content-home").animate({opacity : 0}, 300);
+	$("#content-home").css("display","none");
+	$("#content").css("display","block");
+	$("#content").animate({backgroundColor: color, opacity : 1},1000);
 }
 
 function parser(data)
