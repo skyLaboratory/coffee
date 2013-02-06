@@ -1,3 +1,11 @@
+/*
+* Autor: Leon Bergmann
+* Datum: 06.02.2013 02:54
+* Update:
+* License: LICENSE.md
+*/
+
+
 html
 {
   width: 100%;
@@ -63,6 +71,10 @@ html
 	margin-right: auto;
 }
 
+.content.ajax
+{
+	box-shadow: 0px 2px 15px rgba(5,5,5, 0.5);
+}
 
 #content h1
 {
@@ -79,6 +91,16 @@ html
 
 #content h2
 {}
+
+#ajax-content
+{
+	width: 99%;
+	height: 99%;
+	margin: auto;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
 
 .headLink img
 {
