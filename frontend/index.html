@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<link href="style/style.css" rel="stylesheet" type="text/css" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-		<link rel="stylesheet" href="style/style.css" type="text/css"/>
-		<meta charset="utf-8" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+		<!--<script src="https://raw.github.com/roncioso/Flip-jQuery/master/jquery.flip.js"></script>-->
+		<meta charset=utf-8 />
 		<title>Coffee - Frontend</title>
 	</head>
 	<body>
-		<div id="head">
+		<div id="head" >
 			<ul>
-				<li><a href="data/data.php?action=myPlan">myPlan</a></li>
-				<li><a href="data/data.php?action=mySettings">mySettings</a></li>
-				<li><a href="data/data.php?action=mySocial">mySocial</a></li>
+				<li><a class="headLink" href="data/data.php?action=myPlan"></a></li>
+				<li><a class="headLink" href="home"><img src="style/images/home.png"></a></li>
+				<li><a class="headLink" href="data/data.php?action=mySocial"></a></li>
 			</ul>
 		</div>
-		<div id="content"></div>
-		<div id="footer"></div>
-		<script src="javascript/framework.js"></script>
-		<script>
-			$("a").hover(function(){$(this).append($("<div class='hover'></div>"));},function(){$(this).find("div:last").remove();});
-			$("a").click(
+		<div id="content-home" class="content">
+			<div class="app" id="settings"></div>
+			<div class="app" id="dokuments"></div>
+			<div class="app" id="news"></div>
+			<div class="app" id="mails"></div>
+			<div class="app" id="plan"></div>
+			<div class="app" id="stock"></div>
+		</div>
+		<div id="content" class="content"></div>
+		<script type="text/javascript">
+			$("a.headLink").hover(function(){$(this).append($("<div class='hover'></div>"));},function(){$(this).find("div:last").remove();});
+			$("a.headLink").click(
 						function()
 							{
 								var link = $(this).attr("href");
-								load(link);
-								$("#content").fadeIn('slow');
+								if(link == "home")
+								{
+									backToHome();
+								}
+								else
+								{
+									load(link);
+									$("#content").fadeIn('slow');
+								}
 								return false;	
 							}
 						);
-	
+			$("div.app").click(
+								function()
+								{ 
+									fadeInContent($(this).css("background-color"),$(this).attr("id"));
+								}
+							);
 		</script>
+		<script type="text/javascript" src="javascript/framework.js"></script>
 	</body>
 </html>

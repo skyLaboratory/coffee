@@ -11,13 +11,13 @@ class loginAPI
 	public function __construct($loginType,$database = NULL)
 	{
 		spl_autoload_register(__CLASS__.'::__autoload');
-		define(__WEBROOT__,dirname(dirname(__FILE__)));
+		@define(__WEBROOT__,dirname(dirname(__FILE__)));
 		
 		$this->loginType = $loginType;
 		
 		if(is_null($database))
 		{
-			$this->newDatabase();
+			throw new Exception("No Database");
 		}
 		else
 		{
@@ -39,18 +39,7 @@ class loginAPI
 		}
 		return $userObject;
 	}
-	
-	private function newDatabase()
-	{
-		// new database instance
-		$db = new database;
-		// set the database 
-		$db->databaseName = "backend";
-		// safe the database into the local db
-		$this->db = $db;
-		return true;
-	}
-	
+		
 	private function validLogin($passwortDB,$passwort,$salt)
 	{
 		// new instance of passwortAPI
