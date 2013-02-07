@@ -1,49 +1,72 @@
 function load(target)
 {
-	if(target == "home")
-	{
-		backToHome();
-	}
-	else
-	{
-		$("#content").fadeOut(0);
-		$.getJSON(target,function(data){parser(data);});
-	}
+	 var url = "app="+target
+	 $.ajax({
+	 	 type : "POST",
+		 url  : "data/ajax.php",
+		 data : url,
+		 success: function(data){var data = JSON.parse(data); var content = parseFormJson(data);$("#content").html(content);}
+	 });
 }
 
 function backToHome()
 {
-	document.getElementById("content").innerHTML = "";
-	$("#content-home").fadeIn(1000);
+	$("#content").animate({opacity : 0}, 300);
+	$("#content").css("display","none");
+	$("#content").css("background-color","white");
+	$("#content").removeClass("ajax");
+	$("#content-home").css("display","block");
+	$("#content-home").animate({opacity : 1}, 1000);
+}	
+
+
+function fadeInContent(color,target)
+{
+	$("#content-home").animate({opacity : 0}, 300);
+	$("#content-home").css("display","none");
+	$("#content").css("display","block");
+	$("#content").addClass("ajax");
+	load(target);
+	$("#content").animate({backgroundColor: color, opacity : 1},1000);
 }
 
-function parser(data)
+function parseFormJson(data)
 {
+	var content = createContainer("div","ajax-content","ajax-content",false,"ajax-content");
+	var tmp;
+	var sub;
 	
-	document.getElementById("content-home").style.display = "none";
-
-	
-	var content		= createContainer("div","ajax-container");
-	var headline 	= createContainer("h1","h1",false,data.title);
-	content.appendChild(headline);
-	
-	for(key in data.content)
+	for(key in data)
 	{
-		var pContainer	= createContainer("div", data.content[key].id, data.content[key].name, false, data.content[key].className);
-		var pHeadline 	= createContainer("h2", "", "", data.content[key].title);
-		var pContent	= createContainer("p", "","",data.content[key].content);
+		var cElement = data[key];
+		alert(cElement.type);
+		tmp	= createFormElement(cElement.type,cElement.objType,cElement.name,cElement.id,cElement.value,cElement.cssClass,cElement.method);
+		for(subKey in cElement.sub)
+		{
+			var cSubElement = cElement.sub[subKey];
+			sub = createFormElement(cSubElement.objType,cSubElement.type,cSubElement.name,cSubElement.id,cSubElement.value,cSubElement.cssClass,cSubElement.method)
+			tmp.appendChild(sub);
+		}
+		content.appendChild(tmp);
+	}
+	delete(key);
+	return content;
+}
 
-		pContainer.appendChild(pHeadline);
-		pContainer.appendChild(pContent);
-		
-		content.appendChild(pContainer);
-		
-		delete(pContainer);
-		delete(pHeadline);
-		delete(pContent);
+function createFormElement(objType,type,name,id,value,cssClass, method = false)
+{
+	var tmpObj			= document.createElement(objType);
+	tmpObj.type 		= type;
+	tmpObj.name			= name;
+	tmpObj.id			= id;
+	tmpObj.value		= value;
+	tmpObj.className	= cssClass;
+	if(method)
+	{
+		tmpObj.method	= method;
 	}
 	
-	$("#content").html(content);
+	return tmpObj;
 }
 
 
