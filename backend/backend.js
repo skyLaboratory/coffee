@@ -125,12 +125,16 @@ function newRoomChangeField()
 	var lessons		= addListFromExsistingList('lesson[0]', counter,'lesson[#]');
 	var	to			= addRoomList(rooms,"to["+counter+"]",container.id);
 	var from		= addRoomList(rooms,"from["+counter+"]",container.id);
+	var lehrer		= addListFromExsistingList('lehrer[0]', counter,'lehrer[#]');
+	var faecher		= addListFromExsistingList('faecher[0]', counter,'faecher[#]');
 	
 	// putt all to gether 
 	form.appendChild(container);
 	container.appendChild(days);
 	container.appendChild(lessons);
 	container.appendChild(from);
+	container.appendChild(lehrer);
+	container.appendChild(faecher);
 	container.appendChild(placeholder);
 	container.appendChild(to);
 	// increment the Counter

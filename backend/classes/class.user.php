@@ -84,7 +84,7 @@ class userAdministration
 		$name 		= $userInfos['name'];	
 		$email		= $userInfos['email'];
 		$passwort1	= $userInfos['passwort1'];
-		$passwort2	= $userInfos['passwort1'];
+		$passwort2	= $userInfos['passwort2'];
 		$time		= time();
 		
 		if(empty($id) or !is_numeric($id))
@@ -106,7 +106,7 @@ class userAdministration
 			
 			if($passwort1 === $passwort2)
 			{
-				$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."' WHERE id = $id";
+				$sql = "UPDATE ".$this->tableName." SET name='".$name."', email='".$email."', passwort='".$passwort1."', salt='".$salt."' WHERE id = $id";
 			}
 			else
 			{
