@@ -173,7 +173,7 @@ if($settings->getSession('auth') and !isset($_GET['dev']))
 					$contentField 	.= "<h2>Benutzerverwaltung</h2><ul>";
 					$contentField 	.= "<a href='?v=useradd'>Benutzer hinzuf&uuml;gen</a>";
 					$contentField 	.= "<h3>Benutzerliste</h3><ul>";
-					$contentField 	.= $view->viewUserList($user->listAllUsers());	
+					$contentField 	.= $view->viewUserList($user->listAllUsers());
 				break;
 	
 			case "useradd":
@@ -274,7 +274,7 @@ if($settings->getSession('auth') and !isset($_GET['dev']))
 				break;
 			
 			case "roomPlan":
-				$contentField	.= $view->viewRoomPlan($room->getRoomList(),$settings);	
+				$contentField	.= $view->viewRoomPlan($room->getRoomList(),$settings,$teacher->listAllTeacher(),$subject->listAllSubject());	
 				$leftMenu		.= view::viewLeftMenu("plan");
 				break;
 			
