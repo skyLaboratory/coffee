@@ -87,12 +87,14 @@ class room
 	{
 		for($i = 0; $i < count($_DATA['to']);$i++)
 		{
-			$_time	= $_DATA['day'][$i];
-			$_to	= $_DATA['to'][$i];
-			$_from	= $_DATA['from'][$i];
-			$_hour	= $_DATA['lesson'][$i]; 
+			$_time		= $_DATA['day'][$i];
+			$_to		= $_DATA['to'][$i];
+			$_from		= $_DATA['from'][$i];
+			$_hour		= $_DATA['lesson'][$i]; 
+			$_teacher	= $_DATA['lehrer'][$i]; 
+			$_faecher	= $_DATA['faecher'][$i]; 
 		
-			$this->db->querySend("Insert Into `room-plan` (`date`,`from`,`to`,`lesson`) VALUES('".$_time."','".$_to."','".$_from."','".$_hour."')");
+			$this->db->querySend("Insert Into `room-plan` (`date`,`from`,`to`,`lesson`,`teacher`,`faecher`) VALUES('".$_time."','".$_to."','".$_from."','".$_hour."','".$_teacher."','".$_faecher."')");
 		}
 	
 		return "Erfolgreich gespeichert";

@@ -115,7 +115,7 @@ class view
 		if(!empty($data)) 	$action = "userEditSave&id=".$data['id'];
 		else				$action = "userAddSave";
 		
-		$output = '<div class="form"><form action="?v=userlist&a="'.$action.'" method="post">
+		$output = '<div class="form"><form action="?v=userlist&a='.$action.'" method="post">
 		<ul>
 		<li><label>Username:</label><input type="text" name="user[name]" value="'.$data['name'].'"/></li>
 		<li><label>Email:</label><input type="text" name="user[email]" value="'.$data['email'].'"/></li>
@@ -428,8 +428,8 @@ return $output;
 		return $this->multiTable($dataArray,'delete-proxy-teacher');
 	}
 	
-	public function viewRoomPlan($roomList,$settings)
-	{
+	public function viewRoomPlan($roomList,$settings,$teacherList,$faecherList)
+	{	
 		
 		$maxLessons	= $settings->getSession('max-lessons');
 		$maxDay		= $settings->getSession('max-day');
@@ -456,9 +456,19 @@ return $output;
 			$option .= '<option value="'.$room['id'].'">'.$room['name'].'</option>\n';
 		}
 		
-		$div	 = '<div id="0" class="roomPlan"><select id="day[0]" name="day[0]">'.$days.'</select><select id="lesson[0]" name="lesson[0]">'.$lessons.'</select><select id="from[0]" name="from[0]"><option value="0">-------</option>'.$option.'<select><span> ------> </span><select id="to[0]" name="to[0]"><option value="0">-------</option>'.$option.'</select></div>';
+		foreach($teacherList as $teacher)
+		{
+			$teacherOptions .= '<option value="'.$teacher['id'].'">'.$teacher['name'].', '.$teacher['vorname'].'</option>\n';
+		}
 		
-		$output	 = '<h2>Tag | Stunde | Raum | neuer Raum</h2>';
+		foreach($faecherList as $faecher)
+		{
+			$faecherOptions .= '<option value="'.$faecher['id'].'">'.$faecher['name'].'</option>\n';
+		}
+		
+		$div	 = '<div id="0" class="roomPlan"><select id="day[0]" name="day[0]">'.$days.'</select><select id="lesson[0]" name="lesson[0]">'.$lessons.'</select><select id="from[0]" name="from[0]"><option value="0">-------</option>'.$option.'</select><select id="lehrer[0]" name="lehrer[0]"><option value="0">-------</option>'.$teacherOptions.'</select><select id="faecher[0]" name="faecher[0]"><option value="0">-------</option>'.$faecherOptions.'</select><span> ------> </span><select id="to[0]" name="to[0]"><option value="0">-------</option>'.$option.'</select></div>';
+		
+		$output	 = '<h2>Tag | Stunde | Raum | Lehrer | neuer Raum</h2>';
 		$output .= '<form id="roomPlan" method="post" action="?v='.$_GET['v'].'&a=safeRoomChanges">'.$div.'</form>';
 		$output .= '<script type="text/javascript">var rooms = eval(\'('.json_encode($roomList).')\'); var maxLessons = eval(\'('.json_encode($maxLessons).')\');</script>';
 		$output	.= '<button class="formbutton" onclick="newRoomChangeField();">weitere Raum&auml;nderung</button>';
