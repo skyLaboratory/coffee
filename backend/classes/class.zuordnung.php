@@ -147,6 +147,11 @@ if($this->fieldExist('name', $name) or $this->fieldExist('kuezel', $kuerzel))
 		
 		
 	}
+	
+		public function getComninationID()
+		{
+			return $list = $this->db->queryAsAssoc("SELECT * FROM `".$this->tableName."`");
+		}
 
 }
 
