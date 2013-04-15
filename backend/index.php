@@ -278,11 +278,14 @@ if($settings->getSession('auth') and !isset($_GET['dev']))
 				$leftMenu		.= view::viewLeftMenu("plan");
 				break;
 			
-			case "newProxyInform";
-				$data = array("teacher"=>$teacher->listAllTeacher(),"subjects"=>$subject->listAllSubject());
+			case "newProxyInform":
+				$data = array("teachers"=>$teacher->listAllTeacher(),"subjects"=>$subject->listAllSubject(),"combination"=>$teacher_subject->getComninationID());
+				//print_r($data);
 				$contentField	.= $view->newProxySet($data);
-				$leftMenu		.= view::viewLeftMenu("plan");
+				$leftMenu	.= view::viewLeftMenu("plan");
 				break;
+
+
 				
 			case "home":
 			default:
