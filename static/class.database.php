@@ -14,7 +14,7 @@ class database extends PDO
 	{
 	 	try
 	 	{
-			parent::__construct("mysql:host=sky-lab.de;port=3306;dbname=$db;","coffee","WWMt85SECQ8Tr5jN",array(PDO::ATTR_PERSISTENT => true));
+			parent::__construct("mysql:host=;port=3306;dbname=$db;","coffee","",array(PDO::ATTR_PERSISTENT => true));
 			self::$database = $db;
 		}
 		catch(Exception $e)
